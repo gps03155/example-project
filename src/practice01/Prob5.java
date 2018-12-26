@@ -17,23 +17,21 @@ public class Prob5 {
 			
 			for(int j=0;j<num.length();j++) {
 				if(num.charAt(j) == '3' || num.charAt(j) == '6' || num.charAt(j) == '9') {
-					System.out.print("짝");
 					isCheck = true;
+					count++;
 				}
 			}
 			
 			if(isCheck) {
-				System.out.println(num);
-			}
-			else {
-				continue;
-			}
-			
-			if(i % 10 == 0) {
+				System.out.print(num);
+				for(int k=0;k<count;k++) {
+					System.out.print("짝");
+				}
+				
 				System.out.println();
 			}
 			else {
-				System.out.print(' ');
+				continue;
 			}
 		}
 		
