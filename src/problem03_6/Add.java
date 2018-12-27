@@ -18,3 +18,4 @@ public class Add extends Calculate{
 	}
 
 }
+

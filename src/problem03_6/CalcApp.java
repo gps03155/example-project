@@ -18,22 +18,22 @@ public class CalcApp {
 		int result = 0;
 		
 		if(op.equals("+")) {
-			Calculate add = new Add();
+			Add add = new Add();
 			add.setValue(a, b);
 			result = add.calculate();
 		}
 		else if(op.equals("-")) {
-			Calculate sub = new Sub();
+			Sub sub = new Sub();
 			sub.setValue(a, b);
 			result = sub.calculate();
 		}
 		else if(op.equals("*")) {
-			Calculate mul = new Mul();
+			Mul mul = new Mul();
 			mul.setValue(a, b);
 			result = mul.calculate();
 		}
 		else if(op.equals("/")) {
-			Calculate div = new Div();
+			Div div = new Div();
 			div.setValue(a, b);
 			result = div.calculate();
 		}
