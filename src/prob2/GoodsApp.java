@@ -1,12 +1,14 @@
-package problem03_2;
+package prob2;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GoodsApp {
+	private static final int COUNT_GOODS = 3;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		ArrayList<String> name_arr = new ArrayList<String>();
 		ArrayList<Integer> price_arr = new ArrayList<Integer>();
 		ArrayList<Integer> num_arr = new ArrayList<Integer>();

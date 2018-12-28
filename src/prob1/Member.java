@@ -1,4 +1,4 @@
-package problem03_1;
+package prob1;
 
 public class Member {
 	private String id;

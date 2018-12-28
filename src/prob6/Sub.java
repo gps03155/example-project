@@ -1,6 +1,6 @@
-package problem03_6;
+package prob6;
 
-public class Mul extends Calculate{
+public class Sub extends Calculate{
 
 	@Override
 	void setValue(int a, int b) {
@@ -12,7 +12,7 @@ public class Mul extends Calculate{
 	@Override
 	int calculate() {
 		// TODO Auto-generated method stub
-		int result = a * b;
+		int result = a - b ;
 		
 		return result;
 	}

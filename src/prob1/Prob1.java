@@ -1,6 +1,6 @@
-package problem03_1;
+package prob1;
 
-public class MemberApp {
+public class Prob1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
