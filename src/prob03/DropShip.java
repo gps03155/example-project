@@ -1,23 +1,23 @@
 package prob03;
 
-public class DropShip {
-	// 현재 위치
-	private int x;
-	private int y;
-
-	void move(int x, int y) {
+public class DropShip extends Unit{
+	public void move(int x, int y) {
 		/* 지정된 위치로 이동 */
+		System.out.println("Dropship Move");
 	}
 
-	void stop() {
+	public void stop() {
 		/* 현재 위치에 정지 */
+		System.out.println("Dropship Stop");
 	}
 	
-	void load() {
+	public void load() {
 		/* 선택된 대상을 태운다.*/ 
+		System.out.println("Dropship Load");
 	}
 	
-	void unload() {
+	public void unload() {
 		/* 선택된 대상을 내린다.*/ 
+		System.out.println("Dropship Unload");
 	}
 }
