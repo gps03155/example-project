@@ -1,9 +1,8 @@
-package paint;
+package com.duzone.paint.shape;
 
-public class Triangle extends Shape{
-	// private Point[] points = new Point[3];
-	private int x1, x2, x3;
-	private int y1, y2, y3;
+public class Rect extends Shape{
+	private int x1, x2, x3, x4;
+	private int y1, y2, y3, y4;
 	
 	public int getX1() {
 		return x1;
@@ -29,6 +28,14 @@ public class Triangle extends Shape{
 		this.x3 = x3;
 	}
 	
+	public int getX4() {
+		return x4;
+	}
+	
+	public void setX4(int x4) {
+		this.x4 = x4;
+	}
+	
 	public int getY1() {
 		return y1;
 	}
@@ -52,9 +59,18 @@ public class Triangle extends Shape{
 	public void setY3(int y3) {
 		this.y3 = y3;
 	}
+	
+	public int getY4() {
+		return y4;
+	}
+	
+	public void setY4(int y4) {
+		this.y4 = y4;
+	}
 
 	@Override
 	public void draw() {
-		System.out.println("삼각형을 그렸습니다.");
+		System.out.println("사각형을 그렸습니다.");
 	}
+	
 }

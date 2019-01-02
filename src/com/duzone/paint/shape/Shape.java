@@ -1,6 +1,8 @@
-package paint;
+package com.duzone.paint.shape;
 
-public abstract class Shape {
+import com.duzone.paint.i.Drawable;
+
+public abstract class Shape implements Drawable {
 	private String lineColor;
 	private String fillColor;
 	
@@ -20,5 +22,5 @@ public abstract class Shape {
 		this.fillColor = fillColor;
 	}
 	
-	abstract public void draw(); 
+	// abstract public void draw(); 
 }
