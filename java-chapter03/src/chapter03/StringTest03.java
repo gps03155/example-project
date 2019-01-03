@@ -53,6 +53,7 @@ public class StringTest03 {
 		// 주의 : + 연산자로 문자열을 더할 때 
 		String str2 = "";
 		StringBuffer sb2 = new StringBuffer("");
+		StringBuilder sb3 = new StringBuilder("");
 		
 		for(int i=0;i<100000;i++) {
 			// str2 = str2 + i;
@@ -66,6 +67,16 @@ public class StringTest03 {
 		
 		// String + 연산 : 내부적으로 StringBuffer로 변환 - new 호출
 		// 많은 + 연산을 쓸 경우 적합하지 않음 - StringBuffer를 사용해서 구현할 것
+		
+		// format
+		String name = "둘리";
+		int score = 100;
+		
+		System.out.println("둘리님의 점수는 100점입니다.");
+		System.out.println(name + "님의 점수는 " + score + "점입니다.");
+		
+		String str3 = String.format("%s님의 점수는 %d점입니다.", name, score);
+		System.out.println(str3);
 	}
 
 }
