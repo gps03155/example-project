@@ -10,6 +10,12 @@ public class ObjectTest01 {
 		Class k = p.getClass();
 
 		System.out.println(p.hashCode()); // reference value x (레퍼런스 변수에 저장되어 있다)
+										  // address x
+										  // address 기반의 hashing 값
+		System.out.println(p);
+		System.out.println(p.toString()); // 오버로딩 되면 객체인지 확인해서 toString() 호출 (객체 출력)
+										  // getClass() + "@" + hashCode()
+										  // 대체적으로 오버로딩 (객체의 내용을 알고 싶을때 - 변수값)
 	}
 
 }
