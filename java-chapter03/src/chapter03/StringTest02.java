@@ -15,6 +15,12 @@ public class StringTest02 {
 		System.out.println(s1);
 		System.out.println(s2);
 		
+		String s4 = s2.concat("??");
+		String s5 = "!!".concat(s2).concat("@");
+		
+		System.out.println(s3);
+		System.out.println(s4);
+		System.out.println(s5);
 	}
 
 }
