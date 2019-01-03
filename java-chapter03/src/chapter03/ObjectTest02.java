@@ -48,6 +48,7 @@ public class ObjectTest02 {
 		System.out.println(System.identityHashCode(s3) + " : " + System.identityHashCode(s4)); // 동일
 		// 공유되기 때문에 불변 const - new String()으로 사용하는 것 보다 좋음
 		
+		
 	}
 
 }
