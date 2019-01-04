@@ -66,7 +66,7 @@ public class Gugudan {
 	        boolean evaluted = false;
 	        for( int i = 0; i < occupied; i++ ) {
 	        	if( boardNumbers[i] == random /* 이 부분에 적당 조건의 코드를 입력 합니다. */ ) {
-	        		occupied--;
+	        		//occupied--;
 	        		evaluted = true;
 	        		break;
 	        	}
