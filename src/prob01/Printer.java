@@ -36,8 +36,9 @@ public class Printer {
 
 	// Generic + 가변변수
 	// 오버로드를 완벽히 대체 - 매개변수, 개수 달라도 실행가능
+	// <T extends String> - String에서 상속받은 클래스만 사용 가능
 	@SuppressWarnings("unchecked")
-	public <T> void println(T... ts) {
+	public <T> void println(T... ts) { 
 		for (T t : ts) {
 			System.out.println(t);
 		}
