@@ -1,11 +1,12 @@
 package prob5;
 
 public class MyStack {
-	private int top = -1;
+	private int top;
 	private String[] buffer;
 
 	@SuppressWarnings("unchecked")
 	public MyStack(int capacity) {
+		top = -1;
 		buffer = new String[capacity];
 	}
 
