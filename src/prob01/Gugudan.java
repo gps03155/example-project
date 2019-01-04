@@ -10,7 +10,7 @@ public class Gugudan {
 		int l = randomize( 1, 9 );
 		int r = randomize( 1, 9 );
 		
-		resultNumber = l * r;
+		resultNumber = l * r; // 정답
 
 		int[] answerNumbers = randomizeAnswers();
 		int loc = randomize( 0, 8 );
@@ -36,6 +36,14 @@ public class Gugudan {
 		//
 		//  이 부분에 적당한 코드를 작성합니다.  
 		//
+		int input = s.nextInt();
+		
+		if(input == resultNumber) {
+			System.out.println("정답");
+		}
+		else {
+			System.out.println("오답");
+		}
 	}
 
 	private static int randomize( int lNum, int rNum ) {
@@ -57,7 +65,8 @@ public class Gugudan {
 	        
 	        boolean evaluted = false;
 	        for( int i = 0; i < occupied; i++ ) {
-	        	if( /* 이 부분에 적당 조건의 코드를 입력 합니다. */ ) {
+	        	if( boardNumbers[i] == random /* 이 부분에 적당 조건의 코드를 입력 합니다. */ ) {
+	        		occupied--;
 	        		evaluted = true;
 	        		break;
 	        	}
