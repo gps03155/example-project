@@ -30,7 +30,7 @@ public class PhoneList02 {
 
 			sc = new Scanner(file); // Scanner는 Keyboard 뿐만 아니라 File에도 쓸 수 있음
 			
-			while(sc.hasNextLine()) { // scanner는 내부적으로 \t, space, 개행이 있음
+			while(sc.hasNextLine()) { // scanner는 내부적으로 \t, space, 개행이 있음	
 				String name = sc.next();
 				String phone1 = sc.next();
 				String phone2 = sc.next();
