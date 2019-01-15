@@ -20,10 +20,8 @@ from employees;
 -- 가장 오래 근속한 직원의 입사일은 언제인가요? 다음 형식으로 출력해주세요.
 -- 예) 2014년 07월 10일
 
-select distinct date_format(hire_date, '%Y년 %m월 %d일') as '입사일'
-from employees
-where datediff(curdate(), hire_date) = (select max(datediff(curdate(), hire_date))
-										from employees);
+select date_format(min(hire_date), '%Y년 %m월 %d일')
+from employees;
 
 
 -- 문제4.
@@ -43,6 +41,14 @@ from salaries;
 -- 문제6.
 -- 최고 어린 사원의 나이와 최 연장자의 나이는?
 
-select TIMESTAMPDIFF(year, max(birth_date), curdate()) as '최고 어린 사원',
-		TIMESTAMPDIFF(year, min(birth_date), curdate()) as '최고 연장자'
+select date_format(curdate(), '%Y') - date_format(max(birth_date), '%Y') as '최고 어린 사원 나이',
+		date_format(curdate(), '%Y') - date_format(min(birth_date), '%Y') as '최고 연장자 나이'
+from employees;
+
+select TIMESTAMPDIFF(year, max(birth_date), curdate()) as '최고 어린 사원 나이',
+		TIMESTAMPDIFF(year, min(birth_date), curdate()) as '최고 연장자 나이'
+from employees;
+
+select year(curdate()) - year(max(birth_date)) as '최고 어린 사원 나이',
+	   year(curdate()) - year(min(birth_date)) as '최고 연장자 나이'
 from employees;
