@@ -84,4 +84,4 @@ where title = 'Engineer';
 select *
 from titles
 where emp_no = 13250
-order by from_date;
+order by from_date asc;
