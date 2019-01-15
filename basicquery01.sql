@@ -61,3 +61,4 @@ select * from pet where gender = null;
 select * from pet where gender is null;
 
 select * from pet where gender is not null;
+
