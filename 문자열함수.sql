@@ -27,3 +27,19 @@ select RPAD('hi', 10, '*') from dual;
 -- 2001, 2002년 salary 7만 달러 이하... 정렬 --
 select emp_no, LPAD(cast(salary as char), 10, '*')
 from salaries;
+
+
+-- trim --
+select ltrim(' hello	'), rtrim(' hello	');
+
+select concat('----', ltrim(' hello	'), '----'), 
+		concat('----', rtrim(' hello	'), '----'),
+        concat('----', trim('	hello	'), '----');
+
+select trim(both 'x' from 'xxxxhixxxx'); -- trim 특정 문자열 제거 --
+
+select trim(leading 'x' from 'xxxxhixxxx'); -- 앞 부분 특정 문자 제거 --
+
+select trim(trailing 'x' from 'xxxxhixxxx'); -- 뒷 부분 특정 문자 제거 --
+
+
