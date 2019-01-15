@@ -29,13 +29,14 @@ group by gender;
 -- 현재 근무하고 있는 직원 수는 몇 명입니까? (salaries 테이블을 사용합니다.) 
 
 select count(*) as '직원 수'
-from salaries;
+from salaries
+where to_date = '9999-01-01';
 
 
 -- 문제5.
 -- 부서는 총 몇 개가 있나요?
 
-select count(*) as '부서 수'
+select count(distinct dept_no) as '부서 수'
 from departments;
 
 
@@ -43,7 +44,8 @@ from departments;
 -- 현재 부서 매니저는 몇 명이나 있나요?(역임 매너저는 제외)
 
 select count(*) as '부서 매니저 수'
-from dept_manager;
+from dept_manager
+where to_date = '9999-01-01';
 
 
 -- 문제7.
@@ -59,7 +61,7 @@ order by length(dept_name) desc;
 
 select count(*) as '사원 수'
 from salaries
-where salary > 120000;
+where to_date = '9999-01-01' and salary > 120000;
 
 
 -- 문제9.
@@ -75,13 +77,13 @@ order by length(title) desc;
 
 select count(*) as '사원 수'
 from titles
-where title = 'Engineer';
+where to_date = '9999-01-01' and title = 'Engineer';
 
 
 -- 문제11
 -- 사번이 13250(Zeydy)인 직원의 직책 변경 상황을 시간순으로 출력해보세요.
 
-select *
+select title, from_date, to_date
 from titles
 where emp_no = 13250
 order by from_date asc;
