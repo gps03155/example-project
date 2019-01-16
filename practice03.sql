@@ -43,7 +43,7 @@ order by concat(first_name, ' ', last_name);
 
 select emp_no, concat(first_name, ' ', last_name) as '이름'
 from employees join titles using (emp_no)
-where to_date < '9999-01-01';
+where title = 'Technique Leader' and to_date < '9999-01-01';
 
 
 -- 문제6.
@@ -68,10 +68,19 @@ order by salary desc;
 -- 문제8.
 -- 현재 급여가 50000이 넘는 직책을 직책, 급여로 급여가 큰 순서대로 출력하시오
 
+-- 직책별 -- 
+select title, avg(salary)
+from salaries join titles using (emp_no)
+where salaries.to_date = '9999-01-01'
+group by title
+having avg(salary) > 50000
+order by salary desc;
+
+-- 사원별 --
 select title, salary
 from salaries join titles using (emp_no)
-where salaries.to_date = '9999-01-01' and salary > 50000
-group by title
+where salaries.to_date = '9999-01-01' and titles.to_date = '9999-01-01'
+		and salary > 50000
 order by salary desc;
 
 
