@@ -44,7 +44,7 @@ where to_date = '9999-01-01';
 -- ex2 : 직책별 가장 작은 평균 연봉 --
 
 select min(avg_salary)
-from (select t.title, avg(s.salary) as 'avg_salary'
+from (select t.title, round(avg(s.salary)) as 'avg_salary'
 		from salaries s join titles t on s.emp_no = t.emp_no
 		where s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
 		group by t.title) result;
