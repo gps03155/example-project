@@ -121,10 +121,11 @@ having count(*) >= 100;
 -- 예제6: 현재 부서별로 현재 직책이 Engineer인 직원들에 대해서만 
 --         평균급여를 구하세요.
 
-select avg(salary) as '평균 급여'
+select dept_name, avg(salary) as '평균 급여'
 from (((employees join titles using (emp_no)) join dept_emp using (emp_no)) join departments using (dept_no)) join salaries using (emp_no)
 where titles.to_date = '9999-01-01' and dept_emp.to_date = '9999-01-01' and salaries.to_date = '9999-01-01'
-		and title = 'Engineer';
+		and title = 'Engineer'
+group by dept_name;
         
  
 -- 예제7: 현재 직책별로 급여의 총합을 구하되 Engineer직책은 제외하세요
