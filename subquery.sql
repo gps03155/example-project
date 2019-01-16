@@ -53,4 +53,9 @@ select t.title, avg(s.salary) as 'avg_salary'
 from salaries s join titles t on s.emp_no = t.emp_no
 where s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
 group by t.title
-having avg(s.salary) = 57317.5736;
+having avg_salary = (select min(avg_salary)
+						from (select t.title, round(avg(s.salary)) as 'avg_salary'
+								from salaries s join titles t on s.emp_no = t.emp_no
+								where s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
+								group by t.title) result);
+	
