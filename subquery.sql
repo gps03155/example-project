@@ -1,4 +1,6 @@
 -- subquery --
+-- 단일 행인 경우 --
+-- <, >, =, !=, <=, >= --
 
 select e.emp_no, d.dept_no
 from employees e join dept_emp d on e.emp_no = d.emp_no
@@ -43,6 +45,13 @@ where to_date = '9999-01-01';
 
 -- ex2 : 직책별 가장 작은 평균 연봉 --
 
+select t.title, round(avg(s.salary)) as 'avg_salary'
+from salaries s join titles t on s.emp_no = t.emp_no
+where s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
+group by t.title
+order by avg_salary asc 
+limit 0, 1; -- 0부터 1개 가져옴 (index : 0부터 시작) --
+
 select min(avg_salary)
 from (select t.title, round(avg(s.salary)) as 'avg_salary'
 		from salaries s join titles t on s.emp_no = t.emp_no
@@ -55,6 +64,6 @@ where s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
 group by t.title
 having avg_salary = (select min(avg_salary)
 						from (select t.title, round(avg(s.salary)) as 'avg_salary'
-								from salaries s join titles t on s.emp_no = t.emp_no
+								from (salaries s join titles t on s.emp_no = t.emp_no) join employees e on e.emp_no = s.emp_no
 								where s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
 								group by t.title) result);

@@ -117,6 +117,13 @@ where titles.to_date = '9999-01-01' and salaries.to_date='9999-01-01'
 group by title
 having count(*) >= 100;
 
+select title, avg(s.salary), count(*)
+from employees e, salaries s, titles t
+where e.emp_no = s.emp_no and e.emp_no = t.emp_no
+	  and s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
+group by t.title
+having count(*) >= 100;
+
 
 -- 예제6: 현재 부서별로 현재 직책이 Engineer인 직원들에 대해서만 
 --         평균급여를 구하세요.
@@ -126,6 +133,13 @@ from (((employees join titles using (emp_no)) join dept_emp using (emp_no)) join
 where titles.to_date = '9999-01-01' and dept_emp.to_date = '9999-01-01' and salaries.to_date = '9999-01-01'
 		and title = 'Engineer'
 group by dept_name;
+
+select d2.dept_name, avg(s.salary)
+from employees e, titles t, dept_emp d, salaries s, departments d2
+where e.emp_no = t.emp_no and e.emp_no = d.emp_no and e.emp_no = s.emp_no and d.dept_no = d2.dept_no
+		and t.to_date = '9999-01-01' and d.to_date = '9999-01-01' and s.to_date = '9999-01-01'
+        and t.title = 'Engineer'
+group by d2.dept_name;
         
  
 -- 예제7: 현재 직책별로 급여의 총합을 구하되 Engineer직책은 제외하세요
@@ -139,3 +153,11 @@ where titles.to_date = '9999-01-01' and salaries.to_date = '9999-01-01'
 group by title
 having sum(salary) >= 2000000000
 order by sum(salary) desc;
+
+select t.title, sum(s.salary)
+from employees e, titles t, salaries s
+where e.emp_no = t.emp_no and s.emp_no = e.emp_no
+		and t.to_date = '9999-01-01' and s.to_date = '9999-01-01'
+        and t.title != 'Engineer'
+group by t.title
+having sum(s.salary) > 2000000000;
