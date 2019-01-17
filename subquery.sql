@@ -67,3 +67,54 @@ having avg_salary = (select min(avg_salary)
 								from (salaries s join titles t on s.emp_no = t.emp_no) join employees e on e.emp_no = s.emp_no
 								where s.to_date = '9999-01-01' and t.to_date = '9999-01-01'
 								group by t.title) result);
+
+
+-- 다중행 서브쿼리 --
+-- any --
+-- = any : in과 동일한 의미
+-- > any, < any, <> any (!=all 완전 동일), <= any, >= any
+
+-- all
+-- = all
+-- > all, < all, <> all, <= all, >= all
+
+
+select emp_no, salary
+from salaries
+where salary = any (select salary 
+					from salaries);
+
+
+-- ex1 : 현재 급여가 50000 이상인 직원 이름 출력
+
+select emp_no
+from salaries
+where to_date = '9999-01-01' and salary > 50000;
+
+select concat(first_name, ' ', last_name)
+from employees
+where emp_no = any (select emp_no
+					from salaries
+					where to_date = '9999-01-01' and salary > 50000);
+                    
+
+-- salary 같이 출력
+
+select concat(first_name, ' ', last_name), s.salary
+from employees e join salaries s on e.emp_no = s.emp_no
+where s.to_date = '9999-01-01'
+      and (e.emp_no, s.salary) = any (select emp_no, salary
+			    				        from salaries
+										where to_date = '9999-01-01' and salary > 50000);
+
+select concat(first_name, ' ', last_name), s.salary
+from employees e join salaries s on e.emp_no = s.emp_no
+where s.to_date = '9999-01-01'
+      and (e.emp_no, s.salary) in (select emp_no, salary
+			    				   from salaries
+								   where to_date = '9999-01-01' and salary > 50000);
+
+select concat(e.first_name, ' ', e.last_name), result.salary
+from employees e join (select emp_no, salary
+					   from salaries
+					   where to_date = '9999-01-01' and salary > 50000) result on e.emp_no = result.emp_no;
