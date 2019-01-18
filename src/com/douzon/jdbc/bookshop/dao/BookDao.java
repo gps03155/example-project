@@ -74,18 +74,19 @@ public class BookDao {
 
 		return list;
 	}
-
+	
 	public boolean updateStatus(long no, String status) {
 		boolean result = false;
 
 		try {
 			conn = getConnection();
 
-			String sql = "update book set status='대여중' where no = ?";
+			String sql = "update book set status = ? where no = ?";
 
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setLong(1, no);
+			pstmt.setString(1, status);
+			pstmt.setLong(2, no);
 
 			int count = pstmt.executeUpdate();
 

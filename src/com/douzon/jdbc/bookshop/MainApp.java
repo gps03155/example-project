@@ -13,6 +13,7 @@ public class MainApp {
 		
 		Scanner sc = new Scanner(System.in);
 		
+		System.out.println();
 		System.out.print("대여하고 싶은 책 번호를 입력하세요 : ");
 		long num = sc.nextLong();
 		
@@ -36,8 +37,7 @@ public class MainApp {
 	
 	private static void rent(long no) {
 		// 책번호 입력 후 내용 갱신
-		BookDao bookDao = new BookDao();
-		boolean result = bookDao.updateStatus(no, "대여중");
+		boolean result = new BookDao().updateStatus(no, "대여중");
 		
 		if(result) {
 			System.out.println("정보가 갱신되었습니다.");
