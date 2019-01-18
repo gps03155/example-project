@@ -45,7 +45,8 @@ public class MainApp {
 			boolean result = new BookDao().updateStatus(no, "대여중");
 
 			if (result) {
-				System.out.println("정보가 갱신되었습니다.");
+				String title = new BookDao().getTitle(no);
+				System.out.println(title + "(이)가 대여되었습니다.");
 			}
 		} else {
 			System.out.println("이미 대여중인 책입니다.");

@@ -74,6 +74,31 @@ public class BookDao {
 
 		return list;
 	}
+	
+	public String getTitle(long no) {
+		String title = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select title from book where no = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				title = rs.getString("title");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return title;
+	}
 
 	public boolean getStatus(long no) {
 		boolean result = false;
@@ -99,6 +124,22 @@ public class BookDao {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					rs.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		return result;
