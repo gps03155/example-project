@@ -74,7 +74,36 @@ public class BookDao {
 
 		return list;
 	}
-	
+
+	public boolean getStatus(long no) {
+		boolean result = false;
+
+		try {
+			conn = getConnection();
+			
+			String sql = "select status from book where no = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String status = rs.getString("status");
+				
+				if(status.equals("대여중")) {
+					result = true;
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	public boolean updateStatus(long no, String status) {
 		boolean result = false;
 
