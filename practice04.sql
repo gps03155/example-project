@@ -99,5 +99,10 @@ having round(avg(s.salary)) = (select round(max(avg_salary))
 -- 현재 자신의 매니저보다 높은 연봉을 받고 있는 직원은?
 -- 부서이름, 사원이름, 연봉, 매니저 이름, 메니저 연봉 순으로 출력합니다.
 
-select *
-from employees e join dept_manager d on e.emp_no = d.emp_no;
+select d2.dept_name, concat(e.first_name, ' ', e.last_name) as '사원이름', s.salary, manager.manager_name, manager.manager_salary
+from (((employees e join salaries s on e.emp_no = s.emp_no) join dept_emp d on e.emp_no = d.emp_no) join departments d2 on d.dept_no = d2.dept_no)
+      join (select d.dept_no as 'manager_dept_no', e.emp_no as 'manager_emp_no', s.salary as 'manager_salary', concat(e.first_name, ' ', e.last_name) as 'manager_name'
+            from (employees e join dept_manager d on e.emp_no = d.emp_no) join salaries s on e.emp_no = s.emp_no
+            where d.to_date = '9999-01-01' and s.to_date = '9999-01-01') manager on d.dept_no = manager.manager_dept_no
+where s.to_date = '9999-01-01' and d.to_date = '9999-01-01'
+      and s.salary > manager.manager_salary;
