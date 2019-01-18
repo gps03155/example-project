@@ -30,7 +30,7 @@ public class InsertTest {
 			System.out.println("DB 연결 성공");
 			
 			stmt = conn.createStatement();
-			String sql = "insert into pet values ('" + name + "', '" + owner + "', '" + species + "', '" + gender + "', '" + birth + "', '" + death + "'";
+			String sql = "insert into pet values ('" + name + "', '" + owner + "', '" + species + "', '" + gender + "', '" + birth + "', '" + death + "')";
 		
 			int count = stmt.executeUpdate(sql);
 			
