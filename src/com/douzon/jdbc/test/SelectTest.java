@@ -29,7 +29,17 @@ public class SelectTest {
 			rs = stmt.executeQuery(sql);
 			
 			// 5. 결과 가져오기
-			
+			while(rs.next()) {
+				// String name = rs.getString(1); // db는 1부터 시작함
+				// String owner = rs.getString(2);
+				// String birth = rs.getString(3);
+				
+				String name = rs.getString("name");
+				String owner = rs.getString("owner");
+				String birth = rs.getString("birth");
+				
+				System.out.println(name + ' ' + owner + ' ' + birth);
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

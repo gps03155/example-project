@@ -10,7 +10,7 @@ public class ConnectionTest {
 
 		try {
 			// 1. JDBC Driver 로딩
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver"); // JVM에 메모리가 올라감
 
 			// 2. Connection
 			String url = "jdbc:mysql://localhost:3306/webdb?useSSL=false";
