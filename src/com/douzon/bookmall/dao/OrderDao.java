@@ -71,13 +71,13 @@ public class OrderDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select b.no, b.title, o1.num from (order_book o1 join orderlist o2 on o1.order_no = o2.no) join book b on o1.book_no = b.no";
+			String sql = "select o1.no, b.title, o1.num from (order_book o1 join orderlist o2 on o1.order_no = o2.no) join book b on o1.book_no = b.no";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int no = rs.getInt("b.no");
+				int no = rs.getInt("o1.no");
 				String title = rs.getString("b.title");
 				int num = rs.getInt("o1.num");
 				
