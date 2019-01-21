@@ -9,7 +9,7 @@ public class CategoryDaoTest {
 
 	public static void main(String[] args) {
 		// 카테고리 리스트 3개
-		insertCategory("소설");
+		// insertCategory("소설");
 		getList();
 	}
 	

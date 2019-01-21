@@ -10,7 +10,7 @@ public class MemberDaoTest {
 	public static void main(String[] args) {
 		// 회원리스트  2개
 		//insertMember("둘리", "010-2222-2222", "aaaa@gmail.com", "4567");
-		insertMember("또치", "010-3333-3333", "bbbb@hanmail.net", "7890");
+		//insertMember("또치", "010-3333-3333", "bbbb@hanmail.net", "7890");
 		getList();
 	}
 
@@ -18,7 +18,7 @@ public class MemberDaoTest {
 		List<MemberVo> list = new MemberDao().selectList();
 		
 		for(MemberVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getPhone() + " " + vo.getMail());
+			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getPhone() + " " + vo.getMail() + " " + vo.getPassword());
 		}
 	}
 	

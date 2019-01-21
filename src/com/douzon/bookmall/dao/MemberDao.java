@@ -20,7 +20,7 @@ public class MemberDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select no, name, phone, mail from member";
+			String sql = "select no, name, phone, mail, password from member";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -30,6 +30,7 @@ public class MemberDao {
 				String name = rs.getString("name");
 				String phone = rs.getString("phone");
 				String mail = rs.getString("mail");
+				String password = rs.getString("password");
 				
 				MemberVo vo = new MemberVo();
 				
@@ -37,6 +38,7 @@ public class MemberDao {
 				vo.setName(name);
 				vo.setPhone(phone);
 				vo.setMail(mail);
+				vo.setPassword(password);
 				
 				list.add(vo);
 			}

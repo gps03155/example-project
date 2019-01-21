@@ -9,7 +9,7 @@ public class BookDaoTest {
 
 	public static void main(String[] args) {
 		// 상품리스트 3개
-		insertBook("Head First Java", 30000, 1);
+		// insertBook("Head First Java", 30000, 1);
 		getList();
 	}
 	

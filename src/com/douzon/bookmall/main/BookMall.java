@@ -74,7 +74,7 @@ public class BookMall {
 		List<MemberVo> list = new MemberDao().selectList();
 		
 		for(MemberVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getPhone() + " " + vo.getMail());
+			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getPhone() + " " + vo.getMail() + " " + vo.getPassword());
 		}
 	}
 	
