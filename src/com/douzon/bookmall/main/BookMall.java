@@ -82,6 +82,8 @@ public class BookMall {
 		for(MemberVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getPhone() + " " + vo.getMail() + " " + vo.getPassword());
 		}
+		
+		System.out.println("==============================");
 	}
 	
 	// 회원 추가
@@ -111,6 +113,8 @@ public class BookMall {
 		for(CategoryVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getCategory());
 		}
+		
+		System.out.println("==============================");
 	}
 	
 	// 상품 추가
@@ -131,6 +135,8 @@ public class BookMall {
 		for(BookVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getCategory() + " " + vo.getTitle() + " " + vo.getPrice());
 		}
+		
+		System.out.println("==============================");
 	}
 
 	// 카트(장바구니) 전체 리스트 출력
@@ -142,6 +148,8 @@ public class BookMall {
 		for(CartVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum() + " " + vo.getPrice());
 		}
+		
+		System.out.println("==============================");
 	}
 	
 	// 카트(장바구니) 회원별 출력
@@ -153,6 +161,8 @@ public class BookMall {
 		for(CartVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum() + " " + vo.getPrice());		
 		}
+		
+		System.out.println("==============================");
 	}
 	
 	// 카트(장바구니) 추가
@@ -173,6 +183,8 @@ public class BookMall {
 		for(OrderVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getMail() + " " + vo.getPrice() + " " + vo.getDestination());
 		}
+		
+		System.out.println("==============================");
 	}
 	
 	// 주문 도서 리스트 출력
@@ -184,6 +196,8 @@ public class BookMall {
 		for(OrderVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum());
 		}
+		
+		System.out.println("==============================");
 	}
 	
 	// 주문 추가

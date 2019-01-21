@@ -99,7 +99,7 @@ public class CategoryDao {
 			String url = "jdbc:mysql://localhost:3306/bookmall?useSSL=false";
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 			
-			System.out.println("DB 연결 성공");
+			// System.out.println("DB 연결 성공");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
