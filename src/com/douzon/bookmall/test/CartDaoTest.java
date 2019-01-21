@@ -9,10 +9,19 @@ public class CartDaoTest {
 
 	public static void main(String[] args) {
 		// 카트 리스트 2개
-		insertCart(10, 3, 2);
-		getList();
+		//insertCart(10, 3, 2);
+		//getList();
+		getCart(2);
 	}
 
+	public static void getCart(int member_no) {
+		List<CartVo> list = new CartDao().select(member_no);
+		
+		for(CartVo vo : list) {
+			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum() + " " + vo.getPrice());		
+		}
+	}
+	
 	public static void getList() {
 		List<CartVo> list = new CartDao().selectList();
 		

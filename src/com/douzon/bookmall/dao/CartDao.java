@@ -14,6 +14,41 @@ public class CartDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	public List<CartVo> select(int member_no){
+		List<CartVo> list = new ArrayList<CartVo>();
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select c.no, b.title, c.num, b.price from cart c join book b on c.book_no = b.no where member_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, member_no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int no = rs.getInt("c.no");
+				String title = rs.getString("b.title");
+				int num = rs.getInt("c.num");
+				int price = rs.getInt("b.price");
+				
+				CartVo vo = new CartVo();
+				
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setNum(num);
+				vo.setPrice(price);
+				
+				list.add(vo);
+			}
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return list;
+	}
+	
 	public List<CartVo> selectList(){
 		List<CartVo> list = new ArrayList<CartVo>();
 		
