@@ -4,8 +4,6 @@ public class OrderVo {
 	private int no;
 	private int price;
 	private String destination;
-	private int num;
-	private String title;
 	private int book_no;
 	private String name;
 	private String mail;
@@ -57,22 +55,4 @@ public class OrderVo {
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
-	
-	public int getNum() {
-		return num;
-	}
-	
-	public void setNum(int num) {
-		this.num = num;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	
 }
