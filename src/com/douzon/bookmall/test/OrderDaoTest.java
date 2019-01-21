@@ -3,6 +3,7 @@ package com.douzon.bookmall.test;
 import java.util.List;
 
 import com.douzon.bookmall.dao.OrderDao;
+import com.douzon.bookmall.vo.OrderBookVo;
 import com.douzon.bookmall.vo.OrderVo;
 
 public class OrderDaoTest {
@@ -24,9 +25,9 @@ public class OrderDaoTest {
 	}
 	
 	public static void getOrderBook() {
-		List<OrderVo> list = new OrderDao().selectOrderBook();
+		List<OrderBookVo> list = new OrderDao().selectOrderBook();
 		
-		for(OrderVo vo : list) {
+		for(OrderBookVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum());
 		}
 	}

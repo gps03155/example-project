@@ -11,6 +11,7 @@ import com.douzon.bookmall.vo.BookVo;
 import com.douzon.bookmall.vo.CartVo;
 import com.douzon.bookmall.vo.CategoryVo;
 import com.douzon.bookmall.vo.MemberVo;
+import com.douzon.bookmall.vo.OrderBookVo;
 import com.douzon.bookmall.vo.OrderVo;
 
 public class BookMall {
@@ -191,9 +192,9 @@ public class BookMall {
 	public static void getOrderBook() {
 		System.out.println("========== 주문 도서 리스트 ==========");
 		
-		List<OrderVo> list = new OrderDao().selectOrderBook();
+		List<OrderBookVo> list = new OrderDao().selectOrderBook();
 		
-		for(OrderVo vo : list) {
+		for(OrderBookVo vo : list) {
 			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum());
 		}
 		

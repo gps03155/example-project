@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.douzon.bookmall.vo.OrderBookVo;
 import com.douzon.bookmall.vo.OrderVo;
 
 public class OrderDao {
@@ -65,8 +66,8 @@ public class OrderDao {
 		return list;
 	}
 	
-	public List<OrderVo> selectOrderBook(){
-		List<OrderVo> list = new ArrayList<OrderVo>();
+	public List<OrderBookVo> selectOrderBook(){
+		List<OrderBookVo> list = new ArrayList<OrderBookVo>();
 		
 		try {
 			conn = getConnection();
@@ -81,7 +82,7 @@ public class OrderDao {
 				String title = rs.getString("b.title");
 				int num = rs.getInt("o1.num");
 				
-				OrderVo vo = new OrderVo();
+				OrderBookVo vo = new OrderBookVo();
 				
 				vo.setNo(no);
 				vo.setTitle(title);
