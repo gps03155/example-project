@@ -4,7 +4,7 @@ public class BookMall {
 
 	public static void main(String[] args) {
 		// test 후 insert하는 코드들 넣기
-		// primary key = 2번부터
+		// primary key 가능한 1번부터
 		// 개별젹으로 테스트 후 db 리셋 후 지정된 결과가 나오게끔 출력
 		// 회원 : 이름, 전화번호, 이메일, 비밀번호
 		// 카테고리 : 번호, 이름
