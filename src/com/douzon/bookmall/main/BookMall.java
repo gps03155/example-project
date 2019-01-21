@@ -56,7 +56,7 @@ public class BookMall {
 		insertCart(10, 3, 3);
 		insertCart(5, 1, 3);
 		
-		getCart(2);
+		getCart(2); // 고객번호 2의 카트리스트
 		
 		// ========== 주문 리스트 ==========
 		insertOrderList(27000, "울산광역시", 1); // 가격, 배송지, 고객번호
