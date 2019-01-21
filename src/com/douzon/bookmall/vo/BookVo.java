@@ -4,7 +4,16 @@ public class BookVo {
 	private int no;
 	private String title;
 	private int price;
+	private String category;
 	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public int getNo() {
 		return no;
 	}
