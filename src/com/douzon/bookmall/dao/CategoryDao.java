@@ -10,9 +10,9 @@ import java.util.List;
 import com.douzon.bookmall.vo.CategoryVo;
 
 public class CategoryDao {
-	Connection conn;
-	PreparedStatement pstmt;
-	ResultSet rs;
+	private Connection conn;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
 	
 	public List<CategoryVo> selectList(){
 		List<CategoryVo> list = new ArrayList<CategoryVo>();

@@ -10,9 +10,9 @@ import java.util.List;
 import com.douzon.bookmall.vo.BookVo;
 
 public class BookDao {
-	Connection conn;
-	PreparedStatement pstmt;
-	ResultSet rs;
+	private Connection conn;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
 
 	public int insert(String title, int price, int category_no) {
 		int result = 0;
