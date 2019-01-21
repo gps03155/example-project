@@ -4,7 +4,6 @@ public class CartVo {
 	private int no;
 	private String title;
 	private int num;
-	private String status;
 	private int price;
 	
 	public int getNo() {
@@ -29,14 +28,6 @@ public class CartVo {
 	
 	public void setNum(int num) {
 		this.num = num;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	
 	public int getPrice() {

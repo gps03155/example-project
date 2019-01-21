@@ -88,7 +88,7 @@ public class CartDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "insert into cart values (null, ?, '재고있음', ?, ?)";
+			String sql = "insert into cart values (null, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
