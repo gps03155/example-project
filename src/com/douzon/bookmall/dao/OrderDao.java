@@ -20,7 +20,7 @@ public class OrderDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select o.no, m.name, m.mail, o.price, o.destination from (orderlist o join member m on o.member_no = m.no) join cart c on o.member_no = c.member_no";
+			String sql = "select o.no, m.name, m.mail, o.price, o.destination from orderlist o join member m on o.member_no = m.no";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -71,7 +71,7 @@ public class OrderDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select b.no, b.title, o1.num from ((order_book o1 join orderlist o2 on o1.order_no = o2.no) join cart c on o1.book_no = c.book_no) join book b on c.book_no = b.no";
+			String sql = "select b.no, b.title, o1.num from (order_book o1 join orderlist o2 on o1.order_no = o2.no) join book b on o1.book_no = b.no";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();

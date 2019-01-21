@@ -28,41 +28,47 @@ public class BookMall {
 		// ========== 타이틀 =========== 적어서 알아보기 쉽게 출력하기
 		
 		// ========== 회원 리스트 ==========
-		insertMember("마이콜", "010-4444-4444", "cccc@gmail.com", "5678");
-		insertMember("라이언", "010-5555-5555", "dddd@naver.com", "1234");
-		insertMember("콘", "010-6666-6666", "ffff@hanmail.net", "3456");
+		insertMember("마이콜", "010-1111-1111", "aaaa@gmail.com", "1111");
+		insertMember("라이언", "010-2222-2222", "bbbb@naver.com", "2222");
+		insertMember("콘", "010-3333-3333", "cccc@hanmail.net", "3333");
 		
 		getMemberList();
 
 		// ========== 카테고리 리스트 ==========
 		insertCategory("경제");
-		insertCategory("수필");
-		insertCategory("예술");
+		insertCategory("컴퓨터/IT");
+		insertCategory("소설");
 		
 		getCategorytList();
 		
 		// ========== 상품 리스트 ==========
-		insertBook("자바의 정석", 27000, 1);
-		insertBook("경제학콘서트", 25000, 5);
-		insertBook("눈먼자들의 도시", 30000, 2);
+		insertBook("자바의 정석", 27000, 2);
+		insertBook("경제학콘서트", 25000, 1);
+		insertBook("눈먼자들의 도시", 30000, 3);
 		
 		getBookList();
 		
 		// ========== 카트(장바구니) 리스트 ==========
+		insertCart(1, 1, 1); // 수량, 도서번호, 고객번호
+		insertCart(10, 2, 1);
 		insertCart(5, 2, 2);
-		insertCart(10, 1,1);
+		insertCart(15, 3, 2);
+		insertCart(10, 3, 3);
+		insertCart(5, 1, 3);
 		
 		getCart(2);
 		
 		// ========== 주문 리스트 ==========
-		insertOrderList(30000, "울산광역시", 3);
-		insertOrderList(25000, "대전광역시", 4);
+		insertOrderList(27000, "울산광역시", 1); // 가격, 배송지, 고객번호
+		insertOrderList(125000, "대전광역시", 2);
+		insertOrderList(300000, "서울특별시", 3);
 		
 		getOrderList();
 		
 		// ========== 주문 도서 리스트 ==========
-		insertOrderBook(4, 3, 3);
-		insertOrderBook(5, 4, 4);
+		insertOrderBook(1, 1, 1); // 수량, 주문번호, 도서번호
+		insertOrderBook(5, 2, 2);
+		insertOrderBook(10, 3, 3);
 		
 		getOrderBook();
 	}
