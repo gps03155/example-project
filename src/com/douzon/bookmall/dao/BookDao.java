@@ -54,13 +54,13 @@ public class BookDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select c.no, b.title, b.price, c.category from book b join category c on b.category_no = c.no";
+			String sql = "select b.no, b.title, b.price, c.category from book b join category c on b.category_no = c.no order by b.no";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int no = rs.getInt("c.no");
+				int no = rs.getInt("b.no");
 				String title = rs.getString("b.title");
 				int price = rs.getInt("b.price");
 				String category = rs.getString("c.category");
