@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HelleServlet
  */
-@WebServlet(description = "Hello Servlet", urlPatterns = { "/hello" })
-public class HelleServlet extends HttpServlet {
+//@WebServlet(description = "Hello Servlet", urlPatterns = { "/hello" })
+public class HelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

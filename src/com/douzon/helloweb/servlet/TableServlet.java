@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class TableServlet
  */
-@WebServlet("/table")
+@WebServlet({"/table", "/t", "/tb1"})
 public class TableServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
