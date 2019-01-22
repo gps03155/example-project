@@ -46,6 +46,11 @@ public class MemberVo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return getNo() + " " + getName() + " " + getPhone() + " " + getMail() + " " + getPassword();
+	}
 	
 	
 }

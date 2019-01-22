@@ -55,4 +55,10 @@ public class OrderVo {
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
+
+	@Override
+	public String toString() {
+		return getNo() + " " + getName() + " " + getMail() + " " + getPrice() + " " + getDestination();
+	}
+	
 }

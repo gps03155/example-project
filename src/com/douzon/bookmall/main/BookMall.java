@@ -81,7 +81,7 @@ public class BookMall {
 		List<MemberVo> list = new MemberDao().selectList();
 		
 		for(MemberVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getPhone() + " " + vo.getMail() + " " + vo.getPassword());
+			System.out.println(vo.toString());
 		}
 		
 		System.out.println("==============================");
@@ -112,7 +112,7 @@ public class BookMall {
 		List<CategoryVo> list = new CategoryDao().selectList();
 		
 		for(CategoryVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getCategory());
+			System.out.println(vo.toString());
 		}
 		
 		System.out.println("==============================");
@@ -134,7 +134,7 @@ public class BookMall {
 		List<BookVo> list = new BookDao().selectList();
 		
 		for(BookVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getCategory() + " " + vo.getTitle() + " " + vo.getPrice());
+			System.out.println(vo.toString());
 		}
 		
 		System.out.println("==============================");
@@ -147,7 +147,7 @@ public class BookMall {
 		List<CartVo> list = new CartDao().selectList();
 		
 		for(CartVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum() + " " + vo.getPrice());
+			System.out.println(vo.toString());
 		}
 		
 		System.out.println("==============================");
@@ -160,7 +160,7 @@ public class BookMall {
 		List<CartVo> list = new CartDao().select(member_no);
 		
 		for(CartVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum() + " " + vo.getPrice());		
+			System.out.println(vo.toString());		
 		}
 		
 		System.out.println("==============================");
@@ -182,7 +182,7 @@ public class BookMall {
 		List<OrderVo> list = new OrderDao().selectOrderList();
 		
 		for(OrderVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getMail() + " " + vo.getPrice() + " " + vo.getDestination());
+			System.out.println(vo.toString());
 		}
 		
 		System.out.println("==============================");
@@ -195,7 +195,7 @@ public class BookMall {
 		List<OrderBookVo> list = new OrderDao().selectOrderBook();
 		
 		for(OrderBookVo vo : list) {
-			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getNum());
+			System.out.println(vo.toString());
 		}
 		
 		System.out.println("==============================");
