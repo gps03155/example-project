@@ -1,16 +1,25 @@
+<%@page import="com.douzon.guestbook.vo.GuestBookVo"%>
+<%@page import="java.util.List"%>
+<%@page import="com.douzon.guestbook.dao.GuestBookDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+	List<GuestBookVo> list = new GuestBookDao().getList();
+	int count = 0;
+%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>방명록</title>
 </head>
 <body>
-	<form action="" method="post">
+	<form action="add.jsp" method="post">
 	<table border=1 width=500>
 		<tr>
-			<td>이름</td><td><input type="text" name="name"></td>
+			<td>이름</td><td><input type="text" name="name"></td>
 			<td>비밀번호</td><td><input type="password" name="password"></td>
 		</tr>
 		<tr>
@@ -22,16 +31,26 @@
 	</table>
 	</form>
 	<br>
-	<table width=510 border=1>
-		<tr>
-			<td>[1]</td> <!-- no가 아님 : 글의 순서 -total count -->
-			<td>안대혁</td>
-			<td>2013-01-15</td>
-			<td><a href="deleteform.jsp">삭제</a></td>
-		</tr>
-		<tr>
-			<td colspan=4>안녕하세요</td>
-		</tr>
-	</table>
+	
+	<%
+		for(GuestBookVo vo : list){
+			count++;
+	%>
+		<table width=510 border=1>
+			<tr>
+				
+				<td><%= count %></td> <!-- no가 아님 : 글의 순서 -total count -->
+				<td><%= vo.getName() %></td>
+				<td><%= vo.getMsgDate() %></td>
+				<td><a href="deleteform.jsp?no=<%= vo.getNo() %>">삭제</a></td>
+			</tr>
+			<tr>
+				<td colspan=4><%= vo.getMessage() %></td>
+			</tr>
+		</table>
+		<br/>
+	<%
+		}
+	%>
 </body>
 </html>

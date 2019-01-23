@@ -2,14 +2,18 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
+<%
+	String no = request.getParameter("no");
+%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>방명록</title>
+<title>방명록</title>
 </head>
 <body>
-	<form action="add.jsp" method="post">
-		<input type='hidden' name="id" value="">
+	<form action="delete.jsp" method="post">
+		<input type="hidden" name="no" value="<%= no %>">
 		<table>
 			<tr>
 				<td>비밀번호</td>
@@ -18,6 +22,7 @@
 			</tr>
 		</table>
 	</form>
+	
 	<a href="index.jsp">메인으로 돌아가기</a>
 	
 </body>
