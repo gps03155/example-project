@@ -7,7 +7,7 @@
 
 <%
 	List<GuestBookVo> list = new GuestBookDao().getList();
-	int count = 0;
+	int count = list.size() + 1;
 %>
 
 <html>
@@ -34,7 +34,7 @@
 	
 	<%
 		for(GuestBookVo vo : list){
-			count++;
+			count--;
 	%>
 		<table width=510 border=1>
 			<tr>	
