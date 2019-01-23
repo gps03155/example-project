@@ -14,6 +14,7 @@ public class GuestBookDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 댓글 삭제
 	public int delete(int no, String password) {
 		int result = 0;
 		

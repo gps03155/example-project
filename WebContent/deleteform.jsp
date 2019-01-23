@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 
 <%
+	request.setCharacterEncoding("UTF-8");
+
 	String no = request.getParameter("no");
 %>
 
