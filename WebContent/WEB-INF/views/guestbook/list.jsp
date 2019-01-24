@@ -47,7 +47,7 @@
 									<td><%= count %></td>
 									<td><%= vo.getName() %></td>
 									<td><%= vo.getMsgDate() %></td>
-									<td><a href="">삭제</a></td>
+									<td><a href="<%= request.getContextPath() %>/guestbook?action=deleteform&no=<%= vo.getNo() %>">삭제</a></td>
 								</tr>
 								<tr>
 									<td colspan=4><%= vo.getMessage().replace("\r\n", "<br/>") %></td>
