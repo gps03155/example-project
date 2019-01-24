@@ -1,4 +1,4 @@
-package com.douzon.web;
+package com.douzon.mvc.util;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
