@@ -12,7 +12,11 @@ public class GuestBookActionFactory extends AbstractActionFactory{
 		
 		if("guestbookform".equals(actionName)) {
 			action = new GuestBookFormAction();
-		} else {
+		}
+		else if("insert".equals(actionName)) {
+			action = new InsertAction();
+		}
+		else {
 			action = new IndexAction();
 		}
 		

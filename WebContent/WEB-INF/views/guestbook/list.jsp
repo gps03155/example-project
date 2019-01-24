@@ -1,6 +1,14 @@
+<%@page import="com.douzon.mysite.vo.GuestBookVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+	List<GuestBookVo> list = (List)request.getAttribute("list");
+	int count = list.size() + 1;
+%>
+
 <html>
 <head>
 <title>mysite</title>
@@ -13,7 +21,7 @@
 		
 		<div id="content">
 			<div id="guestbook">
-				<form action="/guestbook" method="post">
+				<form action="<%= request.getContextPath() %>/guestbook" method="post">
 					<input type="hidden" name="action" value="insert">
 					<table>
 						<tr>
@@ -30,21 +38,25 @@
 				</form>
 				<ul>
 					<li>
-						<table>
-							<tr>
-								<td>[4]</td>
-								<td>안대혁</td>
-								<td>2015-11-10 11:22:30</td>
-								<td><a href="">삭제</a></td>
-							</tr>
-							<tr>
-								<td colspan=4>
-								안녕하세요. ^^;<br>
-								하하하하	
-								</td>
-							</tr>
-						</table>
-						<br>
+						<%
+							for(GuestBookVo vo : list){
+								count--;
+						%>
+							<table>
+								<tr>
+									<td><%= count %></td>
+									<td><%= vo.getName() %></td>
+									<td><%= vo.getMsgDate() %></td>
+									<td><a href="">삭제</a></td>
+								</tr>
+								<tr>
+									<td colspan=4><%= vo.getMessage().replace("\r\n", "<br/>") %></td>
+								</tr>
+							</table>
+							<br>
+						<%
+							}
+						%>
 					</li>
 				</ul>
 			</div>
