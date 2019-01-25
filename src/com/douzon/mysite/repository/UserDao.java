@@ -12,6 +12,51 @@ public class UserDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 회원 정보 가져오기
+	public UserVo get(long no) {
+		UserVo vo = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select no, name, email, gender from user where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new UserVo();
+				
+				vo.setNo(rs.getLong("no"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				vo.setGender(rs.getString("gender"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+	
 	// 로그인
 	public UserVo get(String email, String password) {
 		UserVo vo = null;

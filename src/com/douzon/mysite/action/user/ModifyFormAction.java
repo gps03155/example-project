@@ -30,9 +30,9 @@ public class ModifyFormAction implements Action{
 			return;
 		}
 		
-		// UserVo vo = new UserDao().get(authUser.getNo());	
+		UserVo vo = new UserDao().get(authUser.getNo());	
 		
-		// request.setAttribute("vo", vo);
+		request.setAttribute("vo", vo);
 		
 		WebUtils.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
 	}
