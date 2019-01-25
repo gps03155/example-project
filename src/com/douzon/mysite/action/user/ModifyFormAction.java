@@ -32,6 +32,8 @@ public class ModifyFormAction implements Action{
 		
 		// UserVo vo = new UserDao().get(authUser.getNo());	
 		
+		// request.setAttribute("vo", vo);
+		
 		WebUtils.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
 	}
 

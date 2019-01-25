@@ -1,3 +1,7 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,16 +9,16 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="<%= request.getContextPath() %>/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="joinForm" method="POST" action="<%= request.getContextPath() %>/user">
+				<form id="join-form" name="joinForm" method="POST" action="${pageContext.servletContext.contextPath}/user">
 					<input type="hidden" name="action" value="modify"/> <!-- 보안처리 후 session에 있는 no를 받아야함  -->
 					
 					<label class="block-label" for="name">이름</label>
@@ -43,8 +47,8 @@
 			</div>
 		</div>
 		
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp"/>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"/>
 	</div>
 </body>
 </html>
