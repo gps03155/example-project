@@ -34,7 +34,7 @@
 					<c:forEach items="${list}" var="vo" varStatus="status">
 						<tr>
 							<td>${vo.no}</td>
-							<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform">${vo.title}</a></td>
+							<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}">${vo.title}</a></td>
 							<td>${vo.name}</td>
 							<td>${vo.hit}</td>
 							<td>${vo.writeDate}</td>
@@ -44,13 +44,27 @@
 					
 					<tr>
 						<td>1</td>
-						<td style="padding-left:${15 * vo.depth}"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/><a href="">첫 번째 글입니다.</a></td>
+						<td style="padding-left:${20 * vo.depth}px"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/><a href="">첫 번째 글입니다.</a></td>
 						<td>안대혁</td>
 						<td>3</td>
 						<td>2015-09-25 07:24:32</td>
 						<td><a href="" class="del">삭제</a></td>
 					</tr>
 				</table>
+				
+				<!-- pager 추가 -->
+				<div class="pager">
+					<ul>
+						<li><a href="">◀</a></li>
+						<li><a href="">1</a></li>
+						<li class="selected">2</li>
+						<li><a href="">3</a></li>
+						<li>4</li>
+						<li>5</li>
+						<li><a href="">▶</a></li>
+					</ul>
+				</div>					
+				<!-- pager 추가 -->
 				
 				<c:if test="${!empty authuser}">
 					<div class="bottom">

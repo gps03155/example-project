@@ -14,6 +14,53 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 글 내용 가져오기
+	public BoardVo get(long no){
+		BoardVo vo = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select title, contents from board where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new BoardVo();
+				
+				String title = rs.getString("title");
+				String content = rs.getString("contents");
+				
+				vo.setTitle(title);
+				vo.setContent(content);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+	
+	
 	// 게시글 목록 가져오기
 	public List<BoardVo> getList(){
 		List<BoardVo> list = new ArrayList<BoardVo>();
