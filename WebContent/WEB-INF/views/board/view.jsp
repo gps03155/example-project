@@ -37,8 +37,11 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="">글목록</a>
-					<a href="">글수정</a>
+					<a href="${pageContext.servletContext.contextPath}/board?action=boardform">글목록</a>
+					
+					<c:if test="${!empty authuser}">
+						<a href="${pageContext.servletContext.contextPath}/board?action=modifyform">글수정</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
