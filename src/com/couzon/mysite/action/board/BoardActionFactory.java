@@ -18,6 +18,10 @@ public class BoardActionFactory extends AbstractActionFactory{
 		else if("writeform".equals(actionName)) {
 			action = new WriteFormAction();
 		}
+		else if("write".equals(actionName)) {
+			action = new WriteAction();
+		}
+		
 		return action;
 	}
 
