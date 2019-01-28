@@ -17,10 +17,20 @@
 		
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="${pageContext.servletContext.contextPath}/board" method="post">
+					<input type="hidden" name="action" value="search" />
+					
+					<select name="search">
+						<option value="full">전체</option>
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="name">작성자</option>
+					</select>
+					
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
+				
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>

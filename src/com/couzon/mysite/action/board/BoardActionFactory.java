@@ -37,6 +37,9 @@ public class BoardActionFactory extends AbstractActionFactory{
 		else if("reply".equals(actionName)) {
 			action = new ReplyAction();
 		}
+		else if("search".equals(actionName)) {
+			action = new SearchAction();
+		}
 		else {
 			action = new IndexAction();
 		}
