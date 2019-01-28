@@ -40,7 +40,16 @@
 							<td>${vo.name}</td>
 							<td>${vo.hit}</td>
 							<td>${vo.writeDate}</td>
-							<td><a href="${pageContext.servletContext.contextPath}/board?action=delete&no=${vo.no}" class="del">삭제</a></td>
+							
+							<c:choose>
+								<c:when test="${!empty authuser}">
+									<td><a href="${pageContext.servletContext.contextPath}/board?action=delete&no=${vo.no}" class="del">삭제</a></td>
+								</c:when>
+								
+								<c:otherwise>
+									<td></td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>			
 					
