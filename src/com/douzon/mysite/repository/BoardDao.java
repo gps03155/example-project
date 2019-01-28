@@ -14,6 +14,128 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 답글 - order_no
+	public int updateReply(int orderNo, int groupNo) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update board set order_no = order_no + 1 where order_no > ? and group_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, orderNo);
+			pstmt.setInt(2, groupNo);
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	// 답글 등록
+	public int insertReply(String title, String content, int groupNo, int orderNo, int depth, long userNo) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "insert into board values (null, ?, ?, CURRENT_TIMESTAMP(), 0, ?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, groupNo);
+			pstmt.setInt(4, orderNo + 1);
+			pstmt.setInt(5, depth + 1);
+			pstmt.setLong(6, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	// 답글 - 부모글 정보 (group_no, order_no, depth)
+	public BoardVo getInfo(long no) {
+		BoardVo vo = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select group_no, order_no, depth from board where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new BoardVo();
+				
+				int groupNo = rs.getInt("group_no");
+				int orderNo = rs.getInt("order_no");
+				int depth = rs.getInt("depth");
+				
+				vo.setGroupNo(groupNo);
+				vo.setOrderNo(orderNo);
+				vo.setDepth(depth);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				try {
+					if(rs != null) {
+						rs.close();
+					}
+					
+					if(pstmt != null) {
+						pstmt.close();
+					}
+					
+					if(conn != null) {
+						conn.close();
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+	
 	// 게시글 삭제하기
 	public int delete(long no) {
 		int result = 0;
