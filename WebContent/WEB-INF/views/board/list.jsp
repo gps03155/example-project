@@ -36,7 +36,19 @@
 					<c:forEach items="${list}" var="vo" varStatus="status">
 						<tr>
 							<td>${count - status.index}</td>
-							<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}">${vo.title}</a></td>
+						
+							<c:choose>
+								<c:when test="${vo.depth > 0}">
+									<td style="padding-left:${20 * vo.depth}px"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/>
+										<a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}">${vo.title}</a>
+									</td>
+								</c:when>
+								
+								<c:otherwise>
+									<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}">${vo.title}</a></td>	
+								</c:otherwise>
+							</c:choose>
+							
 							<td>${vo.name}</td>
 							<td>${vo.hit}</td>
 							<td>${vo.writeDate}</td>
@@ -52,15 +64,6 @@
 							</c:choose>
 						</tr>
 					</c:forEach>			
-					
-					<tr>
-						<td>1</td>
-						<td style="padding-left:${20 * vo.depth}px"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/><a href="">첫 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-09-25 07:24:32</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
 				</table>
 				
 				<!-- pager 추가 -->

@@ -256,7 +256,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select b.no, b.title, u.name, b.hit, b.write_date from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC";
+			String sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC";
 			pstmt = conn.prepareStatement(sql);			
 			
 			rs = pstmt.executeQuery();
@@ -267,6 +267,7 @@ public class BoardDao {
 				String name = rs.getString("u.name");
 				int hit = rs.getInt("b.hit");
 				String writeDate = rs.getString("b.write_date");
+				int depth = rs.getInt("b.depth");
 				
 				BoardVo vo = new BoardVo();
 				
@@ -275,6 +276,7 @@ public class BoardDao {
 				vo.setName(name);
 				vo.setHit(hit);
 				vo.setWriteDate(writeDate);
+				vo.setDepth(depth);
 				
 				list.add(vo);
 			}
