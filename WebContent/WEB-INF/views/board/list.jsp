@@ -48,7 +48,7 @@
 					</tr>
 					<tr>
 						<td>1</td>
-						<td><a href="">첫 번째 글입니다.</a></td>
+						<td style="padding-left:${15 * vo.depth}"><img src="/mysite2/assets/images/reply.png"/><a href="">첫 번째 글입니다.</a></td>
 						<td>안대혁</td>
 						<td>3</td>
 						<td>2015-09-25 07:24:32</td>
@@ -57,7 +57,7 @@
 				</table>
 				<div class="bottom">
 					<a href="" id="new-book">글쓰기</a>
-				</div>				
+				</div>
 			</div>
 		</div>
 		
