@@ -10,7 +10,16 @@ public class BoardVo {
 	private int orderNo;
 	private int depth;
 	private long userNo;
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public long getNo() {
 		return no;
 	}

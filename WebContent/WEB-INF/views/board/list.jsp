@@ -29,23 +29,19 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
-					<tr>
-						<td>3</td>
-						<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform">세 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-11 12:04:20</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="">두 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-02 12:04:12</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
+					</tr>	
+					
+					<c:forEach items="${list}" var="vo" varStatus="status">
+						<tr>
+							<td>${vo.no}</td>
+							<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform">${vo.title}</a></td>
+							<td>${vo.name}</td>
+							<td>${vo.hit}</td>
+							<td>${vo.writeDate}</td>
+							<td><a href="" class="del">삭제</a></td>
+						</tr>
+					</c:forEach>			
+					
 					<tr>
 						<td>1</td>
 						<td style="padding-left:${15 * vo.depth}"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/><a href="">첫 번째 글입니다.</a></td>
