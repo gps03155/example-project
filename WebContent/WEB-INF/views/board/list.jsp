@@ -31,14 +31,16 @@
 						<th>&nbsp;</th>
 					</tr>	
 					
+					<c:set var="count" value="${fn:length(list)}" />
+					
 					<c:forEach items="${list}" var="vo" varStatus="status">
 						<tr>
-							<td>${vo.no}</td>
+							<td>${count - status.index}</td>
 							<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}">${vo.title}</a></td>
 							<td>${vo.name}</td>
 							<td>${vo.hit}</td>
 							<td>${vo.writeDate}</td>
-							<td><a href="" class="del">삭제</a></td>
+							<td><a href="${pageContext.servletContext.contextPath}/board?action=delete&no=${vo.no}" class="del">삭제</a></td>
 						</tr>
 					</c:forEach>			
 					
