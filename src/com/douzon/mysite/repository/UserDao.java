@@ -20,7 +20,7 @@ public class UserDao {
 		try {
 			conn = getConnection();
 			
-			if(!vo.getPassword().equals("") && !vo.getName().equals("")) {
+			if(!vo.getPassword().equals("") && !"".equals(vo.getName())) {
 				sql = "update user set name = ?, password = ?, gender = ? where no = ?";
 			
 				pstmt = conn.prepareStatement(sql);
@@ -29,8 +29,10 @@ public class UserDao {
 				pstmt.setString(2, vo.getPassword());
 				pstmt.setString(3, vo.getGender());
 				pstmt.setLong(4, vo.getNo());
+				
+				result = pstmt.executeUpdate();
 			}
-			else if(vo.getPassword().equals("") && !vo.getName().equals("")) {
+			else if(vo.getPassword().equals("") && !"".equals(vo.getName())) {
 				sql = "update user set name = ?, gender = ? where no = ?";
 				
 				pstmt = conn.prepareStatement(sql);
@@ -38,9 +40,10 @@ public class UserDao {
 				pstmt.setString(1, vo.getName());
 				pstmt.setString(2, vo.getGender());
 				pstmt.setLong(3, vo.getNo());
+				
+				result = pstmt.executeUpdate();
 			}
 			
-			result = pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
