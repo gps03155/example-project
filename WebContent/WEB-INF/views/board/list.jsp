@@ -48,7 +48,7 @@
 					</tr>
 					<tr>
 						<td>1</td>
-						<td style="padding-left:${15 * vo.depth}"><img src="/mysite2/assets/images/reply.png"/><a href="">첫 번째 글입니다.</a></td>
+						<td style="padding-left:${15 * vo.depth}"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/><a href="">첫 번째 글입니다.</a></td>
 						<td>안대혁</td>
 						<td>3</td>
 						<td>2015-09-25 07:24:32</td>
