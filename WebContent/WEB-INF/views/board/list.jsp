@@ -55,9 +55,12 @@
 						<td><a href="" class="del">삭제</a></td>
 					</tr>
 				</table>
-				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath}/board?action=writeform" id="new-book">글쓰기</a>
-				</div>
+				
+				<c:if test="${!empty authuser}">
+					<div class="bottom">
+						<a href="${pageContext.servletContext.contextPath}/board?action=writeform" id="new-book">글쓰기</a>
+					</div>
+				</c:if>
 			</div>
 		</div>
 		
