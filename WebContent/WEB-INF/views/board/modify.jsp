@@ -5,10 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%
-	pageContext.setAttribute("newline", "\n");
-%> 
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,13 +28,13 @@
 						</tr>
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value=""></td>
+							<td><input type="text" name="title" value="${vo.title}"></td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
 							<td>
 								<textarea id="content" name="content">
-									${fn:replace(param.content, newline, "<br>")}
+									${vo.content}
 								</textarea>
 							</td>
 						</tr>
