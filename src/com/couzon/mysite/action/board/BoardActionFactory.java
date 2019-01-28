@@ -2,6 +2,7 @@ package com.couzon.mysite.action.board;
 
 import com.douzon.mvc.action.AbstractActionFactory;
 import com.douzon.mvc.action.Action;
+import com.douzon.mysite.action.main.IndexAction;
 
 public class BoardActionFactory extends AbstractActionFactory{
 
@@ -23,6 +24,12 @@ public class BoardActionFactory extends AbstractActionFactory{
 		}
 		else if("modifyform".equals(actionName)) {
 			action = new ModifyFormAction();
+		}
+		else if("modify".equals(actionName)) {
+			action = new ModifyAction();
+		}
+		else {
+			action = new IndexAction();
 		}
 		
 		return action;

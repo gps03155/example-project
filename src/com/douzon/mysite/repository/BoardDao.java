@@ -14,6 +14,40 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 게시글 수정하기
+	public int update(String title, String content, long no) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update board set title = ?, contents = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setLong(3, no);
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 	// 글 내용 가져오기
 	public BoardVo get(long no){
 		BoardVo vo = null;

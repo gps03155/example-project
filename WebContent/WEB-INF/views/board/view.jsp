@@ -42,7 +42,7 @@
 					<a href="${pageContext.servletContext.contextPath}/board?action=boardform">글목록</a>
 					
 					<c:if test="${!empty authuser}">
-						<a href="${pageContext.servletContext.contextPath}/board?action=modifyform&no=${param.no}">글수정</a>
+						<a href="${pageContext.servletContext.contextPath}/board?action=modifyform&no=${param.no}&content=${vo.content}">글수정</a>
 						<a href="">답글</a>
 					</c:if>
 				</div>
