@@ -14,6 +14,38 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
+	// 조회수
+	public int updateViews(long no) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update board set hit = hit+1 where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 	// 게시글 검색
 	public List<BoardVo> getSearch(String search, String kwd) {
 		List<BoardVo> list = new ArrayList<BoardVo>();
