@@ -41,10 +41,16 @@
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath}/board?action=boardform">글목록</a>
 					
-					<c:if test="${!empty authuser}">
-						<a href="${pageContext.servletContext.contextPath}/board?action=modifyform&no=${param.no}">글수정</a>
-						<a href="${pageContext.servletContext.contextPath}/board?action=replyform&no=${param.no}">답글</a>
-					</c:if>
+					<c:choose>
+						<c:when test="${!empty authuser && authuser.no == vo.userNo}">
+							<a href="${pageContext.servletContext.contextPath}/board?action=modifyform&no=${param.no}">글수정</a>
+							<a href="${pageContext.servletContext.contextPath}/board?action=replyform&no=${param.no}">답글</a>
+						</c:when>
+						
+						<c:when test="${!empty authuser}">
+							<a href="${pageContext.servletContext.contextPath}/board?action=replyform&no=${param.no}">답글</a>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>

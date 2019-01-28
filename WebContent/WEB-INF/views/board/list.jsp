@@ -54,7 +54,7 @@
 							<td>${vo.writeDate}</td>
 							
 							<c:choose>
-								<c:when test="${!empty authuser}">
+								<c:when test="${!empty authuser && authuser.no == vo.userNo}">
 									<td><a href="${pageContext.servletContext.contextPath}/board?action=delete&no=${vo.no}" class="del">삭제</a></td>
 								</c:when>
 								

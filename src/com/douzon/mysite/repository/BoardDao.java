@@ -209,7 +209,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select title, contents from board where no = ?";
+			String sql = "select title, contents, user_no from board where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, no);
@@ -221,9 +221,11 @@ public class BoardDao {
 				
 				String title = rs.getString("title");
 				String content = rs.getString("contents");
+				long userNo = rs.getLong("user_no");
 				
 				vo.setTitle(title);
 				vo.setContent(content);
+				vo.setUserNo(userNo);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -256,7 +258,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC";
+			String sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC";
 			pstmt = conn.prepareStatement(sql);			
 			
 			rs = pstmt.executeQuery();
@@ -268,6 +270,7 @@ public class BoardDao {
 				int hit = rs.getInt("b.hit");
 				String writeDate = rs.getString("b.write_date");
 				int depth = rs.getInt("b.depth");
+				long userNo = rs.getLong("u.no");
 				
 				BoardVo vo = new BoardVo();
 				
@@ -277,6 +280,7 @@ public class BoardDao {
 				vo.setHit(hit);
 				vo.setWriteDate(writeDate);
 				vo.setDepth(depth);
+				vo.setUserNo(userNo);
 				
 				list.add(vo);
 			}
