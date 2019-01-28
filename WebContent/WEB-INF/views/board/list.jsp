@@ -32,7 +32,7 @@
 					</tr>				
 					<tr>
 						<td>3</td>
-						<td><a href="">세 번째 글입니다.</a></td>
+						<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform">세 번째 글입니다.</a></td>
 						<td>안대혁</td>
 						<td>3</td>
 						<td>2015-10-11 12:04:20</td>

@@ -12,6 +12,9 @@ public class BoardActionFactory extends AbstractActionFactory{
 		if("boardform".equals(actionName)) {
 			action = new BoardFormAction();
 		}
+		else if("viewform".equals(actionName)) {
+			action = new ViewFormAction();
+		}
 		
 		return action;
 	}
