@@ -13,6 +13,50 @@ public class BoardDao {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	
+	private int totalCount;
+	private int countList = 10;
+	
+	// 게시글 전체 페이지 구하기
+	
+	
+	// 게시글 전체 수
+	public int getTotalCount() {
+		totalCount = 0;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select count(*) as total_count from board";
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCount = rs.getInt("total_count");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return totalCount;
+	}
 
 	// 조회수
 	public int updateViews(long no) {

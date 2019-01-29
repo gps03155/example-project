@@ -16,6 +16,10 @@ public class BoardFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		BoardVo vo = new BoardVo();
+		
+		vo.setTotalCount(new BoardDao().getTotalCount());
+		
 		List<BoardVo> list = new BoardDao().getList();
 		
 		request.setAttribute("list", list);

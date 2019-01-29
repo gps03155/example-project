@@ -11,7 +11,16 @@ public class BoardVo {
 	private int depth;
 	private long userNo;
 	private String name;
+	private int totalCount;
 	
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
 	public String getName() {
 		return name;
 	}
