@@ -81,6 +81,7 @@
 				<div class="pager">
 					<ul>
 						<li><a href="">◀</a></li>
+						
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
 							<c:choose>
 								<c:when test="${page == i}">
@@ -92,12 +93,6 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						
-						<!-- 
-						<li class="selected">2</li>
-						<li>4</li>
-						<li>5</li>
-						-->
 						
 						<li><a href="">▶</a></li>
 					</ul>

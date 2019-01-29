@@ -18,7 +18,6 @@ public class BoardFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String page = request.getParameter("page");
-		System.out.println(page);
 		
 		PageVo vo = new PageVo();
 		
@@ -29,7 +28,8 @@ public class BoardFormAction implements Action {
 		vo.setPage(Integer.parseInt(page));
 		System.out.println(vo.getStartPage() + " " + vo.getEndPage());
 		
-		List<BoardVo> list = new BoardDao().getList();
+		//List<BoardVo> list = new BoardDao().getList();
+		List<BoardVo> list = new BoardDao().getPageList(Integer.parseInt(page));
 		
 		request.setAttribute("list", list);
 		request.setAttribute("startPage", vo.getStartPage());

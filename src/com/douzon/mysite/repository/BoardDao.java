@@ -408,6 +408,71 @@ public class BoardDao {
 		return vo;
 	}
 
+	// 페이지별 게시글 목록 가져오기
+		public List<BoardVo> getPageList(int page) {
+			List<BoardVo> list = new ArrayList<BoardVo>();
+
+			try {
+				conn = getConnection();
+
+				String sql = "select * " + 
+						     "from (select * " + 
+						            "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						                   "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
+						                   "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+						            "where row_num <= ?) pagetable " + 
+						     "where row_num >= ?;";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, page * 10);
+				pstmt.setInt(2, (page * 10) - 9);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					long no = rs.getLong("b_no");
+					String title = rs.getString("title");
+					String name = rs.getString("name");
+					int hit = rs.getInt("hit");
+					String writeDate = rs.getString("write_date");
+					int depth = rs.getInt("depth");
+					long userNo = rs.getLong("no");
+
+					BoardVo vo = new BoardVo();
+
+					vo.setNo(no);
+					vo.setTitle(title);
+					vo.setName(name);
+					vo.setHit(hit);
+					vo.setWriteDate(writeDate);
+					vo.setDepth(depth);
+					vo.setUserNo(userNo);
+
+					list.add(vo);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+
+					if (pstmt != null) {
+						pstmt.close();
+					}
+
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			return list;
+		}
+	
 	// 게시글 목록 가져오기
 	public List<BoardVo> getList() {
 		List<BoardVo> list = new ArrayList<BoardVo>();
