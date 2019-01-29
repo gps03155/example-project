@@ -13,6 +13,10 @@ public class WriteFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String page = request.getParameter("page");
+		
+		request.setAttribute("page", page);
+		
 		WebUtils.forward(request, response, "/WEB-INF/views/board/write.jsp");
 	}
 

@@ -50,12 +50,12 @@
 							<c:choose>
 								<c:when test="${vo.depth > 0}">
 									<td style="padding-left:${20 * vo.depth}px"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/>
-										<a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}">${vo.title}</a>
+										<a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}&page=${page}">${vo.title}</a>
 									</td>
 								</c:when>
 								
 								<c:otherwise>
-									<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}">${vo.title}</a></td>	
+									<td><a href="${pageContext.servletContext.contextPath}/board?action=viewform&no=${vo.no}&page=${page}">${vo.title}</a></td>	
 								</c:otherwise>
 							</c:choose>
 							
@@ -65,7 +65,7 @@
 							
 							<c:choose>
 								<c:when test="${!empty authuser && authuser.no == vo.userNo}">
-									<td><a href="${pageContext.servletContext.contextPath}/board?action=delete&no=${vo.no}" class="del">삭제</a></td>
+									<td><a href="${pageContext.servletContext.contextPath}/board?action=delete&no=${vo.no}&page=${page}" class="del">삭제</a></td>
 								</c:when>
 								
 								<c:otherwise>
@@ -80,11 +80,24 @@
 				<div class="pager">
 					<ul>
 						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+							<c:choose>
+								<c:when test="${page == i}">
+									<li class="selected">${i}</li>
+								</c:when>
+								
+								<c:otherwise>
+									<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${i}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						
+						<!-- 
 						<li class="selected">2</li>
-						<li><a href="">3</a></li>
 						<li>4</li>
 						<li>5</li>
+						-->
+						
 						<li><a href="">▶</a></li>
 					</ul>
 				</div>					
@@ -92,7 +105,7 @@
 				
 				<c:if test="${!empty authuser}">
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath}/board?action=writeform" id="new-book">글쓰기</a>
+						<a href="${pageContext.servletContext.contextPath}/board?action=writeform&page=${page}" id="new-book">글쓰기</a>
 					</div>
 				</c:if>
 			</div>

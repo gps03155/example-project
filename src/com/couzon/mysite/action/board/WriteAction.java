@@ -23,10 +23,11 @@ public class WriteAction implements Action {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int page = Integer.parseInt(request.getParameter("page"));
 		
 		new BoardDao().insert(title, content, userNo);
 		
-		WebUtils.redirect(request, response, request.getContextPath() + "/board?action=boardform");
+		WebUtils.redirect(request, response, request.getContextPath() + "/board?action=boardform&page=" + page);
 	}
 
 }

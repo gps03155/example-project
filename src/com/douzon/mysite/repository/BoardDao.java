@@ -14,15 +14,9 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	private int totalCount;
-	private int countList = 10;
-	
-	// 게시글 전체 페이지 구하기
-	
-	
 	// 게시글 전체 수
 	public int getTotalCount() {
-		totalCount = 0;
+		int totalCount = 0;
 		
 		try {
 			conn = getConnection();

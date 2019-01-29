@@ -21,6 +21,7 @@
 				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath}/board">
 					<input type="hidden" name="action" value="modify" />
 					<input type="hidden" name="no" value="${param.no}" />
+					<input type="hidden" name="page" value="${page}" />
 					
 					<table class="tbl-ex">
 						<tr>
@@ -40,7 +41,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath}/board?action=boardform">취소</a>
+						<a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page}">취소</a>
 						<input type="submit" value="수정">
 					</div>
 				</form>				

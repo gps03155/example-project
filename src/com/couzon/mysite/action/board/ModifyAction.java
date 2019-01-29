@@ -17,10 +17,11 @@ public class ModifyAction implements Action {
 		String no = request.getParameter("no");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int page = Integer.parseInt(request.getParameter("page"));
 		
 		new BoardDao().update(title, content, Long.parseLong(no));
 		
-		WebUtils.redirect(request, response, request.getContextPath() + "/board?action=boardform");
+		WebUtils.redirect(request, response, request.getContextPath() + "/board?action=boardform&page=" + page);
 	}
 
 }
