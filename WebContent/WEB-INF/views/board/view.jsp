@@ -48,7 +48,7 @@
 						</c:when>
 						
 						<c:when test="${!empty authuser}">
-							<a href="${pageContext.servletContext.contextPath}/board?action=replyform&no=${param.no}">답글</a>
+							<a href="${pageContext.servletContext.contextPath}/board?action=replyform&no=${param.no}&page=${param.page}">답글</a>
 						</c:when>
 					</c:choose>
 				</div>

@@ -19,6 +19,7 @@
 			<div id="board">
 				<form id="search_form" action="${pageContext.servletContext.contextPath}/board" method="post">
 					<input type="hidden" name="action" value="search" />
+					<input type="hidden" name="page" value="${page}" />
 					
 					<select name="search">
 						<option value="full">전체</option>

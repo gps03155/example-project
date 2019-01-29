@@ -27,11 +27,13 @@ public class ReplyAction implements Action {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int page = Integer.parseInt(request.getParameter("page"));
+		System.out.println(page);
 		
 		new BoardDao().updateReply(Integer.parseInt(orderNo), Integer.parseInt(groupNo));
 		new BoardDao().insertReply(title, content, Integer.parseInt(groupNo), Integer.parseInt(orderNo), Integer.parseInt(depth), userNo);
 		
-		WebUtils.redirect(request, response, request.getContextPath() + "/board?action=boardform");
+		WebUtils.redirect(request, response, request.getContextPath() + "/board?action=boardform&page=" + page);
 	}
 
 }

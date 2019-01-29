@@ -18,10 +18,12 @@ public class SearchAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String search = request.getParameter("search");
 		String kwd = request.getParameter("kwd");
+		int page = Integer.parseInt(request.getParameter("page"));
 		
 		List<BoardVo> list = new BoardDao().getSearch(search, kwd);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("page", page);
 		
 		WebUtils.forward(request, response, "/WEB-INF/views/board/list.jsp");
 	}

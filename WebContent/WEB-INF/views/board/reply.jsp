@@ -22,6 +22,7 @@
 					<input type = "hidden" name = "groupNo" value="${vo.groupNo}"/>
 					<input type = "hidden" name = "orderNo" value="${vo.orderNo}"/>
 					<input type = "hidden" name = "depth" value="${vo.depth}"/>
+					<input type = "hidden" name = "page" value="${param.page}"/>
 					
 					<table class="tbl-ex">
 						<tr>
@@ -39,7 +40,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath}/board?action=boardform">취소</a>
+						<a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${param.page}">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				
