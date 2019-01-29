@@ -29,6 +29,14 @@ public class PageVo {
 	}
 	
 	public void setPage(int page) {
+		if(page < 1) {
+			page = 1;
+		}
+		
+		if(page > totalPage) {
+			page = totalPage;
+		}
+		
 		this.page = page;
 	}
 	
