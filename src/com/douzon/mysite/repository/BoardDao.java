@@ -85,7 +85,7 @@ public class BoardDao {
 	}
 	
 	// 게시글 검색
-	public List<BoardVo> getSearch(String search, String kwd) {
+	public List<BoardVo> getSearch(String search, String kwd, int page) {
 		List<BoardVo> list = new ArrayList<BoardVo>();
 		String sql = null;
 
@@ -93,49 +93,94 @@ public class BoardDao {
 			conn = getConnection();
 
 			if ("title".equals(search)) {
-				sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no where b.title Like ? order by b.group_no DESC, b.order_no ASC";
+				sql = "select * " + 
+					  "from (select * " + 
+						     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
+						            "where b.title Like ? " + 
+           						    "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+						     "where row_num <= ?) pagetable " + 
+						"where row_num >= ?";
 				pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, "%" + kwd + "%");
+				pstmt.setInt(2, page * 10);
+				pstmt.setInt(3, (page * 10) -9 ); 
 			} 
 			else if ("content".equals(search)) {
-				sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no where b.contents Like ? order by b.group_no DESC, b.order_no ASC";
+				sql = "select * " + 
+					  "from (select * " + 
+						     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+ 						            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
+						            "where b.contents Like ? " + 
+						            "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+						     "where row_num <= ?) pagetable " + 
+						"where row_num >= ?";
 				pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, "%" + kwd + "%");
+				pstmt.setInt(2, page * 10);
+				pstmt.setInt(3, (page * 10) - 9);
 			} 
 			else if ("name".equals(search)) {
-				sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no where u.name Like ? order by b.group_no DESC, b.order_no ASC";
+				sql = "select * " + 
+					  "from (select * " + 
+						     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
+						            "where u.name Like ? " + 
+						            "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+						     "where row_num <= ?) pagetable " + 
+					   "where row_num >= ?";
 				pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, "%" + kwd + "%");
+				pstmt.setInt(2, page * 10);
+				pstmt.setInt(3, (page * 10) - 9); 
 			} 
 			else if ("full".equals(search)) {
 				if ("".equals(kwd)) {
-					sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC";
+					sql = "select * " + 
+						  "from (select * " + 
+							     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+							            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
+							            "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+							            "where row_num <= ?) pagetable " + 
+							"where row_num >= ?";
 					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, page * 10);
+					pstmt.setInt(2, (page * 10) - 9);
 				} 
 				else {
-					sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no where b.title Like ? or b.contents Like ? or u.name = ? order by b.group_no DESC, b.order_no ASC";
+					sql = "select * " + 
+							"from (select * " + 
+							       "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+							              "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
+   							              "where b.title Like ? or b.contents Like ? or u.name = ? " + 
+							              "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+							       "where row_num <= ?) pagetable " + 
+							"where row_num >= ?";
 
 					pstmt = conn.prepareStatement(sql);
 
 					pstmt.setString(1, "%" + kwd + "%");
 					pstmt.setString(2, "%" + kwd + "%");
 					pstmt.setString(3, "%" + kwd + "%");
+					pstmt.setInt(4, page * 10);
+					pstmt.setInt(5, (page * 10) - 9);
 				}
 			}
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				long no = rs.getLong("b.no");
-				String title = rs.getString("b.title");
-				String name = rs.getString("u.name");
-				int hit = rs.getInt("b.hit");
-				String writeDate = rs.getString("b.write_date");
-				int depth = rs.getInt("b.depth");
-				long userNo = rs.getLong("u.no");
+				long no = rs.getLong("b_no");
+				String title = rs.getString("title");
+				String name = rs.getString("name");
+				int hit = rs.getInt("hit");
+				String writeDate = rs.getString("write_date");
+				int depth = rs.getInt("depth");
+				long userNo = rs.getLong("no");
 
 				BoardVo vo = new BoardVo();
 
@@ -150,7 +195,8 @@ public class BoardDao {
 				list.add(vo);
 			}
 		} catch (Exception e) {
-			System.out.println("검색 조건을 입력해주세요.");
+			e.printStackTrace();
+			//System.out.println("검색 조건을 입력해주세요.");
 		} finally {
 			try {
 				if (rs != null) {

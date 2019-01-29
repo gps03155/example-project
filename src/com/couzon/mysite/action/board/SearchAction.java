@@ -20,7 +20,7 @@ public class SearchAction implements Action {
 		String kwd = request.getParameter("kwd");
 		int page = Integer.parseInt(request.getParameter("page"));
 		
-		List<BoardVo> list = new BoardDao().getSearch(search, kwd);
+		List<BoardVo> list = new BoardDao().getSearch(search, kwd, page);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("page", page);
