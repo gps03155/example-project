@@ -69,6 +69,10 @@ public class PageVo {
 	}
 	
 	public void setStartPage(int page) {
+		if(page < 1) {
+			page = 1;
+		}
+		
 		this.startPage = ((page -1 ) / 10) * 10 + 1;
 	}
 	
@@ -77,6 +81,10 @@ public class PageVo {
 	}
 	
 	public void setEndPage(int countPage) {
+		if(countPage > totalPage) {
+			countPage = totalPage;
+		}
+		
 		this.endPage = startPage + countPage - 1;
 		
 		if(endPage > totalPage) {

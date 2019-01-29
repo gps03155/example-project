@@ -17,19 +17,19 @@ public class BoardFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String page = request.getParameter("page");
+		int page = Integer.parseInt(request.getParameter("page"));
 		
 		PageVo vo = new PageVo();
 		
 		vo.setTotalCount(new BoardDao().getTotalCount());
 		int totalPage = vo.getTotalPage(vo.getTotalCount());
-		vo.setStartPage(Integer.parseInt(page));
+		vo.setStartPage(page);
 		vo.setEndPage(10);
-		vo.setPage(Integer.parseInt(page));
+		vo.setPage(page);
 		System.out.println(vo.getStartPage() + " " + vo.getEndPage());
 		
 		//List<BoardVo> list = new BoardDao().getList();
-		List<BoardVo> list = new BoardDao().getPageList(Integer.parseInt(page));
+		List<BoardVo> list = new BoardDao().getPageList(page);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("startPage", vo.getStartPage());
