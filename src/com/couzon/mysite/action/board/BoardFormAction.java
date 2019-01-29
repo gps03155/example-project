@@ -18,7 +18,7 @@ public class BoardFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		int page = Integer.parseInt(request.getParameter("page"));
-		
+	
 		PageVo vo = new PageVo();
 		
 		vo.setTotalCount(new BoardDao().getTotalCount());

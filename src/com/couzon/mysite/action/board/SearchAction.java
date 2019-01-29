@@ -11,6 +11,7 @@ import com.douzon.mvc.action.Action;
 import com.douzon.mvc.util.WebUtils;
 import com.douzon.mysite.repository.BoardDao;
 import com.douzon.mysite.vo.BoardVo;
+import com.douzon.mysite.vo.PageVo;
 
 public class SearchAction implements Action {
 
@@ -20,9 +21,20 @@ public class SearchAction implements Action {
 		String kwd = request.getParameter("kwd");
 		int page = Integer.parseInt(request.getParameter("page"));
 		
+		PageVo vo = new PageVo();
+		
+		vo.setTotalCount(new BoardDao().getTotalCount());
+		int totalPage = vo.getTotalPage(vo.getTotalCount());
+		vo.setStartPage(page);	
+		vo.setEndPage(10);
+		vo.setPage(page);
+		System.out.println(vo.getStartPage() + " " + vo.getEndPage());
+		
 		List<BoardVo> list = new BoardDao().getSearch(search, kwd, page);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("startPage", vo.getStartPage());
+		request.setAttribute("endPage", vo.getEndPage());
 		request.setAttribute("page", page);
 		
 		WebUtils.forward(request, response, "/WEB-INF/views/board/list.jsp");

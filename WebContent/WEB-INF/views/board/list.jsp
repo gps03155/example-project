@@ -80,7 +80,9 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page-1}">◀</a></li>
+						<c:if test="${page > startPage}">
+							<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page-1}">◀</a></li>
+						</c:if>
 						
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
 							<c:choose>
@@ -94,7 +96,9 @@
 							</c:choose>
 						</c:forEach>
 						
-						<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page+1}">▶</a></li>
+						<c:if test="${endPage > page}">
+							<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page+1}">▶</a></li>
+						</c:if>
 					</ul>
 				</div>					
 				<!-- pager 추가 -->
