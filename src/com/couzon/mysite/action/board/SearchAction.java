@@ -20,23 +20,38 @@ public class SearchAction implements Action {
 		String search = request.getParameter("search");
 		String kwd = request.getParameter("kwd");
 		int page = Integer.parseInt(request.getParameter("page"));
-		
+
+		System.out.println(kwd);
+		System.out.println(search);
+
 		PageVo vo = new PageVo();
+		List<BoardVo> list = new BoardDao().getSearch(search, kwd, 1);
 		
-		vo.setTotalCount(new BoardDao().getTotalCount());
+		vo.setTotalCount(new BoardDao().getSearchCount(search, kwd));
+		System.out.println("aa" + new BoardDao().getSearchCount(search, kwd));
 		int totalPage = vo.getTotalPage(vo.getTotalCount());
-		vo.setStartPage(page);	
+		vo.setStartPage(1);
 		vo.setEndPage(10);
 		vo.setPage(page);
+		
+		if(vo.getTotalCount() > 10) {
+			vo.setTotalPage(totalPage);
+			vo.setPage(page);
+			list = new BoardDao().getSearch(search, kwd, vo.getPage());
+		}
+
+		System.out.println(list.size());
+		System.out.println(vo.getTotalCount() + " " + vo.getTotalPage() + " " + vo.getPage());
 		System.out.println(vo.getStartPage() + " " + vo.getEndPage());
-		
-		List<BoardVo> list = new BoardDao().getSearch(search, kwd, page);
-		
+
 		request.setAttribute("list", list);
 		request.setAttribute("startPage", vo.getStartPage());
 		request.setAttribute("endPage", vo.getEndPage());
-		request.setAttribute("page", page);
-		
+		request.setAttribute("page", vo.getPage());
+		request.setAttribute("totalCount", vo.getTotalCount());
+		request.setAttribute("kwd", kwd);
+		request.setAttribute("search", search);
+
 		WebUtils.forward(request, response, "/WEB-INF/views/board/list.jsp");
 	}
 

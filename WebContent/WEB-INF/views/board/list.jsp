@@ -22,7 +22,7 @@
 					<input type="hidden" name="page" value="${page}" />
 					
 					<select name="search">
-						<option value="full">전체</option>
+						<option value="full" selected="selected">전체</option>
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 						<option value="name">작성자</option>
@@ -76,6 +76,61 @@
 				</table>
 				
 				<!-- pager 추가 -->
+				<c:choose>
+					<c:when test="${!empty kwd}">
+						<div class="pager">
+							<ul>
+								<c:if test="${page > startPage}">
+									<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${page-1}&kwd=${kwd}&search=${search}">◀</a></li>
+								</c:if>
+								
+								<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+									<c:choose>
+										<c:when test="${page == i}">
+											<li class="selected">${i}</li>
+										</c:when>
+										
+										<c:otherwise>
+											<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${i}&kwd=${kwd}&search=${search}">${i}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								
+								<c:if test="${endPage > page}">
+									<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${page+1}&kwd=${kwd}&search=${search}">▶</a></li>
+								</c:if>
+							</ul>
+						</div>
+					</c:when>
+					
+					<c:otherwise>
+						<div class="pager">
+							<ul>
+								<c:if test="${page > startPage}">
+									<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page-1}">◀</a></li>
+								</c:if>
+								
+								<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+									<c:choose>
+										<c:when test="${page == i}">
+											<li class="selected">${i}</li>
+										</c:when>
+										
+										<c:otherwise>
+											<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${i}">${i}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								
+								<c:if test="${endPage > page}">
+									<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page+1}">▶</a></li>
+								</c:if>
+							</ul>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				
+				<!-- 
 				<div class="pager">
 					<ul>
 						<c:if test="${page > startPage}">
@@ -98,7 +153,8 @@
 							<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page+1}">▶</a></li>
 						</c:if>
 					</ul>
-				</div>					
+				</div>			
+				-->	
 				<!-- pager 추가 -->
 				
 				<c:if test="${!empty authuser}">

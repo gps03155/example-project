@@ -14,6 +14,96 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 검색한 게시글 수
+	public int getSearchCount(String search, String kwd) {
+		int searchCount = 0;
+		String sql = null;
+		
+		try {
+			conn = getConnection();
+			
+			if ("title".equals(search)) {
+				System.out.println("title Count");
+				
+				sql = "select count(*) " +
+					  "from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+					         "from board b join user u on b.user_no = u.no " +
+					         "where b.title Like ?) tmp";
+				
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, "%" + kwd + "%");
+			} 
+			else if ("content".equals(search)) {
+				sql = "select count(*) " +
+						  "from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						         "from board b join user u on b.user_no = u.no " + 
+						         "where b.contents Like ?) tmp";
+				
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, "%" + kwd + "%");
+			} 
+			else if ("name".equals(search)) {
+				sql =  "select count(*) " +
+						  "from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+				                 "from board b join user u on b.user_no = u.no " + 
+				                 "where u.name Like ?) tmp";
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, "%" + kwd + "%");
+			} 
+			else if ("full".equals(search)) {
+				if ("".equals(kwd)) {
+					sql = "select count(*) " +
+							  "from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+					                 "from board b join user u on b.user_no = u.no) tmp";
+					pstmt = conn.prepareStatement(sql);
+				} 
+				else {
+					sql = "select count(*) " +
+							  "from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+				                     "from board b join user u on b.user_no = u.no " + 
+					                 "where b.title Like ? or b.contents Like ? or u.name Like ?) tmp";
+
+					pstmt = conn.prepareStatement(sql);
+
+					pstmt.setString(1, "%" + kwd + "%");
+					pstmt.setString(2, "%" + kwd + "%");
+					pstmt.setString(3, "%" + kwd + "%");
+				}
+			}
+			
+			rs = pstmt.executeQuery();
+			System.out.println(pstmt.toString());
+			
+			if(rs.next()) {
+				searchCount = rs.getInt("count(*)");
+				System.out.println(searchCount);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return searchCount;
+	}
+	
 	// 게시글 전체 수
 	public int getTotalCount() {
 		int totalCount = 0;
@@ -156,7 +246,7 @@ public class BoardDao {
 							"from (select * " + 
 							       "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
 							              "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
-   							              "where b.title Like ? or b.contents Like ? or u.name = ? " + 
+   							              "where b.title Like ? or b.contents Like ? or u.name Like ? " + 
 							              "order by b.group_no DESC, b.order_no ASC) pagetable " + 
 							       "where row_num <= ?) pagetable " + 
 							"where row_num >= ?";
@@ -172,6 +262,7 @@ public class BoardDao {
 			}
 
 			rs = pstmt.executeQuery();
+			System.out.println(pstmt.toString());
 
 			while (rs.next()) {
 				long no = rs.getLong("b_no");
@@ -181,6 +272,7 @@ public class BoardDao {
 				String writeDate = rs.getString("write_date");
 				int depth = rs.getInt("depth");
 				long userNo = rs.getLong("no");
+				int rowNum = rs.getInt("row_num");
 
 				BoardVo vo = new BoardVo();
 
@@ -191,6 +283,7 @@ public class BoardDao {
 				vo.setWriteDate(writeDate);
 				vo.setDepth(depth);
 				vo.setUserNo(userNo);
+				vo.setRowNum(rowNum);
 
 				list.add(vo);
 			}
