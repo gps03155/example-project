@@ -14,6 +14,17 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
+
+<style>
+#comment {
+	border:1px solid #333333;
+}
+
+#comment tr td {
+	border:1px solid #333333;
+}
+
+</style>
 </head>
 <body>
 	<div id="container">
@@ -38,6 +49,7 @@
 						</td>
 					</tr>
 				</table>
+				
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${param.page}">글목록</a>
 					
@@ -52,6 +64,42 @@
 						</c:when>
 					</c:choose>
 				</div>
+				
+				<!-- 댓글 -->
+				<form action="${pageContext.servletContext.contextPath}/board" method="post">
+					<input type="hidden" name="action" value="comment">
+					<input type="hidden" name="page" value="${param.page}"/>
+					
+					<table class="tbl-ex">
+						<tr>
+							<th colspan="2">댓글</th>
+						</tr>
+						<tr>
+							<td colspan=4><textarea name="content" id="content">댓글 미완성</textarea></td>
+						</tr>
+						<tr>
+							<td colspan=4 align=right><input type="submit" VALUE="등록"></td>
+						</tr>
+					</table>
+				</form>
+				
+				<ul>
+					<li>
+						<table id="comment" class="tbl-ex">
+							<tr>
+								<td>[1]</td>
+								<td>댓글 작성자</td>
+								<td>댓글 작성일자</td>
+								<td><a href="${pageContext.servletContext.contextPath}/board?">삭제</a></td>
+							</tr>
+							<tr>
+								<td colspan=4>여기는 댓글 공간입니다.</td>
+							</tr>
+						</table>
+						<br>
+					</li>
+				</ul>
+				<!-- 댓글 -->
 			</div>
 		</div>
 		

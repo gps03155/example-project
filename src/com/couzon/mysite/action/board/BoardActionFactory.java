@@ -40,6 +40,9 @@ public class BoardActionFactory extends AbstractActionFactory{
 		else if("search".equals(actionName)) {
 			action = new SearchAction();
 		}
+		else if("comment".equals(actionName)) {
+			action = new CommentAction();
+		}
 		else {
 			action = new IndexAction();
 		}
