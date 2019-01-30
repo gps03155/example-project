@@ -35,6 +35,7 @@ public class BoardFormAction implements Action {
 		request.setAttribute("startPage", vo.getStartPage());
 		request.setAttribute("endPage", vo.getEndPage());
 		request.setAttribute("page", page);
+		request.setAttribute("totalCount", vo.getTotalCount());
 		
 		WebUtils.forward(request, response, "/WEB-INF/views/board/list.jsp");	
 	}

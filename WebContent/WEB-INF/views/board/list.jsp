@@ -42,12 +42,10 @@
 						<th>&nbsp;</th>
 					</tr>	
 					
-					<c:set var="count" value="${fn:length(list)}" />
-					
 					<c:forEach items="${list}" var="vo" varStatus="status">
 						<tr>
-							<td>${count - status.index}</td>
-						
+							<td>${totalCount - vo.rowNum + 1}</td>
+							
 							<c:choose>
 								<c:when test="${vo.depth > 0}">
 									<td style="padding-left:${20 * vo.depth}px"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/>

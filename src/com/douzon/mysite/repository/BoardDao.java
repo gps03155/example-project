@@ -483,6 +483,7 @@ public class BoardDao {
 					String writeDate = rs.getString("write_date");
 					int depth = rs.getInt("depth");
 					long userNo = rs.getLong("no");
+					int rowNum = rs.getInt("row_num");
 
 					BoardVo vo = new BoardVo();
 
@@ -493,6 +494,7 @@ public class BoardDao {
 					vo.setWriteDate(writeDate);
 					vo.setDepth(depth);
 					vo.setUserNo(userNo);
+					vo.setRowNum(rowNum);
 
 					list.add(vo);
 				}

@@ -11,7 +11,16 @@ public class BoardVo {
 	private int depth;
 	private long userNo;
 	private String name;
+	private int rowNum;
 	
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
 	public String getName() {
 		return name;
 	}
