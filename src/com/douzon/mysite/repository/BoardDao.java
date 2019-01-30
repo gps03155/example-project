@@ -214,12 +214,13 @@ public class BoardDao {
 			} 
 			else if ("name".equals(search)) {
 				sql = "select * " + 
-					  "from (select * " + 
+					  "from (select row_num, b_no, title, name, hit, write_date, depth, no " + 
 						     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
 						            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
 						            "where u.name Like ? " + 
 						            "order by b.group_no DESC, b.order_no ASC) pagetable " + 
-						     "where row_num <= ?) pagetable " + 
+						     "where row_num <= ? " +
+						     "order by row_num ASC) pagetable " +
 					   "where row_num >= ?";
 				pstmt = conn.prepareStatement(sql);
 
