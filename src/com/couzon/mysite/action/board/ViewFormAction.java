@@ -21,6 +21,7 @@ public class ViewFormAction implements Action {
 		new BoardDao().updateViews(Long.parseLong(no));
 		BoardVo vo = new BoardDao().get(Long.parseLong(no));
 
+		System.out.println("글번호 : " + vo.getNo());
 		request.setAttribute("vo", vo);
 		
 		WebUtils.forward(request, response, "/WEB-INF/views/board/view.jsp");

@@ -69,6 +69,8 @@
 				<form action="${pageContext.servletContext.contextPath}/board" method="post">
 					<input type="hidden" name="action" value="comment">
 					<input type="hidden" name="page" value="${param.page}"/>
+					<input type="hidden" name="boardNo" value="${vo.no}" />
+					<input type="hidden" name="authUser" value="${authuser.no}" />
 					
 					<table class="tbl-ex">
 						<tr>

@@ -14,6 +14,40 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 댓글 등록
+	public int insertComment(String content, long userNo, int boardNo) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "insert into comment values (null, ?, CURRENT_TIMESTAMP(), (select IFNULL(max(group_no), 0) + 1 as group_no from comment tmp), 1, 0, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, content);
+			pstmt.setLong(2, userNo);
+			pstmt.setInt(3, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 	// 검색한 게시글 수
 	public int getSearchCount(String search, String kwd) {
 		int searchCount = 0;
@@ -511,7 +545,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "select title, contents, user_no from board where no = ?";
+			String sql = "select title, contents, user_no, no from board where no = ?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setLong(1, no);
@@ -524,10 +558,12 @@ public class BoardDao {
 				String title = rs.getString("title");
 				String content = rs.getString("contents");
 				long userNo = rs.getLong("user_no");
+				long board_no = rs.getLong("no");
 
 				vo.setTitle(title);
 				vo.setContent(content);
 				vo.setUserNo(userNo);
+				vo.setNo(board_no);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

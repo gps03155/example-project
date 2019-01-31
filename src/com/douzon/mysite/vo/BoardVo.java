@@ -12,7 +12,16 @@ public class BoardVo {
 	private long userNo;
 	private String name;
 	private int rowNum;
+	private int boardNo;
 	
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
+
 	public int getRowNum() {
 		return rowNum;
 	}
