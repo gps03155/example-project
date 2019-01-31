@@ -66,6 +66,7 @@
 				</div>
 				
 				<!-- 댓글 -->
+						
 				<form action="${pageContext.servletContext.contextPath}/board" method="post">
 					<input type="hidden" name="action" value="comment">
 					<input type="hidden" name="page" value="${param.page}"/>
@@ -76,11 +77,10 @@
 						<tr>
 							<th colspan="2">댓글</th>
 						</tr>
-						<tr>
-							<td colspan=4><textarea name="content" id="content"></textarea></td>
-						</tr>
-						
 						<c:if test="${!empty authuser}">
+							<tr>
+								<td colspan=4><textarea name="content" id="content"></textarea></td>
+							</tr>		
 							<tr>
 								<td colspan=4 align=right><input type="submit" VALUE="등록"></td>
 							</tr>
