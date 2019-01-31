@@ -79,7 +79,7 @@
 						</tr>
 						<c:if test="${!empty authuser}">
 							<tr>
-								<td colspan=4><textarea name="content" id="content"></textarea></td>
+								<td colspan=4><textarea name="content" id="content" placeholder="댓글을 입력해주세요."></textarea></td>
 							</tr>		
 							<tr>
 								<td colspan=4 align=right><input type="submit" VALUE="등록"></td>
