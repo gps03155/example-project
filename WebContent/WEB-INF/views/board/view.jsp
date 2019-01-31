@@ -79,9 +79,12 @@
 						<tr>
 							<td colspan=4><textarea name="content" id="content"></textarea></td>
 						</tr>
-						<tr>
-							<td colspan=4 align=right><input type="submit" VALUE="등록"></td>
-						</tr>
+						
+						<c:if test="${!empty authuser}">
+							<tr>
+								<td colspan=4 align=right><input type="submit" VALUE="등록"></td>
+							</tr>
+						</c:if>
 					</table>
 				</form>
 				
@@ -97,7 +100,7 @@
 									<td>${commentVo.writeDate}</td>
 									
 									<c:if test="${!empty authuser &&  authuser.no == commentVo.userNo}">
-										<td><a href="${pageContext.servletContext.contextPath}/board?">삭제</a></td>
+										<td><a href="${pageContext.servletContext.contextPath}/board?action=deletecomment&page=${param.page}&commentno=${commentVo.no}&no=${vo.no}">삭제</a></td>
 									</c:if>
 								</tr>
 								<tr>

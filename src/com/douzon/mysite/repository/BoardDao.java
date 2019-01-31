@@ -14,6 +14,38 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 댓글 삭제
+	public int deleteComment(long no) {
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "delete from comment where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
 	// 댓글 보여주기
 	public List<BoardVo> getCommentList(long boardNo){
 		List<BoardVo> list = new ArrayList<BoardVo>();
@@ -533,7 +565,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "delete from board where no = ?";
+			String sql = "SET foreign_key_checks = 0; delete from board where no = ?; SET foreign_key_checks = 1";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setLong(1, no);
@@ -804,7 +836,7 @@ public class BoardDao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			String url = "jdbc:mysql://localhost:3306/webdb?useSSL=false";
+			String url = "jdbc:mysql://localhost:3306/webdb?useSSL=false&allowMultiQueries=true";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			System.out.println("DB 연결 성공");
