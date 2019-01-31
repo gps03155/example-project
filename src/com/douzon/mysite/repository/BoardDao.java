@@ -14,6 +14,58 @@ public class BoardDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// 댓글 보여주기
+	public List<BoardVo> getCommentList(long boardNo){
+		List<BoardVo> list = new ArrayList<BoardVo>();
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select c.no, u.name, c.content, c.write_date from comment c join user u on c.user_no = u.no where c.board_no = ? order by c.group_no DESC, c.order_no ASC";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, boardNo);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				long no = rs.getLong("c.no");
+				String name = rs.getString("u.name");
+				String content = rs.getString("c.content");
+				String writeDate = rs.getString("c.write_date");
+				
+				BoardVo vo = new BoardVo();
+				
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setContent(content);
+				vo.setWriteDate(writeDate);
+				
+				list.add(vo);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
 	// 댓글 등록
 	public int insertComment(String content, long userNo, int boardNo) {
 		int result = 0;

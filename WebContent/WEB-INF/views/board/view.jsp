@@ -77,7 +77,7 @@
 							<th colspan="2">댓글</th>
 						</tr>
 						<tr>
-							<td colspan=4><textarea name="content" id="content">댓글 미완성</textarea></td>
+							<td colspan=4><textarea name="content" id="content"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan=4 align=right><input type="submit" VALUE="등록"></td>
@@ -86,20 +86,24 @@
 				</form>
 				
 				<ul>
-					<li>
-						<table id="comment" class="tbl-ex">
-							<tr>
-								<td>[1]</td>
-								<td>댓글 작성자</td>
-								<td>댓글 작성일자</td>
-								<td><a href="${pageContext.servletContext.contextPath}/board?">삭제</a></td>
-							</tr>
-							<tr>
-								<td colspan=4>여기는 댓글 공간입니다.</td>
-							</tr>
-						</table>
-						<br>
-					</li>
+					<c:set var="count" value="${fn:length(list)}" />
+					
+					<c:forEach items="${list}" var="commentVo" varStatus="status">
+						<li>
+							<table id="comment" class="tbl-ex">
+								<tr>
+									<td>[${count - status.index}]</td>
+									<td>${commentVo.name}</td>
+									<td>${commentVo.writeDate}</td>
+									<td><a href="${pageContext.servletContext.contextPath}/board?">삭제</a></td>
+								</tr>
+								<tr>
+									<td colspan=4>${commentVo.content}</td>
+								</tr>
+							</table>
+							<br>
+						</li>
+					</c:forEach>
 				</ul>
 				<!-- 댓글 -->
 			</div>
