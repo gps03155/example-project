@@ -185,10 +185,11 @@ public class BoardDao {
 			if ("title".equals(search)) {
 				sql = "select * " + 
 					  "from (select * " + 
-						     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
-						            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
-						            "where b.title Like ? " + 
-           						    "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+						     "from (select @rownum:=@rownum + 1 as row_num, b_no, title, name, hit, write_date, depth, no " + 
+						            "from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						                    "from board b join user u on b.user_no = u.no " + 
+						                    "where b.title Like ? " + 
+						                    "order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable " + 
 						     "where row_num <= ?) pagetable " + 
 						"where row_num >= ?";
 				pstmt = conn.prepareStatement(sql);
@@ -200,10 +201,11 @@ public class BoardDao {
 			else if ("content".equals(search)) {
 				sql = "select * " + 
 					  "from (select * " + 
-						     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
- 						            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
-						            "where b.contents Like ? " + 
-						            "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+						     "from (select @rownum:=@rownum + 1 as row_num, b_no, title, name, hit, write_date, depth, no " + 
+						            "from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						                    "from board b join user u on b.user_no = u.no " + 
+						                    "where b.contents Like ? " + 
+						                    "order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable " + 
 						     "where row_num <= ?) pagetable " + 
 						"where row_num >= ?";
 				pstmt = conn.prepareStatement(sql);
@@ -214,14 +216,14 @@ public class BoardDao {
 			} 
 			else if ("name".equals(search)) {
 				sql = "select * " + 
-					  "from (select row_num, b_no, title, name, hit, write_date, depth, no " + 
-						     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
-						            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
-						            "where u.name Like ? " + 
-						            "order by b.group_no DESC, b.order_no ASC) pagetable " + 
-						     "where row_num <= ? " +
-						     "order by row_num ASC) pagetable " +
-					   "where row_num >= ?";
+						"from(select * " + 
+						      "from( select @rownum:=@rownum + 1 as row_num, b_no, title, name, hit, write_date, depth, no " + 
+						             "from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						                     "from board b join user u on b.user_no = u.no " + 
+						                     "where u.name Like ? " + 
+						                     "order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable " + 
+						      "where row_num <= ?) pagetable " + 
+						"where row_num >= ?";
 				pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, "%" + kwd + "%");
@@ -232,10 +234,11 @@ public class BoardDao {
 				if ("".equals(kwd)) {
 					sql = "select * " + 
 						  "from (select * " + 
-							     "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
-							            "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
-							            "order by b.group_no DESC, b.order_no ASC) pagetable " + 
-							            "where row_num <= ?) pagetable " + 
+							     "from (select @rownum:=@rownum + 1 as row_num, b_no, title, name, hit, write_date, depth, no " + 
+							            "from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+							                    "from board b join user u on b.user_no = u.no " + 
+							                    "order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable " + 
+							     "where row_num <= ?) pagetable " + 
 							"where row_num >= ?";
 					pstmt = conn.prepareStatement(sql);
 					
@@ -245,10 +248,11 @@ public class BoardDao {
 				else {
 					sql = "select * " + 
 							"from (select * " + 
-							       "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
-							              "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
-   							              "where b.title Like ? or b.contents Like ? or u.name Like ? " + 
-							              "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+							       "from (select @rownum:=@rownum + 1 as row_num, b_no, title, name, hit, write_date, depth, no " + 
+							              "from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+							                      "from board b join user u on b.user_no = u.no " + 
+							                      "where b.title Like ? or b.contents Like ? or u.name Like ? " + 
+							                      "order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable " + 
 							       "where row_num <= ?) pagetable " + 
 							"where row_num >= ?";
 
@@ -557,9 +561,10 @@ public class BoardDao {
 
 				String sql = "select * " + 
 						     "from (select * " + 
-						            "from (select @rownum:=@rownum + 1 as row_num, b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
-						                   "from board b join user u on b.user_no = u.no, (select @rownum := 0) tmp " + 
-						                   "order by b.group_no DESC, b.order_no ASC) pagetable " + 
+						            "from (select @rownum:=@rownum + 1 as row_num, b_no, title, name, hit, write_date, depth, no " + 
+						                   "from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
+						                           "from board b join user u on b.user_no = u.no " +
+						                           "order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable " +
 						            "where row_num <= ?) pagetable " + 
 						     "where row_num >= ?;";
 				pstmt = conn.prepareStatement(sql);
