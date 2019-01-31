@@ -95,7 +95,10 @@
 									<td>[${count - status.index}]</td>
 									<td>${commentVo.name}</td>
 									<td>${commentVo.writeDate}</td>
-									<td><a href="${pageContext.servletContext.contextPath}/board?">삭제</a></td>
+									
+									<c:if test="${!empty authuser &&  authuser.no == commentVo.userNo}">
+										<td><a href="${pageContext.servletContext.contextPath}/board?">삭제</a></td>
+									</c:if>
 								</tr>
 								<tr>
 									<td colspan=4>${commentVo.content}</td>

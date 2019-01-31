@@ -21,7 +21,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select c.no, u.name, c.content, c.write_date from comment c join user u on c.user_no = u.no where c.board_no = ? order by c.group_no DESC, c.order_no ASC";
+			String sql = "select c.no, u.name, c.content, c.write_date, c.user_no from comment c join user u on c.user_no = u.no where c.board_no = ? order by c.group_no DESC, c.order_no ASC";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, boardNo);
@@ -33,6 +33,7 @@ public class BoardDao {
 				String name = rs.getString("u.name");
 				String content = rs.getString("c.content");
 				String writeDate = rs.getString("c.write_date");
+				long userNo = rs.getLong("c.user_no");
 				
 				BoardVo vo = new BoardVo();
 				
@@ -40,6 +41,7 @@ public class BoardDao {
 				vo.setName(name);
 				vo.setContent(content);
 				vo.setWriteDate(writeDate);
+				vo.setUserNo(userNo);
 				
 				list.add(vo);
 			}
