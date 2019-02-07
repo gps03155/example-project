@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+var number = 5;
+var number2 = new Number(5);
+
+console.log(number + " : " + typeof number);
+console.log(number2 + " : " + typeof number2);
+console.log(number + number2);
+
+// 내장타입 객체(number, boolean, string, function)는 확장이 되지 않는다.
+number.myVal = 20;
+console.log(number.myVal);
+
+// Object 타입의 객체는 확장이 가능하다.
+number2.myVal = 20;
+console.log(number2.myVal);
+
+ var pi = 3.14;
+ console.log(pi + " : " + typeof pi);
+ 
+ var str = "Hello World";
+ var str2 = new String("Hello World");
+ console.log(str + " : " + typeof str);
+ console.log(str2 + " : " + typeof str2);
+ 
+ var b = false;
+ var b2 = new Boolean(false);
+ console.log(b + " : " + typeof b);
+ console.log(b2 + " : " + typeof b2);
+ 
+ var f = function(){}
+ console.log(f() + " : " + typeof f);
+ 
+ var f2 = new Function("x", "y", "return x+y;");
+ console.log(f2(10, 20) + " : " + typeof f2);
+ 
+ var f2 = function(x, y){
+	 return x + y;
+ }
+ 
+ var a = [];
+ var a2 = new Array();
+ console.log(a + " : " + typeof a);
+ console.log(a2 + " : " + typeof a2);
+ 
+ var o = {};
+ var o2 = new Object();
+ console.log(o + " : " + typeof o);
+ console.log(o2 + " : " + typeof o2);
+ 
+ // console 브라우저 내장 객체
+ console.log("로그입니다.");
+ console.warn("경고입니다.");
+ console.error("에러입니다.");
+ console.info("정보입니다.");
+ 
+function mDown( obj ) {
+  obj.style.backgroundColor="#1ec5e5";
+  obj.innerHTML="버튼을 떼주세요.";
+}
+function mUp( obj ) {
+  obj.style.backgroundColor="#D94A38";
+  obj.innerHTML="클릭하세요!";
+}
+
+</script>
+</head>
+<body>
+<div onmousedown="mDown(this)" onmouseup="mUp(this)" style="background-color:#D94A38;width:90px;height:20px;padding:40px;">클릭하세요!</div>
+</body>
+</html> 
