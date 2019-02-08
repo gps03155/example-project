@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+	// 배열처럼 접근 가능
+	var str = "Hello World";
+	var length = str.length;
+	
+	for(var i=0;i<length;i++){
+		console.log(str[i]);
+	}
+	
+	// 문자열 합치기 (+)
+	var str1 = "Hello";
+	var str2 = "World";
+	var str3 = str1 + " " + str2;
+	
+	console.log(str3);
+	
+	var number = 5;
+	var str4 = "number: " + number;
+	
+	console.log(str4);
+	
+	var str5 = "5" + 5;
+	var str6 = 5 + "5";
+	
+	console.log(str5);
+	console.log(str6);
+	
+	var str7 = "bool: " + false;
+	var str8 = 0 + false;
+
+	console.log(str7);
+	console.log(str8);
+</script>
+</head>
+<body>
+
+</body>
+</html>
