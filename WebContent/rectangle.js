@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script>
+// Rectangle class
+
 	var rect1 = {
 			x1: 100,
 			y1: 100,
@@ -37,19 +33,3 @@
 	Rectangle.prototype.show = function(){
 		document.write("<div style='position:absolute; left:" + this.x1 + "px; top:" + this.y1 + "px; width:" + (this.x2 - this.x1) + "px; height:" + (this.y2 - this.y1) + "px; background-color:" + this.backgroundColor + "'></div>");
 	}
-	
-	window.onload = function(){
-		// rect1.show();
-		// rect2.show();
-		
-		var r1 = new Rectangle(100, 100, 200, 300, "#0000FF");
-		var r2 = new Rectangle(250, 250, 400, 400, "#FF0000");
-		
-		r1.show();
-		r2.show();
-	}
-</script>
-</head>
-<body>
-</body>
-</html>

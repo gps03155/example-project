@@ -4,24 +4,40 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-var colors = ["blue", "black", "red", "green"];
-var size = colors.length;
-
-for(var i = 0; i < size; i++){
-	document.write(
-			"<div style='"	+
-			
-			"width:100px;"	+
-			
-			"height:100px;"	+
-			
-			"background-color:"  + colors[i] + ";"    +
-			
-			"'>" +
-			
-			"</div>" );
+	// 배열 정의, 배열 값 저장
+	var a1 = new Array(10); // new Array()와 동일 : 크기 넘어가면 알아서 늘어남
 	
-}
+	// size를 미리 주고하면 메모리 절약 가능 : 성능 향상
+	a1[0] = 10;
+	a1[9] = 9;
+	a1[10] = 1; // 동적으로 크기가 변하는 배열 : 크기 넘어도 에러가 안남 - new Array(size) : size를 주는 것은 별다르게 의미가 없음
+	
+	console.log(a1);
+	console.log("length : " + a1.length);
+	
+	// 타입이 다 달라도 됨
+	var a2 = [];
+	
+	a2[0] = 10;
+	a2[1] = "Hello World";
+	a2[2] = false;
+	a2[3] = {
+			name: "둘리"
+	};
+		
+	console.log(a2);
+	console.log("length : " + a2.length);
+	
+	// 초기화
+	var a3 = [1, "ABC", true];
+	
+	console.log(a3);
+	console.log("length : " + a3.length);
+	
+	var a4 = new Array(1, "ABC", true);
+	
+	console.log(a4);
+	console.log("length : " + a4.length);
 </script>
 </head>
 <body>
