@@ -4,16 +4,38 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-var changeText = function(el){
-	el.innerHTML = "Ooops!";
-}
+	var changeText = function(el){
+		el.innerHTML = "Ooops!";
+	}
+	
+	var onh1Clicked = function(){
+		var el = this;
+		console.log("click " + this); // this : event 함수 안에서 element
+		
+		el.innerHTML = "<strong>clicked</strong>";
+		el.style.color = "#FF0000";
+	}
+
+	window.onload = function(){
+		var h1 = document.getElementById("my-h1");
+		console.log(h1 + " : " + typeof h1);
+		
+		h1.onclick = onh1Clicked;
+	}
 </script>
 </head>
 <body>
 <!--
 <h1 onclick="this.innerHTML='Ooops!';">Click on this text!</h1>
 -->
-<h1 onclick="changeText(this)">Click on this text!</h1>
+<h1 onclick="console.log('click')" 
+	onmousedown="console.log('mousedown')" 
+	onmouseup="console.log('mouseup')" 
+	onmouseover="console.log('mouseover')" 
+	onmouseout="console.log('mouseout')" 
+	ondblclick="console.log('dblclick')">Click on this text!</h1>
+
+<h1 id="my-h1">Click on this text!</h1>
 
 </body>
 </html>

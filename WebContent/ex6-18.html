@@ -4,41 +4,74 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<script type="text/javascript" src="browser-detect.js"></script>
 <script type="text/javascript">
+	var displayDate = function(){
+		var p = document.getElementById("demo"); // 전역 변수는 가능한 안쓰는게 좋음
+		p.innerHTML = new Date();	
+	}
+	
+	window.onload = function(){
+		/*
+			navigator -> BOM (Browser Object Model)
+			document  -> DOM (Document Object Model)
+		*/
+		BrowserDetect.init();
+		
+		console.log(BrowserDetect.browser);
+		console.log(BrowserDetect.version);
+		console.log(BrowserDetect.OS);
+		
+		// 브라우저 종류를 알아내는 내장객체 navigator의 문자열
+		console.log(navigator.userAgent);
+		console.log(navigator.appVersion);
+		console.log(navigator.vendor);
+		console.log(navigator.platform);
+		
+		// 쿠키 체크
+		if(navigator.cookieEnabled){
+			console.log("쿠키를 사용할 수 있습니다.");
+		}
+		else {
+			console.log("쿠키를 사용할 수 없습니다.");
+		}
+		
+		var btn = document.getElementById("my-btn");
+		var p = document.getElementById("demo");
+		
+		console.log(p + " : " + typeof p);
+		console.log(btn + " : " + typeof btn);
+		
+		/*btn.onclick = function(){
+			console.log("click");	
+			p.innerHTML = new Date();
+		}*/
+		
+		/*p.onmouseover = function(){
+			console.log("mouseover");
+			this.innerHTML = new Date();
+		}*/
 
-window.onunload = function(){
-	alert("!");	
-}
-
-function onUnload = function(){
-	alert("진짜 나갈래?");	
-} 
-
-function onLoad(){
-	var btn = document.getElementById("myBtn");
-	btn.onclick = displayDate;
-	btn.onmouseover = displayDate;
-	btn.onmouseout = hideDate;	
-}
-
-function displayDate(){
-   document.getElementById("demo").innerHTML = Date();
-}
-
-function hideDate(){
-   document.getElementById("demo").innerHTML = "";
-}
-
-
+		btn.onclick = displayDate;
+		p.onmouseover = displayDate;
+		
+		p.onmouseout = function(){
+			console.log("mouseout");
+			this.innerHTML = "";
+		}
+	}
+	
+	// 페이지를 벗어날 때 이벤트
+	window.onunload = function(){
+		console.log("unload"); 
+	}
 </script>
 
 </head>
 
-<body onload="onLoad()" onunload="onUnload()">
+<body>
 
-<p>버튼을 클릭하면  <em>displayDate()</em> 함수가 실행 됩니다.</p>
-
-<button id="myBtn">Try it</button>
+<button id="my-btn">Try it</button>
 
 <p id="demo"></p>
 
