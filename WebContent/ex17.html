@@ -9,7 +9,10 @@
 <script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
 $(function(){
+	// 단어 포함
 	$("li:contains('샘플')").css("color","red");
+	
+	// 하위 태그 (자식)
 	$("li:has(strong)").css("color","red");
 });
 </script>
