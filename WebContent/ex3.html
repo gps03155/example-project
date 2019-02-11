@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<title>sample1</title>
+		<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				setTimeout(function(){
+					var $li = $("li");
+					$li.css("color", "#FF0000"); // 전체 접근
+					
+					// jquery object란?
+					console.log($li.length);
+					console.log($li[0] + " : " + typeof $li[0]); // HTMLLIElement
+					console.log($li.get(0) + " : " + typeof $li.get(0)); // 하나 가져오기
+					
+					// error
+					// $li[0].css("color", "#0000FF");
+					$li[0].style.color = "#0000FF"; // 배열로 접근했을 경우 이렇게 바꾸어 줘야함
+					$li.get(3).style.color = "#00FF00";
+					
+					// wrap query object
+					$($li[0]).css("color", "#0000FF"); // 개별적으로 접근할 때 jquery로 wrapping
+				}, 1000);
+			});
+		</script>
+	</head>
+	<body>
+	<ul>
+		<li> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+		<li> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+		<li> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+		<li> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+	</ul>
+
+	</body>
+</html>

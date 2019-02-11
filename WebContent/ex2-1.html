@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+<script>
+// 엘레멘트를 골라야하는 시점 1 (Vanila Script)
+window.onload = function(){
+	console.log("여기서 시작1");
+}
+
+// 엘레멘트를 골라야하는 시점 2 (jQuery)
+jQuery(document).ready(function(){
+	console.log("여기서 시작2");	
+});
+
+// 엘레멘트를 골라야하는 시점 3 (jQuery)
+$(document).ready(function(){
+	console.log("여기서 시작3");
+});
+
+// 엘레멘트를 골라야하는 시점 4 (jQuery)
+$(function(){
+	console.log("여기서 시작4");
+});
+
+</script>
+</head>
+<body>
+<p>
+	Element를 골라야하는 시점
+</p>
+</body>
+</html>
