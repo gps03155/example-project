@@ -16,40 +16,44 @@ var ImageViewer = {
 			"등대:Lighthouse.jpg", 
 			"펭귄:Penguins.jpg", 
 			"툴립:Tulips.jpg" 
-			],
+		],
 		init: function(){
+			$("button").click(this.__onButtonClicked.bind(this));
 			
+			$("p img").dblclick(this.__onImgDBLClicked)
+					  .mousedown(this.__onImgMousedown);		
 		},
+		__changeImage: function(){
+			// 랜덤 변수  0 ~ images.length-1
+			var result = Math.floor( Math.random() * this.__images.length);
+			console.log(result);
+			
+			var imageInfos = this.__images[result].split(":");
+			
+			$("p img").attr({
+				src: "images/" + imageInfos[1],
+				alt: imageInfos[0],
+				title: imageInfos[0]
+			});
+			
+			console.log($("p img").attr("src"));	
+		},
+		__onButtonClicked: function(){
+			ImageViewer.__changeImage();
+		},
+		__onImgDBLClicked: function(){
+			var $img = $(this);
+			var altText = $img.attr("alt");
+			
+			alert(altText);
+		},
+		__onImgMousedown: function(){
+			ImageViewer.__changeImage();
+		}
 }
 
 $(function(){
-
-	$("button").click(function(){
-		// 랜덤 변수  0 ~ images.length-1
-		var result = Math.floor( Math.random() * images.length);
-		console.log(result);
-		
-		var imageInfos = images[result].split(":");
-		
-		$("p img").attr({
-			src: "images/" + imageInfos[1],
-			alt: imageInfos[0],
-			title: imageInfos[0]
-		});
-		
-		console.log($("p img").attr("src"));
-	});
-	
-	$("p img").dblclick(function(){
-		var $img = $(this);
-		var altText = $img.attr("alt");
-		
-		alert(altText);
-	})
-	.mousedown(function(){
-		
-	});
-	
+	ImageViewer.init();
 });
 </script>
 </head>
