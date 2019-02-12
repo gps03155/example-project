@@ -15,6 +15,8 @@
 		var $li = $("li:nth-child(3)");
 		console.log($("li").attr("view-id"));
 		
+		$("p[id=view-1]").css("display", "block");
+		
 		$(".tab-box #tab li").click(function(){
 			var index = $("li").index(this);
 			console.log(index);
@@ -25,7 +27,7 @@
 			}
 			
 			$("li").eq(index).addClass("selected");
-			$("p").eq(index).css("display", "inline");
+			$("p").eq(index).css("display", "block");
 			liSelected = 1;
 		});
 		
@@ -43,7 +45,7 @@
 		</ul>
 
 		<div id="tabview">
-			<p id="view-1">탭뷰1 입니다.</p>
+			<p id="view-1" style="display: none">탭뷰1 입니다.</p>
 			<p id="view-2" style="display: none">탭뷰2 입니다.</p>
 			<p id="view-3" style="display: none">탭뷰3 입니다.</p>
 			<p id="view-4" style="display: none">탭뷰4 입니다.</p>
