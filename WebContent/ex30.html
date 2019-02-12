@@ -6,6 +6,13 @@
 <script type="text/javascript">
 	$( function() {
 		/* 코드를 완성하세요 */
+		setTimeout(function(){
+			$(".d1").wrap("<h1>"); // <> 적어줘야함
+			$(".d2").wrap("<h2>").css("margin-left", "20px"); // class : d2
+			
+			// 부모 찾기
+			// parent().css("padding-left", "20px"); // h2
+		}, 1000);
 } );  
 </script>
 </head>

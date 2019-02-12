@@ -6,8 +6,13 @@
 <script type="text/javascript">
 	$( function() {
 		/* 코드를 완성하세요 */
-
-		
+		setTimeout(function(){
+			$("strong, p").wrapAll("<div>").parent().css({
+				border: "1px solid #999999",
+				padding: "1px",
+				width: "200px"
+			});
+		}, 1000);
 	} );  
 </script>
 </head>
