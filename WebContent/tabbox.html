@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>리스트를 이용한 메뉴 만들기</title>
+<link rel="stylesheet" type="text/css" href="css/tabbox.css">
+
+<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var liSelected = null;
+		
+		console.log($("p:visible").attr("id"));
+		
+		var $li = $("li:nth-child(3)");
+		console.log($("li").attr("view-id"));
+		
+		$(".tab-box #tab li").click(function(){
+			var index = $("li").index(this);
+			console.log(index);
+			
+			if(liSelected != null){
+				$("li").removeClass("selected");
+				$("p").css("display", "none");
+			}
+			
+			$("li").eq(index).addClass("selected");
+			liSelected = 1;
+			
+			$("p").eq(index).css("display", "inline");
+		});
+		
+	});
+</script>
+</head>
+<body>
+	<div class="tab-box">
+		<ul id="tab">
+			<li view-id="view-1">메뉴 1</li>
+			<li view-id="view-2">메뉴 2</li>
+			<li view-id="view-3">메뉴 3</li>
+			<li view-id="view-4">메뉴 4</li>
+			<li view-id="view-5">메뉴 5</li>
+		</ul>
+
+		<div id="tabview">
+			<p id="view-1">탭뷰1 입니다.</p>
+			<p id="view-2" style="display: none">탭뷰2 입니다.</p>
+			<p id="view-3" style="display: none">탭뷰3 입니다.</p>
+			<p id="view-4" style="display: none">탭뷰4 입니다.</p>
+			<p id="view-5" style="display: none">탭뷰5 입니다.</p>
+		</div>
+	</div>
+</body>
+</html>
