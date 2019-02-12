@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 /**
  * Servlet implementation class AjaxServlet
  */
@@ -25,7 +27,14 @@ public class AjaxServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String jsonString = "{\"name\":\"둘리\", \"age\":10}";
-		out.println(jsonString);
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("name", "JSONObject");
+		json.put("age", 20);
+		
+		// out.println(jsonString);
+		out.println(json);
 	}
 
 	/**
