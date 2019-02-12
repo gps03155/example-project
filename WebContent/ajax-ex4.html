@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+<script>
+$(function(){
+	$("button").click(function(){
+	
+		$.ajax( {
+			async: true, // 비동기 : true, 동기 : false
+			url : "/mysite2/ajax", // 통신 URL
+			type: "get", // 통신 방식
+			dataType: "json", // 수신 데이터 타입
+			data: "", // post 방식으로 데이터 보앨 때 Query String (ex: name=aa&no=1)
+			contentType: 'application/json', // 서버에 데이터를 전송할 때 JSON(ex: {name:aa, no:1}) (default : Query String)
+			success: function(response){ // 콜백함수
+				console.log(response);
+				console.log(typeof response);
+				
+				console.log(response.name + " : " , response.age);
+			},
+			error: function(jqXHR, status, e){
+				console.error(status + " : " + e); // 통신에 error가 생긴 경우
+			}
+		});
+		
+	});
+});
+</script>
+</head>
+<body>
+	<button>json 데이터 받아오기</button>
+</body>
+</html>
