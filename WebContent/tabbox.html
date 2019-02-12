@@ -8,22 +8,17 @@
 <script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var liSelected = null;
-		
 		$("p[id=view-1]").css("display", "block");
 		
 		$(".tab-box #tab li").click(function(){
 			var index = $("li").index(this);
 			console.log(index);
 			
-			if(liSelected != null){
-				$("li").removeClass("selected");
-				$("p").css("display", "none");
-			}
+			$("li").removeClass("selected");
+			$("p").css("display", "none");
 			
 			$("li").eq(index).addClass("selected");
 			$("p").eq(index).css("display", "block");
-			liSelected = 1;
 		});
 		
 	});
