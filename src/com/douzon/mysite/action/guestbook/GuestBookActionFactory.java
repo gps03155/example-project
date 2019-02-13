@@ -22,6 +22,9 @@ public class GuestBookActionFactory extends AbstractActionFactory{
 		else if("delete".equals(actionName)) {
 			action = new DeleteAction();
 		}
+		else if("ajax".equals(actionName)) {
+			action = new AjaxAction();
+		}
 		else {
 			action = new IndexAction();
 		}

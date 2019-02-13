@@ -32,6 +32,11 @@
 			}
 			
 			// 2-2. 이메일 중복체크 유무
+			if(!$("#img-checkemail").is(":visible")){
+				alert("이메일 중복 체크를 해야합니다.");
+				
+				return false;
+			}
 			
 			// 3. 비밀번호 체크
 			if($("input[type=password]").val() == ""){
@@ -47,6 +52,13 @@
 				
 				return false;
 			}
+			
+			return true;
+		});
+		
+		$("#email").change(function(){
+			$("#btn-checkemail").show();
+			$("#img-checkemail").hide();
 		});
 		
 		$("#btn-checkemail").click(function(){
@@ -58,7 +70,7 @@
 			
 			$.ajax({
 				async:true,
-				url:"/mysite2/api/user",
+				url:"${pageContext.servletContext.contextPath}/api/user",
 				type:"post",
 				dataType:"json",
 				data:"action=ajax-checkemail&email=" + email,
