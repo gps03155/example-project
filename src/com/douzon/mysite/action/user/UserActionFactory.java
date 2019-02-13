@@ -34,6 +34,9 @@ public class UserActionFactory extends AbstractActionFactory {
 		else if("modify".equals(actionName)) {
 			action = new ModifyAction();
 		}
+		else if("ajax-checkemail".equals(actionName)) {
+			action = new AjaxCheckEmailAction();
+		}
 		else {
 			action = new IndexAction();
 		}

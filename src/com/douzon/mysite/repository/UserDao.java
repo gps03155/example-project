@@ -12,6 +12,49 @@ public class UserDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// email 중복 체크
+	public UserVo get(String email) {
+		UserVo vo = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select no, name from user where email = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new UserVo();
+				
+				vo.setNo(rs.getLong("no"));
+				vo.setName(rs.getString("name"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+	
 	// 회원 정보 수정하기
 	public int update(UserVo vo) {
 		int result = 0;
