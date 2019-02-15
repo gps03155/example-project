@@ -14,6 +14,62 @@ public class GuestBookDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	public GuestBookVo get(long no) {
+		return null;
+	}
+	
+	// Ajax 방명록 가져오기
+	public List<GuestBookVo> getList(int page){
+		List<GuestBookVo> list = new ArrayList<GuestBookVo>();
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select no, name, message, meg_date from guestbook order by meg_date desc limit ?, 5";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, (page-1) * 5);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
+				String message = rs.getString("message");
+				String msgDate = rs.getString("meg_date");
+				
+				GuestBookVo vo = new GuestBookVo();
+				
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setMessage(message);
+				vo.setMsgDate(msgDate);
+				
+				list.add(vo);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
 	// 댓글 삭제
 	public int delete(int no, String password) {
 		int result = 0;
@@ -96,7 +152,7 @@ public class GuestBookDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select no, name, message, meg_date from guestbook";
+			String sql = "select no, name, message, meg_date from guestbook order by meg_date desc";
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -154,6 +210,9 @@ public class GuestBookDao {
 			pstmt.setString(3, vo.getMessage());
 			
 			result = pstmt.executeUpdate();
+			
+			// 방금 들어간 row의 primarykey 받아오는 방법
+			// select last_insert_id() 날린다.
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
