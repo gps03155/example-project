@@ -132,8 +132,17 @@
 					
 					$.ajax({
 						async: true,
+						url: "/mysite2/api/guestbook?action=ajax-delete&page=" + page + "&password=" + $("#password-delete").val() + "&no=" + $("#hidden-no").val(),
+						type: "get",
+						dataType: "json",
+						data: "",
 						success: function(response){
 							console.log("delete ajax");
+							console.log(response);
+
+							dialogDelete.dialog("close");
+							
+							location.reload();
 						},
 						error: function(xhr, status, e){
 							console.log("delete fail ajax");
@@ -146,6 +155,8 @@
 			},
 			close: function(){
 				console.log("close시 뒤처리");
+				
+				$("#password-delete").val("");
 			}
 		});
 		
@@ -154,6 +165,8 @@
 			event.preventDefault();
 			
 			console.log("clicked " + $(this).data("no"));
+			$("#hidden-no").val($(this).data("no"));
+			
 			dialogDelete.dialog("open");
 		});
 		
@@ -247,7 +260,8 @@
 			<div id="dialog-delete-form" title="메세지 삭제" style="display: none">
 				<p class="validateTips normal">작성시 입력했던 비밀번호를 입력하세요.</p>
 				<p class="validateTips error" style="display: none">비밀번호가 틀립니다.</p>
-				<form>
+				
+				<form id="delete-form" action="" method="post">
 					<input type="password" id="password-delete" value="" class="text ui-widget-content ui-corner-all"> 
 					<input type="hidden" id="hidden-no" value=""> 
 					<input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
