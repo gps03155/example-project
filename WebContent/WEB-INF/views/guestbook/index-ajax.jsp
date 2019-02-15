@@ -145,11 +145,11 @@
 								$(".validateTips-error").css("display", "block");
 							}
 							else{
+								console.log("remove");
+								
 								dialogDelete.dialog("close");
 								
-								if($("#hidden-no").val() == $("#list-guestbook li").data("no")){
-									$("#list-guestbook li[data-no=" + $("#list-guestbook li").data("no") + "]").remove();
-								}
+								$("#list-guestbook li[data-no=" + $("#list-guestbook li").data("no") + "]").remove();
 							}
 						},
 						error: function(xhr, status, e){
