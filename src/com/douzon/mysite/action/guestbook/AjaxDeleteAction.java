@@ -37,6 +37,8 @@ public class AjaxDeleteAction implements Action {
 		
 		if(result == 1) {
 			obj.put("result", "success");
+		} else {
+			obj.put("result", "fail");
 		}
 		
 		PrintWriter out = response.getWriter();
