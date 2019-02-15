@@ -41,7 +41,7 @@
 	var page = 0;
 	var isEnd = false;
 	
-	var messageBox = function(title, message){
+	var messageBox = function(title, message, id){
 		$("#dialog-message").attr("title", title);
 		$("#dialog-message p").text(message);
 		
@@ -51,10 +51,12 @@
 				"확인": function(){
 					console.log("확인 버튼 클릭");
 					$(this).dialog("close");
+					$(id).focus();
 				},
 				"취소": function(){
 					console.log("취소 버튼 클릭");
 					$(this).dialog("close");
+					$(id).focus();
 				}
 			}
 		});
@@ -194,7 +196,7 @@
 			
 			if(name == ""){
 				// alert("이름은 필수입력 항목입니다.");
-				messageBox("글 남기기", "이름은 필수입력 항목입니다.");
+				messageBox("글 남기기", "이름은 필수입력 항목입니다.", "#input-name");
 				
 				$("#input-name").focus();
 				
@@ -202,7 +204,7 @@
 			}
 			
 			if(password == ""){
-				messageBox("글 남기기", "비밀번호는 필수입력 항목입니다.");
+				messageBox("글 남기기", "비밀번호는 필수입력 항목입니다.", "#input-password");
 				
 				$("#input-password").focus();
 				
@@ -210,7 +212,7 @@
 			}
 			
 			if(content == ""){
-				messageBox("글 남기기", "내용은 필수입력 항목입니다.");
+				messageBox("글 남기기", "내용은 필수입력 항목입니다.", "#tx-context");
 				
 				$("#tx-context").focus();
 				
