@@ -145,7 +145,7 @@
 							if(response.result == "fail"){
 								console.log(response.result);
 								
-								$(".validateTips-error").css("display", "block");
+								$(".validateTips-error").show();
 								$("#password-delete").val("");
 							}
 							else{
@@ -166,10 +166,10 @@
 				}
 			},
 			close: function(){
-				console.log("close시 뒤처리");
-				
 				$("#password-delete").val("");
-				$(".validateTips-error").css("display", "hidden");
+				$(".validateTips-error").hide();
+				
+				console.log("close시 뒤처리");
 			}
 		});
 		
