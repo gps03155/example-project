@@ -14,8 +14,49 @@ public class GuestBookDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	public GuestBookVo get(long no) {
-		return null;
+	public GuestBookVo get(int no) {
+		GuestBookVo vo = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select no, name, message, meg_date from guestbook where no = ? order by meg_date";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new GuestBookVo();
+				
+				vo.setNo(rs.getInt("no"));
+				vo.setName(rs.getString("name"));
+				vo.setMessage(rs.getString("message"));
+				vo.setMsgDate(rs.getString("meg_date"));
+			}
+		} 
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
 	}
 	
 	// Ajax 방명록 가져오기
@@ -213,6 +254,14 @@ public class GuestBookDao {
 			
 			// 방금 들어간 row의 primarykey 받아오는 방법
 			// select last_insert_id() 날린다.
+			sql = "select last_insert_id()";
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt("last_insert_id()");
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

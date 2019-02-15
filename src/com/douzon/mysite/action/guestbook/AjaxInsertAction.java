@@ -33,7 +33,7 @@ public class AjaxInsertAction implements Action {
 		
 		GuestBookDao dao = new GuestBookDao();	
 		
-		long no = dao.insert(vo);
+		int no = dao.insert(vo);
 		GuestBookVo newVo = dao.get(no);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -210,12 +210,20 @@
 			
 			$.ajax({
 				async: true,
-				url: "/mysite2/api/guestbook?action=ajax-insert&page=" + page + "&name=" + $("#input-name").val() + "&password=" + $("#input-password") + "&message=" + $("#tx-content").val(),
+				url: "/mysite2/api/guestbook?action=ajax-insert&page=" + page + "&name=" + $("#input-name").val() + "&password=" + $("#input-password").val() + "&message=" + $("#tx-content").val(),
 				type: "get",
 				dataType: "json",
 				data: "",
 				success: function(response){
 					console.log(response);
+					
+					console.log(response.data);
+					
+					render(response.data, true);
+					
+					$("#input-name").val("");
+					$("#input-password").val("");
+					$("#tx-content").val("");
 				},
 				error: function(xhr, status, e){
 					console.log(status + " : " + e);
