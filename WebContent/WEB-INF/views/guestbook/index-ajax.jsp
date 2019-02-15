@@ -142,7 +142,9 @@
 							
 							if(response.result == "fail"){
 								console.log(response.result);
+								
 								$(".validateTips-error").css("display", "block");
+								$("#password-delete").val("");
 							}
 							else{
 								console.log("remove");
@@ -165,6 +167,7 @@
 				console.log("close시 뒤처리");
 				
 				$("#password-delete").val("");
+				$(".validateTips-error").css("display", "hidden");
 			}
 		});
 		
