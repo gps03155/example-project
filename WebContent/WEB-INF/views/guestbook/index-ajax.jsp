@@ -13,12 +13,38 @@
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+	// jquery plug-in
+	(function(e){
+		$.fn.hello = function(){
+			console.log($(this).attr("id") + "----> hello");
+		}
+	})(jQuery);
+	
 	var page = 0;
 	var isEnd = false;
+	
+	var messageBox = function(title, message){
+		$("#dialog-message").attr("title", title);
+		$("#dialog-message p").text(message);
+		
+		$("#dialog-message").dialog({
+			modal: true,
+			buttons: {
+				"확인": function(){
+					console.log("확인 버튼 클릭");
+					$(this).dialog("close");
+				},
+				"취소": function(){
+					console.log("취소 버튼 클릭");
+					$(this).dialog("close");
+				}
+			}
+		});
+	};
+	
 	var render = function(vo, mode){
 		// 현업에 가면 이렇게 안한다. -> js template Libarary 사용
 		// ex) ejs, underscore, mustache
@@ -82,12 +108,33 @@
 	};
 	
 	$(function(){
-		// 최초 리스트 가져오기
-		$("#btn-next").click(function(){
-			fetchList();
+		// Live 이벤트
+		$(document).on("click", "#list-guestbook li a", function(event){
+			event.preventDefault();
+			
+			console.log("clicked " + $(this).data("no"));
 		});
 		
-		/*
+		// message 등록 폼 submit 이벤트
+		$("#add-form").submit(function(event){
+			// submit의 기본동작 (post)
+			// 막아야한다.
+			event.preventDefault();
+			
+			// validate form data
+			var name = $("#input-name").val();
+		
+			if(name == ""){
+				// alert("이름은 필수입력 항목입니다.");
+				messageBox("글 남기기", "이름은 필수입력 항목입니다.");
+				
+				$("#input-name").focus();
+				
+				return;     
+			}
+		});
+		
+		// scroll 이벤트
 		$(window).scroll(function(){
 			var $window = $(this);
 			var scrollTop = $window.scrollTop();
@@ -101,10 +148,17 @@
 			// 끝까지 scroll 했을 경우
 			if(scrollTop + windowHeight + 10 > documentHeight){
 				console.log("fetch ajax start");
+				
+				fetchList();
 			}
 		});	
-		*/
 		
+		$("#btn-next").click(function(){
+			$(this).hello();
+			fetchList();
+		});
+	
+		// 최초 리스트 가져오기
 		fetchList();
 	});
 	
@@ -136,16 +190,17 @@
 			<div id="guestbook">
 				<h1>방명록</h1>
 				<form id="add-form" action="" method="post">
-					<input type="text" id="input-name" placeholder="이름"> <input
-						type="password" id="input-password" placeholder="비밀번호">
+					<input type="text" id="input-name" placeholder="이름"> 
+					<input type="password" id="input-password" placeholder="비밀번호">
 					<textarea id="tx-content" placeholder="내용을 입력해 주세요."></textarea>
 					<input type="submit" value="보내기" />
 				</form>
 
+				<button id="btn-next">다음</button>
+				
 				<ul id="list-guestbook">
 				</ul>
 
-				<button id="btn-next">다음</button>
 			</div>
 			<div id="dialog-delete-form" title="메세지 삭제" style="display: none">
 				<p class="validateTips normal">작성시 입력했던 비밀번호를 입력하세요.</p>
@@ -159,7 +214,7 @@
 				</form>
 			</div>
 			<div id="dialog-message" title="" style="display: none">
-				<p></p>
+				<p style="padding:30px 0"></p>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp">
