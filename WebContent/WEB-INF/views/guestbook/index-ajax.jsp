@@ -142,7 +142,9 @@
 
 							dialogDelete.dialog("close");
 							
-							location.reload();
+							if($("#hidden-no").val() == $("#list-guestbook li").data("no")){
+								$("#list-guestbook li[data-no=" + $("#list-guestbook li").data("no") + "]").remove();
+							}
 						},
 						error: function(xhr, status, e){
 							console.log("delete fail ajax");
@@ -178,7 +180,9 @@
 			
 			// validate form data
 			var name = $("#input-name").val();
-		
+			var password = $("#input-password").val();
+			var content = $("#tx-content").val();
+			
 			if(name == ""){
 				// alert("이름은 필수입력 항목입니다.");
 				messageBox("글 남기기", "이름은 필수입력 항목입니다.");
@@ -187,6 +191,36 @@
 				
 				return;     
 			}
+			
+			if(password == ""){
+				messageBox("글 남기기", "비밀번호는 필수입력 항목입니다.");
+				
+				$("#input-password").focus();
+				
+				return;
+			}
+			
+			if(content == ""){
+				messageBox("글 남기기", "내용은 필수입력 항목입니다.");
+				
+				$("#tx-context").focus();
+				
+				return;
+			}
+			
+			$.ajax({
+				async: true,
+				url: "/mysite2/api/guestbook?action=ajax-insert&page=" + page + "&name=" + $("#input-name").val() + "&password=" + $("#input-password") + "&message=" + $("#tx-content").val(),
+				type: "get",
+				dataType: "json",
+				data: "",
+				success: function(response){
+					console.log(response);
+				},
+				error: function(xhr, status, e){
+					console.log(status + " : " + e);
+				}
+			});
 		});
 		
 		// scroll 이벤트
@@ -216,26 +250,6 @@
 		// 최초 리스트 가져오기
 		fetchList();
 	});
-	
-/*
-	$(function(){
-		$(window).scroll(function(){
-			var $window = $(this);
-			var scrollTop = $window.scrollTop();
-			var windowHeight = $window.height();
-			var documentHeight = $(document).height();
-			
-			console.log(scrollTop);
-			console.log(windowHeight);
-			console.log(documentHeight);
-			
-			// 끝까지 scroll 했을 경우
-			if(scrollTop + windowHeight + 10 > documentHeight){
-				console.log("fetch ajax start");
-			}
-		});	
-	});
-*/
 </script>
 </head>
 <body>

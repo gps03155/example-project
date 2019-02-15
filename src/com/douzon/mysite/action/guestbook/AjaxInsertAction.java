@@ -18,9 +18,12 @@ public class AjaxInsertAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String name = "";
-		String message = "";
-		String password = "";
+		response.setContentType("application/json; charset=UTF-8");
+		
+		int page = Integer.parseInt(request.getParameter("page"));
+		String name = request.getParameter("name");
+		String message = request.getParameter("message");
+		String password = request.getParameter("password");
 		
 		GuestBookVo vo = new GuestBookVo();
 		
