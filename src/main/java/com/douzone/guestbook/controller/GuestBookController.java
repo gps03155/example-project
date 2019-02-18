@@ -36,8 +36,8 @@ public class GuestBookController {
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String delete(int no, String password) {
-		dao.delete(no, dao.comparePW(password));
+	public String delete(String no, String password) {
+		dao.delete(Integer.parseInt(no), dao.comparePW(password));
 
 		return "redirect:/";
 	}

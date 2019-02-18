@@ -2,12 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%
-	request.setCharacterEncoding("UTF-8");
-
-	String no = request.getParameter("no");
-%>
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,7 +10,7 @@
 <body>
 	<form action="${pageContext.request.contextPath}/delete" method="post">
 		<input type="hidden" name="action" value="delete" />
-		<input type="hidden" name="no" value="<%= no %>">
+		<input type="hidden" name="no" value="${param.no}">
 		<table>
 			<tr>
 				<td>비밀번호</td>

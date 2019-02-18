@@ -2,15 +2,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@page import="com.douzone.guestbook.vo.GuestBookVo"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <%
-	List<GuestBookVo> list = (List)request.getAttribute("list");
-	int count = list.size() + 1;
+	pageContext.setAttribute("newline", "\n");
 %>
 
 <html>
@@ -36,24 +33,19 @@
 	</form>
 	<br>
 	
-	<%
-		for(GuestBookVo vo : list){
-			count--;
-	%>
+	<c:forEach items="${list}" var="vo" varStatus="status">
 		<table width=510 border=1>
 			<tr>	
-				<td><%= count %></td> <!-- no가 아님 : 글의 순서 -total count -->
-				<td><%= vo.getName() %></td>
-				<td><%= vo.getMsgDate() %></td>
-				<td><a href="${pageContext.request.contextPath}/deleteform?no=<%= vo.getNo() %>">삭제</a></td>
+				<td>${status.index + 1}</td> <!-- no가 아님 : 글의 순서 -total count -->
+				<td>${vo.name}</td>
+				<td>${vo.msgDate}</td>
+				<td><a href="${pageContext.request.contextPath}/deleteform?no=${vo.no}">삭제</a></td>
 			</tr>
 			<tr>
-				<td colspan=4><%= (vo.getMessage()).replace("\r\n", "<br/>") %></td>
+				<td colspan=4>${fn:replace(vo.message, newline, "<br>")}</td>
 			</tr>
 		</table>
 		<br/>
-	<%
-		}
-	%>
+	</c:forEach>
 </body>
 </html>
