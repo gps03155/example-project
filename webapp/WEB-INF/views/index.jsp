@@ -39,7 +39,7 @@
 				<td>${status.index + 1}</td> <!-- no가 아님 : 글의 순서 -total count -->
 				<td>${vo.name}</td>
 				<td>${vo.msgDate}</td>
-				<td><a href="${pageContext.request.contextPath}/deleteform?no=${vo.no}">삭제</a></td>
+				<td><a href="${pageContext.request.contextPath}/deleteform/${vo.no}">삭제</a></td>
 			</tr>
 			<tr>
 				<td colspan=4>${fn:replace(vo.message, newline, "<br>")}</td>
