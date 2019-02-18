@@ -1,13 +1,9 @@
-﻿<%@page import="com.douzone.emaillist.vo.EmailListVo"%>
-<%@page import="java.util.List"%>
-<%@page import="com.douzone.emaillist.dao.EmailListDao"%>
+﻿<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<%
-	EmailListDao dao = new EmailListDao();
-	List<EmailListVo> list = dao.getList();
-%>
 
 <html>
 <head>
@@ -19,32 +15,26 @@
 	<p>입력한 정보 내역입니다.</p>
 	<!-- 메일정보 리스트 -->
 	
-	<%
-		for(EmailListVo vo : list){
-	%>
+	<c:forEach items="${list}" var="vo">
 			<table border="1" cellpadding="5" cellspacing="2">
 				<tr>
 					<td align=right>First name: </td>
-					<td><%= vo.getFirstName() %></td>
+					<td>${vo.firstName}</td>
 				</tr>
 				<tr>
 					<td align=right width="110">Last name: </td>
-					<td width="110"><%= vo.getLastName() %></td>
+					<td width="110">${vo.lastName}</td>
 				</tr>
 				<tr>
 					<td align=right>Email address: </td>
-					<td><%= vo.getEmail() %></td>
+					<td>${vo.email}</td>
 				</tr>
 			</table>
 			<br>
-	<%
-		}
-	%>
-	
-	
-	
+	</c:forEach>
+
 	<p>
-		<a href="form.jsp"> 추가메일 등록 </a>
+		<a href="${pageContext.request.contextPath}/form"> 추가메일 등록 </a>
 	</p>
 	<br>
 </body>
