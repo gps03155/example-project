@@ -24,3 +24,4 @@ public class EmailListController {
 		return "/WEB-INF/views/list.jsp";
 	}
 }
+
