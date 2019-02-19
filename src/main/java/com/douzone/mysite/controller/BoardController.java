@@ -50,6 +50,13 @@ public class BoardController {
 		
 		boardService.insert(vo);
 		
-		return "redirect:/board/list/" + page;
+		return "redirect:/board/list/1";
+	}
+	
+	@RequestMapping("/delete/{no}/{page}")
+	public String delete(@PathVariable("no") long no, @PathVariable("page") int page, Model model) {	
+		boardService.delete(no);
+		
+		return "redirect:/board/list/1";
 	}
 }

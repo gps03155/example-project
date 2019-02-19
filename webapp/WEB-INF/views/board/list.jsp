@@ -49,12 +49,12 @@
 							<c:choose>
 								<c:when test="${vo.depth > 0}">
 									<td style="padding-left:${20 * vo.depth}px"><img src="${pageContext.servletContext.contextPath}/assets/images/reply.png"/>
-										<a href="${pageContext.servletContext.contextPath}/board/view/${vo.no}/${page}">${vo.title}</a>
+										<a href="${pageContext.servletContext.contextPath}/board/view/${vo.no}/${list.page}">${vo.title}</a>
 									</td>
 								</c:when>
 								
 								<c:otherwise>
-									<td><a href="${pageContext.servletContext.contextPath}/board/view/${vo.no}/${page}">${vo.title}</a></td>	
+									<td><a href="${pageContext.servletContext.contextPath}/board/view/${vo.no}/${list.page}">${vo.title}</a></td>	
 								</c:otherwise>
 							</c:choose>
 							
@@ -64,7 +64,7 @@
 							
 							<c:choose>
 								<c:when test="${!empty authuser && authuser.no == vo.userNo}">
-									<td><a href="${pageContext.servletContext.contextPath}/board?action=delete&no=${vo.no}&page=${page}" class="del">삭제</a></td>
+									<td><a href="${pageContext.servletContext.contextPath}/board/delete/${vo.no}/${list.page}" class="del">삭제</a></td>
 								</c:when>
 								
 								<c:otherwise>

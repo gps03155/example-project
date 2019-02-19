@@ -49,4 +49,8 @@ public class BoardService {
 	public void insert(BoardVo boardVo) {
 		boardDao.insert(boardVo.getTitle(), boardVo.getContent(), boardVo.getUserNo());
 	}
+	
+	public void delete(long no) {
+		boardDao.delete(no);
+	}
 }
