@@ -36,6 +36,7 @@ public class BoardController {
 		boardService.updateViews(no);
 		
 		model.addAttribute("vo", boardService.getView(no));
+		model.addAttribute("list", boardService.getCommentList(no));
 		
 		return "board/view";
 	}
@@ -100,5 +101,22 @@ public class BoardController {
 		boardService.insertReply(vo);
 		
 		return "redirect:/board/list/1";
+	}
+	
+	@RequestMapping(value="/comment/{no}/{page}", method=RequestMethod.POST)
+	public String comment(@PathVariable("no") long no, @PathVariable("page") int page, @ModelAttribute BoardVo vo, HttpSession session) {
+		UserVo uservo = (UserVo) session.getAttribute("authuser");
+		vo.setUserNo(uservo.getNo());
+		
+		boardService.insertComment(vo);
+		
+		return "redirect:/board/view/" + no + "/" + page;
+	}
+	
+	@RequestMapping(value="/deletecomment/{no}/{commentno}/{page}", method=RequestMethod.GET)
+	public String comment(@PathVariable("no") long no, @PathVariable("commentno") int commentNo, @PathVariable("page") int page) {
+		boardService.deleteComment(commentNo);
+		
+		return "redirect:/board/view/" + no + "/" + page;
 	}
 }

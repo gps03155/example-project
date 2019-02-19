@@ -73,4 +73,16 @@ public class BoardService {
 	public void updateViews(long no) {
 		boardDao.updateViews(no);
 	}
+	
+	public void insertComment(BoardVo boarVo) {
+		boardDao.insertComment(boarVo.getContent(), boarVo.getUserNo(), boarVo.getBoardNo());
+	}
+	
+	public List<BoardVo> getCommentList(long boardNo) {
+		return boardDao.getCommentList(boardNo);
+	}
+	
+	public void deleteComment(long no) {
+		boardDao.deleteComment(no);
+	}
 }

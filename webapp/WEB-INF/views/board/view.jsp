@@ -67,9 +67,7 @@
 				
 				<!-- 댓글 -->
 						
-				<form action="${pageContext.servletContext.contextPath}/board" method="post">
-					<input type="hidden" name="action" value="comment">
-					<input type="hidden" name="page" value="${param.page}"/>
+				<form action="${pageContext.servletContext.contextPath}/board/comment/${no}/${page}" method="post">
 					<input type="hidden" name="boardNo" value="${vo.no}" />
 					<input type="hidden" name="authUser" value="${authuser.no}" />
 					
@@ -100,7 +98,7 @@
 									<td>${commentVo.writeDate}</td>
 									
 									<c:if test="${!empty authuser &&  authuser.no == commentVo.userNo}">
-										<td><a href="${pageContext.servletContext.contextPath}/board?action=deletecomment&page=${param.page}&commentno=${commentVo.no}&no=${vo.no}">삭제</a></td>
+										<td><a href="${pageContext.servletContext.contextPath}/board/deletecomment/${no}/${commentVo.no}/${page}">삭제</a></td>
 									</c:if>
 								</tr>
 								<tr>
