@@ -18,8 +18,7 @@
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="joinForm" method="POST" action="${pageContext.servletContext.contextPath}/user">
-					<input type="hidden" name="action" value="modify"/> <!-- 보안처리 후 session에 있는 no를 받아야함  -->
+				<form id="join-form" name="joinForm" method="POST" action="${pageContext.servletContext.contextPath}/user/modify">
 					<input type="hidden" name="no" value="${vo.no}"/>
 					
 					<label class="block-label" for="name">이름</label>

@@ -18,4 +18,12 @@ public class UserService {
 		
 		// 2. email 주소 확인하는 메일 보내기
 	}
+	
+	public UserVo getUserInfo(UserVo userVo) {
+		return userDao.get(userVo.getNo());
+	}
+	
+	public void modify(UserVo userVo) {
+		userDao.update(userVo);
+	}
 }
