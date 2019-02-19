@@ -59,4 +59,20 @@ public class BoardController {
 		
 		return "redirect:/board/list/1";
 	}
+	
+	@RequestMapping(value="/modify/{no}/{page}", method=RequestMethod.GET)
+	public String modify(@PathVariable("no") long no, @PathVariable("page") int page, Model model) {
+		model.addAttribute("no", no);
+		model.addAttribute("page", page);
+		model.addAttribute("vo", boardService.getView(no));
+		
+		return "board/modify";
+	}
+	
+	@RequestMapping(value="/modify/{no}/{page}", method=RequestMethod.POST)
+	public String modify(@PathVariable("no") long no, @PathVariable("page") int page, @ModelAttribute BoardVo vo) {
+		boardService.update(vo);
+		
+		return "redirect:/board/list/1";
+	}
 }

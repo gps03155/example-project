@@ -53,4 +53,8 @@ public class BoardService {
 	public void delete(long no) {
 		boardDao.delete(no);
 	}
+	
+	public void update(BoardVo vo) {
+		boardDao.update(vo.getTitle(), vo.getContent(), vo.getNo());
+	}
 }
