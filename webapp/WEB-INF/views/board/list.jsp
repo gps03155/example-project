@@ -159,7 +159,7 @@
 				
 				<c:if test="${!empty authuser}">
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath}/board?action=writeform&page=${page}" id="new-book">글쓰기</a>
+						<a href="${pageContext.servletContext.contextPath}/board/write/${page}" id="new-book">글쓰기</a>
 					</div>
 				</c:if>
 			</div>

@@ -815,6 +815,7 @@ public class BoardDao {
 			pstmt.setString(2, content);
 			pstmt.setLong(3, userNo);
 
+			System.out.println(pstmt.toString());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

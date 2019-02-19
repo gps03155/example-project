@@ -1,12 +1,18 @@
 package com.douzone.mysite.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.douzone.mysite.service.BoardService;
+import com.douzone.mysite.vo.BoardVo;
+import com.douzone.mysite.vo.UserVo;
 
 @Controller
 @RequestMapping("/board")
@@ -28,5 +34,22 @@ public class BoardController {
 		model.addAttribute("vo", boardService.getView(no));
 		
 		return "board/view";
+	}
+	
+	@RequestMapping(value="/write/{page}", method=RequestMethod.GET)
+	public String write(@PathVariable("page") int page, Model model) {
+		model.addAttribute("page", page);
+		
+		return "board/write";
+	}
+	
+	@RequestMapping(value="/write/{page}", method=RequestMethod.POST)
+	public String write(@PathVariable("page") int page, @ModelAttribute BoardVo vo, HttpSession session) {
+		UserVo uservo = (UserVo) session.getAttribute("authuser");
+		vo.setUserNo(uservo.getNo());
+		
+		boardService.insert(vo);
+		
+		return "redirect:/board/list/" + page;
 	}
 }

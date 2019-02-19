@@ -45,4 +45,8 @@ public class BoardService {
 		
 		return vo;
 	}
+	
+	public void insert(BoardVo boardVo) {
+		boardDao.insert(boardVo.getTitle(), boardVo.getContent(), boardVo.getUserNo());
+	}
 }
