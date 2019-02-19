@@ -26,4 +26,8 @@ public class UserService {
 	public void modify(UserVo userVo) {
 		userDao.update(userVo);
 	}
+	
+	public UserVo login(UserVo userVo) {
+		return userDao.get(userVo.getEmail(), userVo.getPassword());
+	}
 }

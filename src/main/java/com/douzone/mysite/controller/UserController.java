@@ -45,7 +45,7 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(HttpSession session, @ModelAttribute UserVo userVo, Model model) {
 		// 인증 처리
-		UserVo authUser = new UserDao().get(userVo.getEmail(), userVo.getPassword());
+		UserVo authUser = userService.login(userVo);
 		
 		if(authUser == null) {
 			model.addAttribute("result", "fail");
