@@ -240,7 +240,7 @@ public class GuestBookDao {
 	}
 	
 	// 댓글 등록
-	public int insert(GuestBookVo vo) {
+	public int insert(String name, String password, String content) {
 		int result = 0;
 		
 		try {
@@ -249,10 +249,11 @@ public class GuestBookDao {
 			String sql = "insert into guestbook values(null, ?, password(?), ?, current_timestamp())";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getPassword());
-			pstmt.setString(3, vo.getMessage());
+			pstmt.setString(1, name);
+			pstmt.setString(2, password);
+			pstmt.setString(3, content);
 			
+			System.out.println(pstmt.toString());
 			result = pstmt.executeUpdate();
 			
 			// 방금 들어간 row의 primarykey 받아오는 방법

@@ -22,8 +22,7 @@
 		
 		<div id="content">
 			<div id="guestbook">
-				<form action="${pageContext.servletContext.contextPath}/guestbook" method="post">
-					<input type="hidden" name="action" value="insert">
+				<form action="${pageContext.servletContext.contextPath}/guestbook/insert" method="post">
 					<table>
 						<tr>
 							<td>이름</td><td><input type="text" name="name"></td>
@@ -47,7 +46,7 @@
 									<td>[${count - status.index}]</td>
 									<td>${vo.name}</td>
 									<td>${vo.msgDate}</td>
-									<td><a href="${pageContext.servletContext.contextPath}/guestbook?action=deleteform&no=${vo.no}">삭제</a></td>
+									<td><a href="${pageContext.servletContext.contextPath}/guestbook/delete/${vo.no}">삭제</a></td>
 								</tr>
 								<tr>
 									<td colspan=4>${fn:replace(vo.message, newline, "<br>")}</td>
