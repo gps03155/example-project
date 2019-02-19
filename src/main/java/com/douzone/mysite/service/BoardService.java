@@ -39,4 +39,10 @@ public class BoardService {
 	
 		return map;
 	}
+	
+	public BoardVo getView(long no) {
+		BoardVo vo = boardDao.get(no);
+		
+		return vo;
+	}
 }

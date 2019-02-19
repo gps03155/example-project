@@ -51,7 +51,7 @@
 				</table>
 				
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${param.page}">글목록</a>
+					<a href="${pageContext.servletContext.contextPath}/board/list/${page}">글목록</a>
 					
 					<c:choose>
 						<c:when test="${!empty authuser && authuser.no == vo.userNo}">

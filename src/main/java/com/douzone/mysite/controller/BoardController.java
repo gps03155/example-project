@@ -20,4 +20,13 @@ public class BoardController {
 		
 		return "board/list";
 	}
+	
+	@RequestMapping("/view/{no}/{page}")
+	public String view(@PathVariable("no") long no, @PathVariable("page") int page, Model model) {
+		model.addAttribute("no", no);
+		model.addAttribute("page", page);
+		model.addAttribute("vo", boardService.getView(no));
+		
+		return "board/view";
+	}
 }
