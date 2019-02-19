@@ -69,4 +69,8 @@ public class BoardService {
 	public void updateReply(BoardVo boardVo) {
 		boardDao.updateReply(boardVo.getOrderNo(), boardVo.getGroupNo());
 	}
+	
+	public void updateViews(long no) {
+		boardDao.updateViews(no);
+	}
 }
