@@ -489,6 +489,7 @@ public class BoardDao {
 			pstmt.setInt(5, depth + 1);
 			pstmt.setLong(6, userNo);
 
+			System.out.println(pstmt.toString());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

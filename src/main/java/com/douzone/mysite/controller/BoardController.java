@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
@@ -72,6 +73,28 @@ public class BoardController {
 	@RequestMapping(value="/modify/{no}/{page}", method=RequestMethod.POST)
 	public String modify(@PathVariable("no") long no, @PathVariable("page") int page, @ModelAttribute BoardVo vo) {
 		boardService.update(vo);
+		
+		return "redirect:/board/list/1";
+	}
+	
+	@RequestMapping(value="/reply/{no}/{page}", method=RequestMethod.GET)
+	public String reply(@PathVariable("no") long no, @PathVariable("page") int page, Model model) {
+		model.addAttribute("no", no);
+		model.addAttribute("page", page);
+		model.addAttribute("vo", boardService.getParentInfo(no));
+		
+		return "board/reply";
+	}
+	
+	@RequestMapping(value="/reply/{no}/{page}", method=RequestMethod.POST)
+	public String reply(@PathVariable("no") long no, @PathVariable("page") int page, Model model, @ModelAttribute BoardVo vo, HttpSession session) {
+		//model.addAttribute("no", no);
+		//model.addAttribute("page", page);
+		UserVo userVo = (UserVo) session.getAttribute("authuser");
+		vo.setUserNo(userVo.getNo());
+		
+		boardService.updateReply(vo);
+		boardService.insertReply(vo);
 		
 		return "redirect:/board/list/1";
 	}

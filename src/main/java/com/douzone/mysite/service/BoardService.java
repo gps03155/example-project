@@ -57,4 +57,16 @@ public class BoardService {
 	public void update(BoardVo vo) {
 		boardDao.update(vo.getTitle(), vo.getContent(), vo.getNo());
 	}
+	
+	public BoardVo getParentInfo(long no) {
+		return boardDao.getInfo(no);
+	}
+	
+	public void insertReply(BoardVo boardVo) {
+		boardDao.insertReply(boardVo.getTitle(), boardVo.getContent(), boardVo.getGroupNo(), boardVo.getOrderNo(), boardVo.getDepth(), boardVo.getUserNo());
+	}
+	
+	public void updateReply(BoardVo boardVo) {
+		boardDao.updateReply(boardVo.getOrderNo(), boardVo.getGroupNo());
+	}
 }
