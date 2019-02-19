@@ -42,9 +42,9 @@
 						<th>&nbsp;</th>
 					</tr>	
 					
-					<c:forEach items="${list}" var="vo" varStatus="status">
+					<c:forEach items="${list.list}" var="vo" varStatus="status">
 						<tr>
-							<td>${totalCount - vo.rowNum + 1}</td>
+							<td>${vo.rowNum}</td>
 							
 							<c:choose>
 								<c:when test="${vo.depth > 0}">
@@ -80,13 +80,13 @@
 					<c:when test="${!empty kwd}">
 						<div class="pager">
 							<ul>
-								<c:if test="${page > startPage}">
+								<c:if test="${list.page > list.startPage}">
 									<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${page-1}&kwd=${kwd}&search=${search}">◀</a></li>
 								</c:if>
 								
-								<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+								<c:forEach var="i" begin="${list.startPage}" end="${list.endPage}" step="1" varStatus="status">
 									<c:choose>
-										<c:when test="${page == i}">
+										<c:when test="${list.page == i}">
 											<li class="selected">${i}</li>
 										</c:when>
 										
@@ -96,7 +96,7 @@
 									</c:choose>
 								</c:forEach>
 								
-								<c:if test="${endPage > page}">
+								<c:if test="${list.endPage > list.page}">
 									<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${page+1}&kwd=${kwd}&search=${search}">▶</a></li>
 								</c:if>
 							</ul>
@@ -106,24 +106,24 @@
 					<c:otherwise>
 						<div class="pager">
 							<ul>
-								<c:if test="${page > startPage}">
-									<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page-1}">◀</a></li>
+								<c:if test="${list.page > list.startPage}">
+									<li><a href="${pageContext.servletContext.contextPath}/board/list/${list.page-1}">◀</a></li>
 								</c:if>
 								
-								<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+								<c:forEach var="i" begin="${list.startPage}" end="${list.endPage}" step="1" varStatus="status">
 									<c:choose>
-										<c:when test="${page == i}">
+										<c:when test="${list.page == i}">
 											<li class="selected">${i}</li>
 										</c:when>
 										
 										<c:otherwise>
-											<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${i}">${i}</a></li>
+											<li><a href="${pageContext.servletContext.contextPath}/board/list/${i}">${i}</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 								
-								<c:if test="${endPage > page}">
-									<li><a href="${pageContext.servletContext.contextPath}/board?action=boardform&page=${page+1}">▶</a></li>
+								<c:if test="${list.endPage > list.page}">
+									<li><a href="${pageContext.servletContext.contextPath}/board/list/${list.page+1}">▶</a></li>
 								</c:if>
 							</ul>
 						</div>
