@@ -32,11 +32,11 @@
 			}
 			
 			// 2-2. 이메일 중복체크 유무
-			if(!$("#img-checkemail").is(":visible")){
+			/*if(!$("#img-checkemail").is(":visible")){
 				alert("이메일 중복 체크를 해야합니다.");
 				
 				return false;
-			}
+			}*/
 			
 			// 3. 비밀번호 체크
 			if($("input[type=password]").val() == ""){
@@ -103,9 +103,7 @@
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="joinForm" method="POST" action="${pageContext.servletContext.contextPath}/user">
-					<input type="hidden" name="action" value="join"/>
-					
+				<form id="join-form" name="joinForm" method="POST" action="${pageContext.servletContext.contextPath}/user/join">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="">
 
