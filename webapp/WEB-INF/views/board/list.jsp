@@ -17,10 +17,7 @@
 		
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.servletContext.contextPath}/board" method="post">
-					<input type="hidden" name="action" value="search" />
-					<input type="hidden" name="page" value="${list.page}" />
-					
+				<form id="search_form" action="${pageContext.servletContext.contextPath}/board/search/${list.page}" method="post">
 					<select name="search">
 						<option value="full" selected="selected">전체</option>
 						<option value="title">제목</option>
@@ -81,7 +78,7 @@
 						<div class="pager">
 							<ul>
 								<c:if test="${list.page > list.startPage}">
-									<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${page-1}&kwd=${kwd}&search=${search}">◀</a></li>
+									<li><a href="${pageContext.servletContext.contextPath}/board/getsearch/${page-1}/${kwd}/${search}">◀</a></li>
 								</c:if>
 								
 								<c:forEach var="i" begin="${list.startPage}" end="${list.endPage}" step="1" varStatus="status">
@@ -91,13 +88,13 @@
 										</c:when>
 										
 										<c:otherwise>
-											<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${i}&kwd=${kwd}&search=${search}">${i}</a></li>
+											<li><a href="${pageContext.servletContext.contextPath}/board/getsearch/${i}/${kwd}/${search}">${i}</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 								
 								<c:if test="${list.endPage > list.page}">
-									<li><a href="${pageContext.servletContext.contextPath}/board?action=search&page=${page+1}&kwd=${kwd}&search=${search}">▶</a></li>
+									<li><a href="${pageContext.servletContext.contextPath}/board/getsearch/${page+1}/${kwd}/${search}">▶</a></li>
 								</c:if>
 							</ul>
 						</div>

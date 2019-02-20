@@ -13,7 +13,25 @@ public class BoardVo {
 	private String name;
 	private int rowNum;
 	private int boardNo;
+	private String kwd;
+	private String search;
 	
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getKwd() {
+		return kwd;
+	}
+
+	public void setKwd(String kwd) {
+		this.kwd = kwd;
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}

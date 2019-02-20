@@ -1,5 +1,7 @@
 package com.douzone.mysite.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzone.mysite.repository.BoardDao;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
+import com.douzone.mysite.vo.PageVo;
 import com.douzone.mysite.vo.UserVo;
 
 @Controller
@@ -118,5 +122,26 @@ public class BoardController {
 		boardService.deleteComment(commentNo);
 		
 		return "redirect:/board/view/" + no + "/" + page;
+	}
+	
+	@RequestMapping(value="/search/{page}", method=RequestMethod.POST)
+	public String search(@PathVariable("page") int page, Model model, @ModelAttribute BoardVo vo) {
+		System.out.println(vo.getSearch());
+		System.out.println(vo.getKwd());
+		
+		model.addAttribute("list", boardService.getSearch(vo.getSearch(), vo.getKwd(), page));
+		model.addAttribute("kwd", vo.getKwd());
+		model.addAttribute("search", vo.getSearch());
+		
+		return "board/list";
+	}
+	
+	@RequestMapping("/getsearch/{page}/{kwd}/{search}")
+	public String getSearch(@PathVariable("page") int page, @PathVariable("kwd") String kwd, @PathVariable("search") String search, Model model) {
+		model.addAttribute("list", boardService.getSearch(search, kwd, page));
+		model.addAttribute("kwd", kwd);
+		model.addAttribute("search", search);
+		
+		return "board/list";
 	}
 }
