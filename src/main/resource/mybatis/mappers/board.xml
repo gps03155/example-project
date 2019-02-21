@@ -28,8 +28,8 @@
 	</insert>
 	
 	<select id="select" resultType="boardvo">
-		<![CDATA[select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC]]>
-	</select>
+		<![CDATA[select b.no as no, b.title as title, u.name as name, b.hit as hit, b.write_date as writeDate, b.depth as depth, u.no as userNo from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC]]>
+	</select> 
 	
 	<select id="selectPage" parameterType="map" resultType="boardvo">
 		<![CDATA[select * 
@@ -52,5 +52,37 @@
 	
 	<delete id="delete" parameterType="long">
 		<![CDATA[SET foreign_key_checks = 0; delete from board where no = #{no}; SET foreign_key_checks = 1]]>
+	</delete>
+	
+	<select id="parentInfo" parameterType="long" resultType="boardvo">
+		<![CDATA[select group_no as groupNo, order_no as orderNo, depth from board where no = #{no}]]>
+	</select>
+	
+	<insert id="insertReply" parameterType="map">
+		<![CDATA[insert into board values (null, #{title}, #{content}, CURRENT_TIMESTAMP(), 0, #{groupNo}, #{orderNo}, #{depth}, #{userNo})]]>
+	</insert>
+	
+	<update id="updateReply" parameterType="map">
+		<![CDATA[update board set order_no = order_no + 1 where order_no > #{orderNo} and group_no = #{groupNo}]]>
+	</update>
+	
+	<update id="updateViews" parameterType="long">
+		<![CDATA[update board set hit = hit+1 where no = #{no}]]>
+	</update>
+	
+	<select id="getTotalCount" resultType="integer">
+		<![CDATA[select count(*) as total_count from board]]>
+	</select>
+	
+	<insert id="insertComment" parameterType="map">
+		<![CDATA[insert into comment values (null, #{content}, CURRENT_TIMESTAMP(), (select IFNULL(max(group_no), 0) + 1 as group_no from comment tmp), 1, 0, #{userNo}, #{boardNo})]]>
+	</insert>
+	
+	<select id="getCommentList" parameterType="long" resultType="boardvo">
+		<![CDATA[select c.no as no, u.name as name, c.content as content, c.write_date as writeDate, c.user_no as userNo from comment c join user u on c.user_no = u.no where c.board_no = #{no} order by c.group_no DESC, c.order_no ASC]]>
+	</select>
+	
+	<delete id="deleteComment" parameterType="long">
+		<![CDATA[delete from comment where no = #{no}]]>
 	</delete>
 </mapper>

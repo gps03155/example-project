@@ -37,122 +37,25 @@ public class BoardDao {
 	
 	// 댓글 삭제
 	public int deleteComment(long no) {
-		int result = 0;
-		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "delete from comment where no = ?";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setLong(1, no);
-			
-			result = pstmt.executeUpdate();
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
+		return sqlSession.delete("board.deleteComment", no);
 	}
 	
 	// 댓글 보여주기
 	public List<BoardVo> getCommentList(long boardNo){
-		List<BoardVo> list = new ArrayList<BoardVo>();
-		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "select c.no, u.name, c.content, c.write_date, c.user_no from comment c join user u on c.user_no = u.no where c.board_no = ? order by c.group_no DESC, c.order_no ASC";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setLong(1, boardNo);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				long no = rs.getLong("c.no");
-				String name = rs.getString("u.name");
-				String content = rs.getString("c.content");
-				String writeDate = rs.getString("c.write_date");
-				long userNo = rs.getLong("c.user_no");
-				
-				BoardVo vo = new BoardVo();
-				
-				vo.setNo(no);
-				vo.setName(name);
-				vo.setContent(content);
-				vo.setWriteDate(writeDate);
-				vo.setUserNo(userNo);
-				
-				list.add(vo);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+		List<BoardVo> list = sqlSession.selectList("board.getCommentList", boardNo);
 		
 		return list;
 	}
 	
 	// 댓글 등록
 	public int insertComment(String content, long userNo, int boardNo) {
-		int result = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "insert into comment values (null, ?, CURRENT_TIMESTAMP(), (select IFNULL(max(group_no), 0) + 1 as group_no from comment tmp), 1, 0, ?, ?)";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, content);
-			pstmt.setLong(2, userNo);
-			pstmt.setInt(3, boardNo);
-			
-			result = pstmt.executeUpdate();
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+		map.put("content", content);
+		map.put("userNo", userNo);
+		map.put("boardNo", boardNo);
 		
-		return result;
+		return sqlSession.insert("board.insertComment", map);
 	}
 	
 	// 검색한 게시글 수
@@ -247,72 +150,12 @@ public class BoardDao {
 	
 	// 게시글 전체 수
 	public int getTotalCount() {
-		int totalCount = 0;
-		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "select count(*) as total_count from board";
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				totalCount = rs.getInt("total_count");
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return totalCount;
+		return sqlSession.selectOne("board.getTotalCount");
 	}
 
 	// 조회수
 	public int updateViews(long no) {
-		int result = 0;
-		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "update board set hit = hit+1 where no = ?";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setLong(1, no);
-			
-			result = pstmt.executeUpdate();
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
+		return sqlSession.update("board.updateViews", no);
 	}
 	
 	// 게시글 검색
@@ -459,125 +302,35 @@ public class BoardDao {
 
 	// 답글 - order_no
 	public int updateReply(int orderNo, int groupNo) {
-		int result = 0;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "update board set order_no = order_no + 1 where order_no > ? and group_no = ?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, orderNo);
-			pstmt.setInt(2, groupNo);
-
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("orderNo", orderNo);
+		map.put("groupNo", groupNo);
+		
+		System.out.println("!!!!!!!!!!!!!!" + orderNo);
+		System.out.println(groupNo);
+		System.out.println(sqlSession.getConfiguration().getMappedStatement("board.updateReply").getSqlSource().getBoundSql("board.updateReply").getSql());
+		
+		return sqlSession.update("board.updateReply", map);
 	}
 
 	// 답글 등록
 	public int insertReply(String title, String content, int groupNo, int orderNo, int depth, long userNo) {
-		int result = 0;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "insert into board values (null, ?, ?, CURRENT_TIMESTAMP(), 0, ?, ?, ?, ?)";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			pstmt.setInt(3, groupNo);
-			pstmt.setInt(4, orderNo + 1);
-			pstmt.setInt(5, depth + 1);
-			pstmt.setLong(6, userNo);
-
-			System.out.println(pstmt.toString());
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("title", title);
+		map.put("content", content);
+		map.put("groupNo", groupNo);
+		map.put("orderNo", orderNo + 1);
+		map.put("depth", depth + 1);
+		map.put("userNo", userNo);
+		
+		return sqlSession.insert("board.insertReply", map);
 	}
 
 	// 답글 - 부모글 정보 (group_no, order_no, depth)
 	public BoardVo getInfo(long no) {
-		BoardVo vo = null;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "select group_no, order_no, depth from board where no = ?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setLong(1, no);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				vo = new BoardVo();
-
-				int groupNo = rs.getInt("group_no");
-				int orderNo = rs.getInt("order_no");
-				int depth = rs.getInt("depth");
-
-				vo.setGroupNo(groupNo);
-				vo.setOrderNo(orderNo);
-				vo.setDepth(depth);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				try {
-					if (rs != null) {
-						rs.close();
-					}
-
-					if (pstmt != null) {
-						pstmt.close();
-					}
-
-					if (conn != null) {
-						conn.close();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
+		return sqlSession.selectOne("board.parentInfo", no);
 	}
 
 	// 게시글 삭제하기
