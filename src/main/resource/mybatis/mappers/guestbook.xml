@@ -18,4 +18,9 @@
 	<delete id="delete" parameterType="map">
 		<![CDATA[delete from guestbook where no = #{no} and password = #{password}]]>
 	</delete>
-</mapper>
+	
+	<select id="comparePW" parameterType="map" resultType="string">
+		<![CDATA[select password from guestbook where password = password(#{password}) and no = #{no}]]>
+	</select>
+</mapper
+>

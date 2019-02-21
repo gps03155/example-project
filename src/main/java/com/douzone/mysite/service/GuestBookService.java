@@ -24,6 +24,6 @@ public class GuestBookService {
 	}
 	
 	public void delete(GuestBookVo vo) {
-		guestbookDao.delete(vo.getNo(), guestbookDao.comparePW(vo.getPassword()));
+		guestbookDao.delete(vo.getNo(), guestbookDao.comparePW(vo.getPassword(), vo.getNo()));
 	}
 }

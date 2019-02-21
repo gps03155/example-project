@@ -28,6 +28,7 @@ public class GuestBookDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
+	// Ajax
 	public GuestBookVo get(int no) {
 		GuestBookVo vo = null;
 		
@@ -136,43 +137,13 @@ public class GuestBookDao {
 	}
 	
 	// 비밀번호 비교
-	public String comparePW(String password) {
-		String result = null;
+	public String comparePW(String password, int no) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "select password from guestbook where password = password(?)";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, password);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()){
-				result = rs.getString("password");
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+		map.put("password", password);
+		map.put("no", no);
 		
-		return result;
+		return sqlSession.selectOne("guestbook.comparePW", map);
 	}
 	
 	// 댓글 목록 가져오기
