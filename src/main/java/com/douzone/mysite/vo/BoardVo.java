@@ -1,18 +1,18 @@
 package com.douzone.mysite.vo;
 
 public class BoardVo {
-	private long no;
+	private Long no;
 	private String title;
 	private String content;
 	private String writeDate;
-	private int hit;
-	private int groupNo;
-	private int orderNo;
-	private int depth;
-	private long userNo;
+	private Integer hit;
+	private Integer groupNo;
+	private Integer orderNo;
+	private Integer depth;
+	private Long userNo;
 	private String name;
-	private int rowNum;
-	private int boardNo;
+	private Integer rowNum;
+	private Integer boardNo;
 	private String kwd;
 	private String search;
 	
@@ -32,19 +32,19 @@ public class BoardVo {
 		this.kwd = kwd;
 	}
 
-	public int getBoardNo() {
+	public Integer getBoardNo() {
 		return boardNo;
 	}
 
-	public void setBoardNo(int boardNo) {
+	public void setBoardNo(Integer boardNo) {
 		this.boardNo = boardNo;
 	}
 
-	public int getRowNum() {
+	public Integer getRowNum() {
 		return rowNum;
 	}
 
-	public void setRowNum(int rowNum) {
+	public void setRowNum(Integer rowNum) {
 		this.rowNum = rowNum;
 	}
 
@@ -56,11 +56,11 @@ public class BoardVo {
 		this.name = name;
 	}
 
-	public long getNo() {
+	public Long getNo() {
 		return no;
 	}
 	
-	public void setNo(long no) {
+	public void setNo(Long no) {
 		this.no = no;
 	}
 	
@@ -88,43 +88,43 @@ public class BoardVo {
 		this.writeDate = writeDate;
 	}
 	
-	public int getHit() {
+	public Integer getHit() {
 		return hit;
 	}
 	
-	public void setHit(int hit) {
+	public void setHit(Integer hit) {
 		this.hit = hit;
 	}
 	
-	public int getGroupNo() {
+	public Integer getGroupNo() {
 		return groupNo;
 	}
 	
-	public void setGroupNo(int groupNo) {
+	public void setGroupNo(Integer groupNo) {
 		this.groupNo = groupNo;
 	}
 	
-	public int getOrderNo() {
+	public Integer getOrderNo() {
 		return orderNo;
 	}
 	
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
 	
-	public int getDepth() {
+	public Integer getDepth() {
 		return depth;
 	}
 	
-	public void setDepth(int depth) {
+	public void setDepth(Integer depth) {
 		this.depth = depth;
 	}
 	
-	public long getUserNo() {
+	public Long getUserNo() {
 		return userNo;
 	}
 	
-	public void setUserNo(long userNo) {
+	public void setUserNo(Long userNo) {
 		this.userNo = userNo;
 	}
 

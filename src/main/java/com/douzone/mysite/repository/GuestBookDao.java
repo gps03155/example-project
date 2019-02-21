@@ -202,50 +202,7 @@ public class GuestBookDao {
 	
 	// 댓글 목록 가져오기
 	public List<GuestBookVo> getList(){
-		List<GuestBookVo> list = new ArrayList<GuestBookVo>();
-		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "select no, name, message, meg_date from guestbook order by meg_date desc";
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				int no = rs.getInt("no");
-				String name = rs.getString("name");
-				String message = rs.getString("message");
-				String msgDate = rs.getString("meg_date");
-				
-				GuestBookVo vo = new GuestBookVo();
-				
-				vo.setNo(no);
-				vo.setName(name);
-				vo.setMessage(message);
-				vo.setMsgDate(msgDate);
-				
-				list.add(vo);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+		List<GuestBookVo> list = sqlSession.selectList("guestbook.getList");
 		
 		return list;
 	}
@@ -259,5 +216,8 @@ public class GuestBookDao {
 		map.put("content", content);
 		
 		return sqlSession.insert("guestbook.insert", map);
+		
+		// long no = vo.getNo();
+		// return no;
 	}
 }

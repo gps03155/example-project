@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +19,20 @@ import com.douzone.mysite.vo.BoardVo;
 public class BoardDao {
 	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	
+	// test
+	public int insert(BoardVo vo) { // 새글, 댓글 - 같이 합쳐서 쓰기
+		int result = 0;
+		
+		return result;
+	}
 	
 	// 댓글 삭제
 	public int deleteComment(long no) {

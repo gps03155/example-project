@@ -9,4 +9,8 @@
 	<select id="getByEmailAndPassword" parameterType="map" resultType="uservo"> <!-- map, string, integer 내장 -->
 		<![CDATA[select no, name from user where email = #{email} and password = #{password}]]>
 	</select>
+	
+	<select id="getByEmail" parameterType="string" resultType="uservo">
+		<![CDATA[select no, name from user where email = #{email}]]> <!-- 기본 타입의 값이 하나 넘어올 경우 #{}으로 아무거나 적어주면 됨 -->
+	</select>
 </mapper>
