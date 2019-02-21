@@ -14,4 +14,8 @@
 	<select id="getList" resultType="guestbookvo">
 		<![CDATA[select no, name, message, meg_date from guestbook order by meg_date desc]]>
 	</select>
+	
+	<delete id="delete" parameterType="map">
+		<![CDATA[delete from guestbook where no = #{no} and password = #{password}]]>
+	</delete>
 </mapper>

@@ -127,37 +127,12 @@ public class GuestBookDao {
 	
 	// 댓글 삭제
 	public int delete(int no, String password) {
-		int result = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "delete from guestbook where no = ? and password = ?";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, no);
-			pstmt.setString(2, password);
-			
-			System.out.println(pstmt.toString());
-			
-			result = pstmt.executeUpdate();
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+		map.put("no", no);
+		map.put("password", password);
 		
-		return result;
+		return sqlSession.delete("guestbook.delete", map);
 	}
 	
 	// 비밀번호 비교
