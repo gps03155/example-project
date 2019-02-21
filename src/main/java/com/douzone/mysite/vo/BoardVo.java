@@ -130,7 +130,7 @@ public class BoardVo {
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return getNo() + " " + getTitle() + " " + getName() + " " + getHit() + " " + getWriteDate();
 	}
 	
 }

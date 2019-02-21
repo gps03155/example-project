@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-	<select id="getTotalCount" parameterType="string" resultType="int"> <!-- 검색까지 같이하기 -->
+	<!-- 
+	<select id="getTotalCount" parameterType="string" resultType="int"> 검색까지 같이하기 
 		<![CDATA[select count(*) from board]]>
 		
 		<if test="_parameter != null and _parameter != ''">
@@ -12,7 +13,7 @@
 	
 	<insert id="insert" parameterType="boardvo">
 		<choose>
-			<when test="groupNo == null"> <!-- EL 표현식은 없기 때문에 조건만 넣어주면 됨 -->
+			<when test="groupNo == null">  EL 표현식은 없기 때문에 조건만 넣어주면 됨 
 				<![CDATA[insert into board values (null, #{title}, #{content}, CURRENT_TIMESTAMP(), 0, (select IFNULL(max(group_no), 0) + 1 as group_no from board a),  1, 0, #{userNo})]]>
 			</when>
 			<otherwise>
@@ -20,4 +21,36 @@
 			</otherwise>
 		</choose>
 	</insert>
+	-->
+	
+	<insert id="insert" parameterType="map">
+		<![CDATA[insert into board values (null, #{title}, #{content}, CURRENT_TIMESTAMP(), 0, (select IFNULL(max(group_no), 0) + 1 as group_no from board a),  1, 0, #{userNo})]]>
+	</insert>
+	
+	<select id="select" resultType="boardvo">
+		<![CDATA[select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC]]>
+	</select>
+	
+	<select id="selectPage" parameterType="map" resultType="boardvo">
+		<![CDATA[select * 
+				 from (select * 
+					   from (select @rownum:=@rownum + 1 as row_num, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo
+						     from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no 
+						            from board b join user u on b.user_no = u.no
+						            order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable
+						     where row_num <= #{page1}) pagetable 
+					    where row_num >= #{page2}]]>
+	</select>
+	
+	<select id="getByNo" parameterType="long" resultType="boardvo">
+		<![CDATA[select title, contents as content, user_no as userNo, no from board where no = #{no}]]>
+	</select>
+	
+	<update id="update" parameterType="map">
+		<![CDATA[update board set title = #{title}, contents = #{content} where no = #{no}]]>
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		<![CDATA[SET foreign_key_checks = 0; delete from board where no = #{no}; SET foreign_key_checks = 1]]>
+	</delete>
 </mapper>

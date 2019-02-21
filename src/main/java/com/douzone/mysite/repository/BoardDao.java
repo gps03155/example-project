@@ -1,11 +1,12 @@
 package com.douzone.mysite.repository;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -581,276 +582,59 @@ public class BoardDao {
 
 	// 게시글 삭제하기
 	public int delete(long no) {
-		int result = 0;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "SET foreign_key_checks = 0; delete from board where no = ?; SET foreign_key_checks = 1";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setLong(1, no);
-
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+		return sqlSession.delete("board.delete", no);
 	}
 
 	// 게시글 수정하기
 	public int update(String title, String content, long no) {
-		int result = 0;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "update board set title = ?, contents = ? where no = ?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			pstmt.setLong(3, no);
-
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("title", title);
+		map.put("content", content);
+		map.put("no", no);
+		
+		// System.out.println(sqlSession.getConfiguration().getMappedStatement("board.update").getSqlSource().getBoundSql("board.update").getSql());
+		
+		return sqlSession.update("board.update", map);
 	}
 
 	// 글 내용 가져오기
 	public BoardVo get(long no) {
-		BoardVo vo = null;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "select title, contents, user_no, no from board where no = ?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setLong(1, no);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				vo = new BoardVo();
-
-				String title = rs.getString("title");
-				String content = rs.getString("contents");
-				long userNo = rs.getLong("user_no");
-				long board_no = rs.getLong("no");
-
-				vo.setTitle(title);
-				vo.setContent(content);
-				vo.setUserNo(userNo);
-				vo.setNo(board_no);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
+		return sqlSession.selectOne("board.getByNo", no);
 	}
 
 	// 페이지별 게시글 목록 가져오기
-		public List<BoardVo> getPageList(int page) {
-			List<BoardVo> list = new ArrayList<BoardVo>();
-
-			try {
-				conn = dataSource.getConnection();
-
-				String sql = "select * " + 
-						     "from (select * " + 
-						            "from (select @rownum:=@rownum + 1 as row_num, b_no, title, name, hit, write_date, depth, no " + 
-						                   "from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no " + 
-						                           "from board b join user u on b.user_no = u.no " +
-						                           "order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable " +
-						            "where row_num <= ?) pagetable " + 
-						     "where row_num >= ?;";
-				pstmt = conn.prepareStatement(sql);
+	public List<BoardVo> getPageList(int page) {
+			int page1 = page * 10;
+			int page2 = (page * 10) - 9;
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			
+			map.put("page1", page1);
+			map.put("page2", page2);
 				
-				pstmt.setInt(1, page * 10);
-				pstmt.setInt(2, (page * 10) - 9);
-
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					long no = rs.getLong("b_no");
-					String title = rs.getString("title");
-					String name = rs.getString("name");
-					int hit = rs.getInt("hit");
-					String writeDate = rs.getString("write_date");
-					int depth = rs.getInt("depth");
-					long userNo = rs.getLong("no");
-					int rowNum = rs.getInt("row_num");
-
-					BoardVo vo = new BoardVo();
-
-					vo.setNo(no);
-					vo.setTitle(title);
-					vo.setName(name);
-					vo.setHit(hit);
-					vo.setWriteDate(writeDate);
-					vo.setDepth(depth);
-					vo.setUserNo(userNo);
-					vo.setRowNum(rowNum);
-
-					list.add(vo);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (rs != null) {
-						rs.close();
-					}
-
-					if (pstmt != null) {
-						pstmt.close();
-					}
-
-					if (conn != null) {
-						conn.close();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
+			List<BoardVo> list = sqlSession.selectList("board.selectPage", map);	
+			
+			// System.out.println(sqlSession.getConfiguration().getMappedStatement("board.selectPage").getSqlSource().getBoundSql("board.selectPage").getSql());
+			
 			return list;
 		}
 	
 	// 게시글 목록 가져오기
 	public List<BoardVo> getList() {
-		List<BoardVo> list = new ArrayList<BoardVo>();
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC";
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				long no = rs.getLong("b.no");
-				String title = rs.getString("b.title");
-				String name = rs.getString("u.name");
-				int hit = rs.getInt("b.hit");
-				String writeDate = rs.getString("b.write_date");
-				int depth = rs.getInt("b.depth");
-				long userNo = rs.getLong("u.no");
-
-				BoardVo vo = new BoardVo();
-
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setName(name);
-				vo.setHit(hit);
-				vo.setWriteDate(writeDate);
-				vo.setDepth(depth);
-				vo.setUserNo(userNo);
-
-				list.add(vo);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
+		List<BoardVo> list = sqlSession.selectList("board.select");
+		
 		return list;
 	}
 
 	// 게시글 등록
 	public int insert(String title, String content, long userNo) {
-		int result = 0;
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "insert into board values (null, ?, ?, CURRENT_TIMESTAMP(), 0, (select IFNULL(max(group_no), 0) + 1 as group_no from board a),  1, 0, ?)";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			pstmt.setLong(3, userNo);
-
-			System.out.println(pstmt.toString());
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("title", title);
+		map.put("content", content);
+		map.put("userNo", userNo);
+		
+		return sqlSession.insert("board.insert", map);
 	}
 }
