@@ -7,12 +7,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.BoardVo;
 
 @Repository
 public class BoardDao {
+	@Autowired
+	private DataSource dataSource;
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -22,7 +27,7 @@ public class BoardDao {
 		int result = 0;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "delete from comment where no = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -54,7 +59,7 @@ public class BoardDao {
 		List<BoardVo> list = new ArrayList<BoardVo>();
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "select c.no, u.name, c.content, c.write_date, c.user_no from comment c join user u on c.user_no = u.no where c.board_no = ? order by c.group_no DESC, c.order_no ASC";
 			pstmt = conn.prepareStatement(sql);
@@ -108,7 +113,7 @@ public class BoardDao {
 		int result = 0;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "insert into comment values (null, ?, CURRENT_TIMESTAMP(), (select IFNULL(max(group_no), 0) + 1 as group_no from comment tmp), 1, 0, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -143,7 +148,7 @@ public class BoardDao {
 		String sql = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			if ("title".equals(search)) {
 				System.out.println("title Count");
@@ -232,7 +237,7 @@ public class BoardDao {
 		int totalCount = 0;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "select count(*) as total_count from board";
 			pstmt = conn.prepareStatement(sql);
@@ -270,7 +275,7 @@ public class BoardDao {
 		int result = 0;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "update board set hit = hit+1 where no = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -303,7 +308,7 @@ public class BoardDao {
 		String sql = null;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			if ("title".equals(search)) {
 				sql = "select * " + 
@@ -444,7 +449,7 @@ public class BoardDao {
 		int result = 0;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "update board set order_no = order_no + 1 where order_no > ? and group_no = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -477,7 +482,7 @@ public class BoardDao {
 		int result = 0;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "insert into board values (null, ?, ?, CURRENT_TIMESTAMP(), 0, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -515,7 +520,7 @@ public class BoardDao {
 		BoardVo vo = null;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "select group_no, order_no, depth from board where no = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -567,7 +572,7 @@ public class BoardDao {
 		int result = 0;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "SET foreign_key_checks = 0; delete from board where no = ?; SET foreign_key_checks = 1";
 			pstmt = conn.prepareStatement(sql);
@@ -599,7 +604,7 @@ public class BoardDao {
 		int result = 0;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "update board set title = ?, contents = ? where no = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -633,7 +638,7 @@ public class BoardDao {
 		BoardVo vo = null;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "select title, contents, user_no, no from board where no = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -683,7 +688,7 @@ public class BoardDao {
 			List<BoardVo> list = new ArrayList<BoardVo>();
 
 			try {
-				conn = getConnection();
+				conn = dataSource.getConnection();
 
 				String sql = "select * " + 
 						     "from (select * " + 
@@ -751,7 +756,7 @@ public class BoardDao {
 		List<BoardVo> list = new ArrayList<BoardVo>();
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "select b.no, b.title, u.name, b.hit, b.write_date, b.depth, u.no from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC";
 			pstmt = conn.prepareStatement(sql);
@@ -807,7 +812,7 @@ public class BoardDao {
 		int result = 0;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 
 			String sql = "insert into board values (null, ?, ?, CURRENT_TIMESTAMP(), 0, (select IFNULL(max(group_no), 0) + 1 as group_no from board a),  1, 0, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -835,21 +840,5 @@ public class BoardDao {
 		}
 
 		return result;
-	}
-
-	public Connection getConnection() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			String url = "jdbc:mysql://localhost:3306/webdb?useSSL=false&allowMultiQueries=true";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
-
-			System.out.println("DB 연결 성공");
-		} catch (Exception e) {
-			System.out.println("DB 드라이버 로딩 실패");
-			e.printStackTrace();
-		}
-
-		return conn;
 	}
 }

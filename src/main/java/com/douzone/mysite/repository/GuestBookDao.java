@@ -1,18 +1,29 @@
 package com.douzone.mysite.repository;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.GuestBookVo;
 
 @Repository
 public class GuestBookDao {
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -21,7 +32,7 @@ public class GuestBookDao {
 		GuestBookVo vo = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "select no, name, message, meg_date from guestbook where no = ? order by meg_date";
 			pstmt = conn.prepareStatement(sql);
@@ -67,7 +78,7 @@ public class GuestBookDao {
 		List<GuestBookVo> list = new ArrayList<GuestBookVo>();
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "select no, name, message, meg_date from guestbook order by meg_date desc limit ?, 5";
 			pstmt = conn.prepareStatement(sql);
@@ -119,7 +130,7 @@ public class GuestBookDao {
 		int result = 0;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "delete from guestbook where no = ? and password = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -154,7 +165,7 @@ public class GuestBookDao {
 		String result = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "select password from guestbook where password = password(?)";
 			pstmt = conn.prepareStatement(sql);
@@ -194,7 +205,7 @@ public class GuestBookDao {
 		List<GuestBookVo> list = new ArrayList<GuestBookVo>();
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "select no, name, message, meg_date from guestbook order by meg_date desc";
 			pstmt = conn.prepareStatement(sql);
@@ -241,63 +252,12 @@ public class GuestBookDao {
 	
 	// 댓글 등록
 	public int insert(String name, String password, String content) {
-		int result = 0;
+		Map<String, String> map = new HashMap<String, String>();
 		
-		try {
-			conn = getConnection();
-			
-			String sql = "insert into guestbook values(null, ?, password(?), ?, current_timestamp())";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, name);
-			pstmt.setString(2, password);
-			pstmt.setString(3, content);
-			
-			System.out.println(pstmt.toString());
-			result = pstmt.executeUpdate();
-			
-			// 방금 들어간 row의 primarykey 받아오는 방법
-			// select last_insert_id() 날린다.
-			sql = "select last_insert_id()";
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				result = rs.getInt("last_insert_id()");
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+		map.put("name", name);
+		map.put("password", password);
+		map.put("content", content);
 		
-		return result;
-	}
-	
-	public Connection getConnection() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			String url = "jdbc:mysql://localhost:3306/webdb?useSSL=false";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
-			
-			System.out.println("DB 연결 성공");
-		} catch(Exception e) {
-			System.out.println("DB 드라이버 로딩 실패");
-			e.printStackTrace();
-		}
-		
-		return conn;
+		return sqlSession.insert("guestbook.insert", map);
 	}
 }
