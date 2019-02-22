@@ -51,7 +51,6 @@
 								</c:when>
 								
 								<c:otherwise>
-									<td>${vo.no}</td>
 									<td><a href="${pageContext.servletContext.contextPath}/board/view/${vo.no}/${list.page}">${vo.title}</a></td>	
 								</c:otherwise>
 							</c:choose>

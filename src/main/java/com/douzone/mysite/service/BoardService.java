@@ -36,7 +36,7 @@ public class BoardService {
 		map.put("endPage", vo.getEndPage());
 		map.put("page", vo.getPage());
 		map.put("totalCount", vo.getTotalCount());
-
+		
 		return map;
 	}
 

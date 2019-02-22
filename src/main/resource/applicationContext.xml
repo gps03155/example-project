@@ -30,6 +30,8 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/webdb?useSSL=false&amp;allowMultiQueries=true" />
 		<property name="username" value="webdb" />
 		<property name="password" value="webdb" />
+		<property name="initialSize" value="20" />
+		<property name="maxActive" value="20" />
 	</bean>
 
 	<!-- MyBatis SqlSessionFactoryBean --> 

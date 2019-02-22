@@ -34,12 +34,12 @@
 	<select id="selectPage" parameterType="map" resultType="boardvo">
 		<![CDATA[select * 
 				 from (select * 
-					   from (select @rownum:=@rownum + 1 as row_num, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo
+					   from (select @rownum:=@rownum + 1 as rowNum, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo
 						     from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no 
 						            from board b join user u on b.user_no = u.no
 						            order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable
-						     where row_num <= #{page1}) pagetable 
-					    where row_num >= #{page2}]]>
+						     where rowNum <= #{page1}) pagetable 
+					    where rowNum >= #{page2}]]>
 	</select>
 	
 	<select id="getByNo" parameterType="long" resultType="boardvo">
