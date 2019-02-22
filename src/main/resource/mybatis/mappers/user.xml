@@ -3,11 +3,11 @@
 
 <mapper namespace="user">
 	<insert id="insert" parameterType="uservo">
-		<![CDATA[insert into user values(null, #{name}, #{email}, #{password}, #{gender}, now())]]> <!-- 태그가 아님을 알려줌 (데이터) -->
+		<![CDATA[insert into user values(null, #{name}, #{email}, #{password}, #{gender}, now(), 'user')]]> <!-- 태그가 아님을 알려줌 (데이터) -->
 	</insert>
 	
 	<select id="getByEmailAndPassword" parameterType="map" resultType="uservo"> <!-- map, string, integer 내장 -->
-		<![CDATA[select no, name from user where email = #{email} and password = #{password}]]>
+		<![CDATA[select no, name, role from user where email = #{email} and password = #{password}]]>
 	</select>
 	
 	<select id="getByEmail" parameterType="string" resultType="uservo">
