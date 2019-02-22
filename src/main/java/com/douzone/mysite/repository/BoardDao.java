@@ -60,6 +60,17 @@ public class BoardDao {
 	
 	// 검색한 게시글 수
 	public int getSearchCount(String search, String kwd) {
+		String kwd2 = "%" + kwd + "%";
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("search", search);
+		map.put("kwd", kwd);
+		map.put("kwd2", kwd2);
+		
+		return sqlSession.selectOne("board.getSearchCount", map);
+		
+		/*
 		int searchCount = 0;
 		String sql = null;
 		
@@ -146,6 +157,7 @@ public class BoardDao {
 		}
 		
 		return searchCount;
+		*/
 	}
 	
 	// 게시글 전체 수
@@ -160,6 +172,30 @@ public class BoardDao {
 	
 	// 게시글 검색
 	public List<BoardVo> getSearch(String search, String kwd, int page) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("search", search);
+		map.put("kwd", kwd);
+		
+		String kwd2 = "%" + kwd + "%";
+		int page1 = page * 10;
+		int page2 = (page * 10) - 9;
+		
+		map.put("kwd2", kwd2);
+		map.put("page1", page1);
+		map.put("page2", page2);
+		
+		System.out.println("aa");
+		System.out.println(map.get("search"));
+		List<BoardVo> list = sqlSession.selectList("board.getSearch", map);
+		System.out.println(list);
+		// System.out.println(sqlSession.getConfiguration().getMappedStatement("board.getSearch").getSqlSource().getBoundSql("board.getSearch").getSql());
+		System.out.println("bb");
+		
+		return list;
+		
+		/*
 		List<BoardVo> list = new ArrayList<BoardVo>();
 		String sql = null;
 
@@ -298,6 +334,7 @@ public class BoardDao {
 		}
 
 		return list;
+		*/
 	}
 
 	// 답글 - order_no
@@ -306,10 +343,6 @@ public class BoardDao {
 		
 		map.put("orderNo", orderNo);
 		map.put("groupNo", groupNo);
-		
-		System.out.println("!!!!!!!!!!!!!!" + orderNo);
-		System.out.println(groupNo);
-		System.out.println(sqlSession.getConfiguration().getMappedStatement("board.updateReply").getSqlSource().getBoundSql("board.updateReply").getSql());
 		
 		return sqlSession.update("board.updateReply", map);
 	}
@@ -353,6 +386,15 @@ public class BoardDao {
 
 	// 글 내용 가져오기
 	public BoardVo get(long no) {
+		System.out.println(no);
+		System.out.println("!!!!" + sqlSession);
+		System.out.println(sqlSession.selectOne("board.getByNo", no).toString());
+		BoardVo vo = sqlSession.selectOne("board.getByNo", no);
+		System.out.println(vo.getTitle());
+		System.out.println(vo.getContent());
+		System.out.println(vo.getUserNo());
+		System.out.println(vo.getNo());
+		
 		return sqlSession.selectOne("board.getByNo", no);
 	}
 
