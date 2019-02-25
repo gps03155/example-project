@@ -39,4 +39,14 @@ public class AdminController {
 	public String board() {
 		return "admin/board";
 	}
+	
+	@RequestMapping("/guestbook")
+	public String guestBook() {
+		return "admin/guestbook";
+	}
+	
+	@RequestMapping("/user")
+	public String user() {
+		return "admin/user";
+	}
 }

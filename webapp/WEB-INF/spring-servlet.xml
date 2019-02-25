@@ -27,13 +27,7 @@
 		base-package="com.douzone.mysite.controller" />
 
 	<!-- Interceptors -->
-	<mvc:interceptors>
-		<!-- MyInterceptor01 -->
-		<mvc:interceptor>
-			<mvc:mapping path="/guestbook/**"/>
-			<bean class="com.douzone.mysite.interceptor.MyInterceptor01" />
-		</mvc:interceptor>
-		
+	<mvc:interceptors>		
 		<!-- Login 처리 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth"/>
