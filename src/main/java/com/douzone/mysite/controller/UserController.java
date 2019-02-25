@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.douzone.mysite.repository.UserDao;
 import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
+import com.douzone.security.Auth;
+import com.douzone.security.Auth.Role;
 
 @Controller
 @RequestMapping("/user")
@@ -61,6 +62,7 @@ public class UserController {
 	}
 	*/
 	
+	/*
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		// 접근 제한
@@ -71,7 +73,9 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	*/
 	
+	@Auth(Role.ADMIN)
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(HttpSession session, Model model) {
 		UserVo authUser = null;

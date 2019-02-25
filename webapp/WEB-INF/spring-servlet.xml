@@ -32,7 +32,22 @@
 		<!-- Login 처리 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth"/>
-			<bean class="com.douzone.security.AuthLoginInterceptor"></bean>
+			<bean class="com.douzone.security.AuthLoginInterceptor" />
+		</mvc:interceptor>
+		
+		<!-- Logout 처리 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout"/>
+			<bean class="com.douzone.security.AuthLogoutInterceptor" />
+		</mvc:interceptor>
+		
+		<!-- AuthInterceptor -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/user/auth"/>
+			<mvc:exclude-mapping path="/user/logout"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<bean class="com.douzone.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
