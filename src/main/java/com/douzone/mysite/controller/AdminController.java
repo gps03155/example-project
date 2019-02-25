@@ -13,13 +13,12 @@ import com.douzone.security.Auth;
 import com.douzone.security.Auth.Role;
 
 @Controller
-// @Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 @RequestMapping("/admin")
 public class AdminController {
 	@Autowired
 	private SiteService siteService;
 	
-	@Auth(Role.ADMIN)
 	@RequestMapping("")
 	public String main(Model model) {
 		model.addAttribute("siteVo", siteService.select());
@@ -27,7 +26,6 @@ public class AdminController {
 		return "admin/main";
 	}
 	
-	@Auth(Role.ADMIN)
 	@RequestMapping(value="/main/update", method=RequestMethod.POST)
 	public String update(@ModelAttribute SiteVo siteVo) {
 		siteVo.setProfile("/assets/images/profile.png");
@@ -37,7 +35,6 @@ public class AdminController {
 		return "redirect:/";
 	}
 	
-	@Auth(Role.ADMIN)
 	@RequestMapping("/board")
 	public String board() {
 		return "admin/board";

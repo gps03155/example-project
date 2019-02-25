@@ -4,6 +4,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+          
+<%
+	pageContext.setAttribute("newline", "\n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +23,10 @@
 			<div id="content">
 				<div id="site-introduction">
 					<img id="profile" src="${pageContext.servletContext.contextPath}/assets/images/profile.png" style="width:120px; height:120px;">
-					<h2>${site.welcome}</h2> <br>
+					<h2>${fn:replace(site.welcome, newline, "<br>")}</h2> <br>
 					<h3>https://github.com/gps03155</h3>
 					<p>
-						${site.description}<br><br>
+						${fn:replace(site.description, newline, "<br>")}<br><br>
 						<a href="${pageContext.servletContext.contextPath}/guestbook/list">방명록</a>에 글 남기기<br>
 					</p>
 				</div>

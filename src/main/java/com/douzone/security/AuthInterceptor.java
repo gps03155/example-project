@@ -48,13 +48,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		if(session != null) {
 			authUser = (UserVo) session.getAttribute("authuser");
-			System.out.println(authUser.getRole());
+			System.out.println("로그인 성공");
 		}
 		
 		// 인증이 안되어 있는 경우
 		if(authUser == null) {
 			response.sendRedirect(request.getContextPath() + "/user/login");
-			System.out.println("AuthInterceptor : preHandle() authUser == null");
+			System.out.println("로그인 안함");
 			
 			return false;
 		}
