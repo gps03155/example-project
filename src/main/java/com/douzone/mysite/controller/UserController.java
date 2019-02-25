@@ -44,53 +44,9 @@ public class UserController {
 		return "user/loginform";
 	}
 	
-	/*
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(HttpSession session, @ModelAttribute UserVo userVo, Model model) {
-		// 인증 처리
-		UserVo authUser = userService.login(userVo);
-		
-		
-		if(authUser == null) {
-			model.addAttribute("result", "fail");
-			
-			return "user/loginform";
-		}
-		
-		session.setAttribute("authuser", authUser);
-		
-		return "redirect:/";
-	}
-	*/
-	
-	/*
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		// 접근 제한
-		if(session != null && session.getAttribute("authuser") != null) {
-			session.removeAttribute("authuser");
-			session.invalidate();
-		}
-		
-		return "redirect:/";
-	}
-	*/
-	
 	@Auth(Role.ADMIN)
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(@AuthUser UserVo authUser, Model model) {//HttpSession session, Model model) {
-		/*
-		UserVo authUser = null;
-		
-		if(session != null) {
-			authUser = (UserVo) session.getAttribute("authuser");
-		}
-		
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		*/
-		
 		System.out.println(authUser);
 		
 		UserVo vo = userService.getUserInfo(authUser);
@@ -101,12 +57,14 @@ public class UserController {
 	
 	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(HttpSession session, @ModelAttribute UserVo userVo) {
+	public String modify(@AuthUser UserVo authUser, @ModelAttribute UserVo userVo) {
 		userService.modify(userVo);
 		
 		if(!"".equals(userVo.getName())) {
-			session.setAttribute("authuser", userVo);
+			// session.setAttribute("authuser", userVo);
+			authUser.setName(userVo.getName());
 		}
+		
 		return "redirect:/";
 	}
 	

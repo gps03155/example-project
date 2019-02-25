@@ -23,7 +23,7 @@ public class UserVo {
 	
 	@Override
 	public String toString() {
-		return super.toString();
+		return getNo() + " " + getName() + " " + getEmail() + " " + getGender() + " " + getRole();
 	}
 
 	public void setNo(long no) {

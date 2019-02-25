@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.douzone.mysite.service.UserService;
@@ -34,7 +35,6 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 		userVo.setPassword(password);
 		
 		userVo = userService.login(userVo);
-		
 		if(userVo == null) {
 			// response.sendRedirect(request.getContextPath() + "/user/login");
 			request.setAttribute("result", "fail");
@@ -48,7 +48,12 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authuser", userVo);
 		
-		response.sendRedirect(request.getContextPath() + "/"); // Redirect : @RequestMapping URL
+		if(userVo.getRole().equals("user")) {
+			response.sendRedirect(request.getContextPath() + "/"); // Redirect : @RequestMapping URL
+		}
+		else {
+			response.sendRedirect(request.getContextPath() + "/admin");
+		}
 		
 		return false;
 	}

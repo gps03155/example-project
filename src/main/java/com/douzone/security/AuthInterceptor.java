@@ -8,6 +8,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.douzone.mysite.vo.UserVo;
+import com.douzone.security.Auth.Role;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
@@ -27,7 +28,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// 3. Method에 @Auth 받아오기
 		Auth auth = handlerMethod.getMethodAnnotation(Auth.class); // 없으면 null 리턴
 		
-		// 4. Method에 @Auth가 안붙어 있으면 (인증 불필요)
+		// 3-1. Method에 @Auth가 안붙어 있으면 Class Type의 @Auth 받아오기
+		if(auth == null) {
+			auth = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
+		}
+		
+		// 4. Method에 @Auth가 안붙어 있으면 (인증 불필요) : Method && Class에 붙어있지않음
 		if(auth == null) {
 			return true;
 		}
@@ -52,6 +58,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			
 			return false;
 		}
+		
+		// 5-1. Role 비교 작업
+		Role role = auth.value();
 		
 		// 6. 접근허용
 		return true;

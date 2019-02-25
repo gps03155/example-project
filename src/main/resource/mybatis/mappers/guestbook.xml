@@ -22,5 +22,4 @@
 	<select id="comparePW" parameterType="map" resultType="string">
 		<![CDATA[select password from guestbook where password = password(#{password}) and no = #{no}]]>
 	</select>
-</mapper
->
+</mapper>
