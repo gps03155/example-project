@@ -21,6 +21,21 @@
 	<context:component-scan
 		base-package="com.douzone.mysite.controller" />
 
+	<!-- Interceptors -->
+	<mvc:interceptors>
+		<!-- MyInterceptor01 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/guestbook/**"/>
+			<bean class="com.douzone.mysite.interceptor.MyInterceptor01" />
+		</mvc:interceptor>
+		
+		<!-- Login 처리 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth"/>
+			<bean class="com.douzone.security.AuthLoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	<!-- 기본 ViewResolver 설정 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name= "viewClass" value="org.springframework.web.servlet.view.JstlView" />

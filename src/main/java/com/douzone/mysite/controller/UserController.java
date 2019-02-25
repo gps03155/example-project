@@ -42,10 +42,12 @@ public class UserController {
 		return "user/loginform";
 	}
 	
+	/*
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(HttpSession session, @ModelAttribute UserVo userVo, Model model) {
 		// 인증 처리
 		UserVo authUser = userService.login(userVo);
+		
 		
 		if(authUser == null) {
 			model.addAttribute("result", "fail");
@@ -57,6 +59,7 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	*/
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
