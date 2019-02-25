@@ -13,6 +13,7 @@ import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
 import com.douzone.security.Auth;
 import com.douzone.security.Auth.Role;
+import com.douzone.security.AuthUser;
 
 @Controller
 @RequestMapping("/user")
@@ -77,7 +78,8 @@ public class UserController {
 	
 	@Auth(Role.ADMIN)
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String modify(HttpSession session, Model model) {
+	public String modify(@AuthUser UserVo authUser, Model model) {//HttpSession session, Model model) {
+		/*
 		UserVo authUser = null;
 		
 		if(session != null) {
@@ -87,6 +89,9 @@ public class UserController {
 		if(authUser == null) {
 			return "redirect:/";
 		}
+		*/
+		
+		System.out.println(authUser);
 		
 		UserVo vo = userService.getUserInfo(authUser);
 		model.addAttribute("vo", vo);
@@ -94,6 +99,7 @@ public class UserController {
 		return "user/modifyform";
 	}
 	
+	@Auth
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(HttpSession session, @ModelAttribute UserVo userVo) {
 		userService.modify(userVo);

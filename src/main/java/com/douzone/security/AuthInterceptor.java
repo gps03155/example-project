@@ -14,8 +14,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	// 로그인, 로그아웃 제외
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		
+			throws Exception {		
 		// 1. Handler 종류 확인
 		// HandlerMethod가 아니면 default HandlerMethod
 		if(!(handler instanceof HandlerMethod)) {
@@ -43,12 +42,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		if(session != null) {
 			authUser = (UserVo) session.getAttribute("authuser");
-			System.out.println("AuthInterceptor : preHandle()");
+			System.out.println("AuthInterceptor : preHandle() session != null");
 		}
 		
 		// 인증이 안되어 있는 경우
 		if(authUser == null) {
 			response.sendRedirect(request.getContextPath() + "/user/login");
+			System.out.println("AuthInterceptor : preHandle() authUser == null");
 			
 			return false;
 		}

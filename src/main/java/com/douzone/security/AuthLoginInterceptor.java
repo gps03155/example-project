@@ -1,5 +1,6 @@
 package com.douzone.security;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,8 +36,11 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 		userVo = userService.login(userVo);
 		
 		if(userVo == null) {
-			response.sendRedirect(request.getContextPath() + "/user/login");
-			
+			// response.sendRedirect(request.getContextPath() + "/user/login");
+			request.setAttribute("result", "fail");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/user/loginform.jsp");
+			dispatcher.forward(request, response);
+
 			return false;
 		}
 		

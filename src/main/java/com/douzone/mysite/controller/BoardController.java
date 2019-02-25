@@ -1,7 +1,5 @@
 package com.douzone.mysite.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.douzone.mysite.repository.BoardDao;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
-import com.douzone.mysite.vo.PageVo;
 import com.douzone.mysite.vo.UserVo;
+import com.douzone.security.Auth;
 
 @Controller
 @RequestMapping("/board")
@@ -45,6 +41,7 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	@Auth
 	@RequestMapping(value="/write/{page}", method=RequestMethod.GET)
 	public String write(@PathVariable("page") int page, Model model) {
 		model.addAttribute("page", page);
