@@ -15,7 +15,7 @@
 				<li><a href="${pageContext.servletContext.contextPath}/user/join">회원가입</a><li>
 			</c:when>
 			
-			<c:otherwise>
+			<c:otherwise>	
 				<c:choose>
 					<c:when test="${authuser.role eq 'admin'}">
 						<li><a href="${pageContext.servletContext.contextPath}/admin">관리자페이지</a><li>

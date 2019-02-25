@@ -63,7 +63,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		String role = auth.value().toString();
 		
 		if(!role.equals(authUser.getRole().toUpperCase())) { // user가 URL로 접근하는 것을 막음 : http:localhost:8080/mysite3/admin
-			response.sendRedirect(request.getContextPath() + "/user/login");
+			response.sendRedirect(request.getContextPath() + "/");
 			System.out.println("관리자만 접근 가능");
 			
 			return false;
