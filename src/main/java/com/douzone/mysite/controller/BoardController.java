@@ -14,6 +14,7 @@ import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
 import com.douzone.security.Auth;
+import com.douzone.security.AuthUser;
 
 @Controller
 @RequestMapping("/board")
@@ -49,9 +50,10 @@ public class BoardController {
 		return "board/write";
 	}
 	
+	@Auth
 	@RequestMapping(value="/write/{page}", method=RequestMethod.POST)
-	public String write(@PathVariable("page") int page, @ModelAttribute BoardVo vo, HttpSession session) {
-		UserVo uservo = (UserVo) session.getAttribute("authuser");
+	public String write(@AuthUser UserVo uservo, @PathVariable("page") int page, @ModelAttribute BoardVo vo, HttpSession session) {
+		// UserVo uservo = (UserVo) session.getAttribute("authuser");
 		vo.setUserNo(uservo.getNo());
 		
 		boardService.insert(vo);
@@ -91,11 +93,12 @@ public class BoardController {
 		return "board/reply";
 	}
 	
+	@Auth
 	@RequestMapping(value="/reply/{no}/{page}", method=RequestMethod.POST)
-	public String reply(@PathVariable("no") long no, @PathVariable("page") int page, Model model, @ModelAttribute BoardVo vo, HttpSession session) {
+	public String reply(@AuthUser UserVo userVo, @PathVariable("no") long no, @PathVariable("page") int page, Model model, @ModelAttribute BoardVo vo, HttpSession session) {
 		//model.addAttribute("no", no);
 		//model.addAttribute("page", page);
-		UserVo userVo = (UserVo) session.getAttribute("authuser");
+		// UserVo userVo = (UserVo) session.getAttribute("authuser");
 		vo.setUserNo(userVo.getNo());
 		
 		boardService.updateReply(vo);
@@ -104,9 +107,10 @@ public class BoardController {
 		return "redirect:/board/list/1";
 	}
 	
+	@Auth
 	@RequestMapping(value="/comment/{no}/{page}", method=RequestMethod.POST)
-	public String comment(@PathVariable("no") long no, @PathVariable("page") int page, @ModelAttribute BoardVo vo, HttpSession session) {
-		UserVo uservo = (UserVo) session.getAttribute("authuser");
+	public String comment(@AuthUser UserVo uservo, @PathVariable("no") long no, @PathVariable("page") int page, @ModelAttribute BoardVo vo, HttpSession session) {
+		// UserVo uservo = (UserVo) session.getAttribute("authuser");
 		vo.setUserNo(uservo.getNo());
 		
 		boardService.insertComment(vo);
