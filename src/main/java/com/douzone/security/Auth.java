@@ -13,6 +13,7 @@ public @interface Auth {
 	public enum Role {ADMIN, USER};
 	
 	Role value() default Role.USER;
+	boolean modify() default false;
 	
 	/* test */
 	// String value() default "USER";

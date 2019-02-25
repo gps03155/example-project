@@ -62,7 +62,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// 5-1. Role 비교 작업
 		String role = auth.value().toString();
 		
-		if(!role.equals(authUser.getRole().toUpperCase())) { // user가 URL로 접근하는 것을 막음 : http:localhost:8080/mysite3/admin
+		if(!role.equals(authUser.getRole().toUpperCase()) && !auth.modify()) { // user가 URL로 접근하는 것을 막음 : http:localhost:8080/mysite3/admin
 			response.sendRedirect(request.getContextPath() + "/");
 			System.out.println("관리자만 접근 가능");
 			

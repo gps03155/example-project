@@ -44,7 +44,7 @@ public class UserController {
 		return "user/loginform";
 	}
 	
-	@Auth(Role.ADMIN)
+	@Auth(modify=true)
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(@AuthUser UserVo authUser, Model model) {//HttpSession session, Model model) {
 		System.out.println(authUser);
@@ -55,7 +55,7 @@ public class UserController {
 		return "user/modifyform";
 	}
 	
-	@Auth
+	@Auth(modify=true)
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(@AuthUser UserVo authUser, @ModelAttribute UserVo userVo) {
 		userService.modify(userVo);
