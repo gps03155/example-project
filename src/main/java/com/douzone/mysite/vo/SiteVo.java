@@ -4,7 +4,7 @@ public class SiteVo {
 	private String title;
 	private String welcome;
 	private String profile;
-	private String desc;
+	private String description;
 	
 	public String getTitle() {
 		return title;
@@ -29,12 +29,18 @@ public class SiteVo {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	
-	public String getDesc() {
-		return desc;
+
+	public String getDescription() {
+		return description;
 	}
-	
-	public void setDesc(String desc) {
-		this.desc = desc;
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "SiteVo [title=" + title + ", welcome=" + welcome + ", profile=" + profile + ", description="
+				+ description + "]";
 	}
 }

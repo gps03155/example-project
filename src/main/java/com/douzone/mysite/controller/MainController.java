@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.douzone.mysite.repository.GuestBookDao;
 import com.douzone.mysite.service.SiteService;
+import com.douzone.mysite.vo.SiteVo;
 
 @Controller
 public class MainController {
@@ -27,9 +28,9 @@ public class MainController {
 		System.out.println(no);
 		*/
 		
-		// SiteVo siteVo = siteService.getSite();
+		SiteVo siteVo = siteService.select();
 		
-		// model.addAttribute("site", siteVo);
+		model.addAttribute("site", siteVo);
 		
 		return "main/index"; // ViewResolver - prefix : /WEB-INF/views , suffix : .jsp
 							 // ViewResolver - /WEB-INF/views/main/index.jsp로 경로가 설정됨

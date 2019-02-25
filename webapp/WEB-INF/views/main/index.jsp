@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>mysite</title>
+<title>${site.title}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath}/assets/css/main.css" rel="stylesheet" type="text/css">
 </head>
@@ -22,7 +22,7 @@
 					<h2>${site.welcome}</h2> <br>
 					<h3>https://github.com/gps03155</h3>
 					<p>
-						${site.desc}<br><br>
+						${site.description}<br><br>
 						<a href="${pageContext.servletContext.contextPath}/guestbook/list">방명록</a>에 글 남기기<br>
 					</p>
 				</div>
