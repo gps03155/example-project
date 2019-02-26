@@ -33,7 +33,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			auth = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
 		}
 		
-		// 4. Method에 @Auth가 안붙어 있으면 (인증 불필요) : Method && Class에 붙어있지않음
+		// 4. Method에 @Auth가 안붙어 있으면 (인증 불필요) : Method && Class에 붙어있지않음 - 인증을 안해도 되는 메서드
 		if(auth == null) {
 			return true;
 		}
@@ -59,9 +59,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
-		// 5-1. Role 비교 작업
+		// 5-1. Role 비교 작업 - 권한 체크 (Authentication)
 		String role = auth.value().toString();
 		
+		// ADMIN 권한이 없는 사용자면 메인화면으로 이동 - User일 경우
 		if(!"ADMIN".equals(authUser.getRole().toUpperCase()) && !auth.modify()) { // user가 URL로 접근하는 것을 막음 : http:localhost:8080/mysite3/admin
 			response.sendRedirect(request.getContextPath() + "/");
 			System.out.println("관리자만 접근 가능");

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +43,6 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	@Auth
 	@RequestMapping(value="/write/{page}", method=RequestMethod.GET)
 	public String write(@PathVariable("page") int page, Model model) {
 		model.addAttribute("page", page);
@@ -50,7 +50,7 @@ public class BoardController {
 		return "board/write";
 	}
 	
-	@Auth
+	@Transactional // 쿼리 돌리다 오류나면 자동으로 rollback
 	@RequestMapping(value="/write/{page}", method=RequestMethod.POST)
 	public String write(@AuthUser UserVo uservo, @PathVariable("page") int page, @ModelAttribute BoardVo vo, HttpSession session) {
 		// UserVo uservo = (UserVo) session.getAttribute("authuser");
