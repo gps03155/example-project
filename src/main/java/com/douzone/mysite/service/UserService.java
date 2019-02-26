@@ -12,6 +12,16 @@ public class UserService {
 	@Autowired
 	private UserDao userDao; // @Autowired 없으면 null
 	
+	public boolean existEmail(String email) {
+		UserVo vo = userDao.get(email);
+		
+		if(vo != null) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public void join(UserVo userVo) {
 		// 1. DB에 가입 회원 정도 insert 하기
 		userDao.insert(userVo); // Spring에서는 다 RuntimeException
