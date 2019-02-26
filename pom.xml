@@ -35,6 +35,13 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 
 		<!-- MySQL Connector JDBC Driver : https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>

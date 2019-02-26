@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StopWatch;
 
 import com.douzone.mysite.vo.UserVo;
 
@@ -42,7 +43,7 @@ public class UserDao {
 	}
 	
 	// 로그인
-	public UserVo get(String email, String password) {
+	public UserVo get(String email, String password) {		
 		Map<String, String> map = new HashMap<String, String>();
 		
 		map.put("email", email);
