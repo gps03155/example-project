@@ -23,7 +23,21 @@ public class GuestBookService {
 		return list;
 	}
 	
-	public void delete(GuestBookVo vo) {
-		guestbookDao.delete(vo.getNo(), guestbookDao.comparePW(vo.getPassword(), vo.getNo()));
+	public int delete(GuestBookVo vo) {
+		return guestbookDao.delete(vo.getNo(), guestbookDao.comparePW(vo.getPassword(), vo.getNo()));
+	}
+	
+	public List<GuestBookVo> ajaxGetList(int page){
+		List<GuestBookVo> list = guestbookDao.getList(page);
+		
+		return list;
+	}
+	
+	public GuestBookVo ajaxInsert(int no) {
+		return guestbookDao.get(no);
+	}
+	
+	public int getLastID() {
+		return guestbookDao.getLastID();
 	}
 }

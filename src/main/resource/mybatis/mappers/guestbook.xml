@@ -3,13 +3,17 @@
 
 <mapper namespace="guestbook">
 	<insert id="insert" parameterType="map">
+		<![CDATA[insert into guestbook values(null, #{name}, password(#{password}), #{content}, current_timestamp())]]> <!-- 태그가 아님을 알려줌 (데이터) -->
 		<!-- 
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
+		<selectKey keyProperty="no" resultType="integer" order="AFTER">
 			<![CDATA[ select last_insert_id()]]>
 		</selectKey>
 		-->
-		<![CDATA[insert into guestbook values(null, #{name}, password(#{password}), #{content}, current_timestamp())]]> <!-- 태그가 아님을 알려줌 (데이터) -->
 	</insert>
+	
+	<select id="lastID" resultType="integer">
+		<![CDATA[select last_insert_id()]]>
+	</select>
 	
 	<select id="getList" resultType="guestbookvo">
 		<![CDATA[select no, name, message, meg_date from guestbook order by meg_date desc]]>
@@ -21,5 +25,13 @@
 	
 	<select id="comparePW" parameterType="map" resultType="string">
 		<![CDATA[select password from guestbook where password = password(#{password}) and no = #{no}]]>
+	</select>
+	
+	<select id="ajaxGetList" parameterType="integer" resultType="guestbookvo">
+		<![CDATA[select no, name, message, meg_date from guestbook order by meg_date desc limit #{page}, 5]]>
+	</select>
+	
+	<select id="ajaxInsert" parameterType="integer" resultType="guestbookvo">
+		<![CDATA[select no, name, message, meg_date from guestbook where no = #{no} order by meg_date]]>
 	</select>
 </mapper>

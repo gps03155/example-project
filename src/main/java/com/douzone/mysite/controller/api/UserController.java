@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.douzone.mysite.dto.JSONResult;
 import com.douzone.mysite.service.UserService;
 
-@Controller("usrAPIController")
+@Controller("userAPIController")
 @RequestMapping("/user/api")
 public class UserController {
 	

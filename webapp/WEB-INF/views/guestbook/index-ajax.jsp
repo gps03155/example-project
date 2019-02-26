@@ -89,7 +89,7 @@
 				
 		$.ajax({
 			async:true,
-			url:"/mysite2/api/guestbook?action=ajax-list&page=" + page,
+			url:"/mysite3/guestbook/api/ajax-list?page=" + page,
 			type:"get",
 			dateType:"json",
 			data:"",
@@ -134,16 +134,17 @@
 					
 					$.ajax({
 						async: true,
-						url: "/mysite2/api/guestbook?action=ajax-delete&page=" + page + "&password=" + $("#password-delete").val() + "&no=" + $("#hidden-no").val(),
+						url: "/mysite3/guestbook/api/ajax-delete?page=" + page + "&password=" + $("#password-delete").val() + "&no=" + $("#hidden-no").val(),
 						type: "get",
 						dataType: "json",
 						data: "",
 						success: function(response){
 							console.log("delete ajax");
 							console.log(response);
+							console.log(response.data);
 							
-							if(response.result == "fail"){
-								console.log(response.result);
+							if(response.data == false){
+								console.log(response.data);
 								
 								$(".validateTips-error").show();
 								$("#password-delete").val("");
@@ -153,7 +154,7 @@
 								
 								dialogDelete.dialog("close");
 								
-								$("#list-guestbook li[data-no=" + $("#list-guestbook li").data("no") + "]").remove();
+								$('#list-guestbook li[data-no=' + $("#hidden-no").val() + ']').remove();
 							}
 						},
 						error: function(xhr, status, e){
@@ -221,7 +222,7 @@
 			
 			$.ajax({
 				async: true,
-				url: "/mysite2/api/guestbook?action=ajax-insert&page=" + page + "&name=" + $("#input-name").val() + "&password=" + $("#input-password").val() + "&message=" + $("#tx-content").val(),
+				url: "/mysite3/guestbook/api/ajax-insert/" + page + "/" + $("#input-name").val() + "/" + $("#input-password").val() + "/" + $("#tx-content").val(),
 				type: "get",
 				dataType: "json",
 				data: "",
