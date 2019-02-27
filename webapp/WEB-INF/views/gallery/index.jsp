@@ -83,7 +83,7 @@
 					<form action="${pageContext.request.contextPath }/gallery/upload" method="post" enctype="multipart/form-data">
 						<label>코멘트</label> 
 						<input type="text" id="input-comments" name="comment" value=""> <label>이미지</label> 
-						<input type="file" id="input-file" name="upload-image"> 
+						<input type="file" id="input-file" name="upload-image" multiple accept="image/*"> 
 						<input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
 					</form>
 				</div>
