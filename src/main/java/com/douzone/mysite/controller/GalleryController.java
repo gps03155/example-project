@@ -57,7 +57,13 @@ public class GalleryController {
 	
 	@Auth(Role.ADMIN)
 	@RequestMapping("/delete/{no}")
-	public String delete(@PathVariable("no") long no) {
+	public String delete(@PathVariable("no") long no, @RequestParam String imageUrl) {
+		boolean delete = fileuploadService.delete(imageUrl);
+		
+		if(delete) {
+			System.out.println("폴더 이미지 삭제 성공");
+		}
+		
 		int result = galleryService.galleryDelete(no);
 		
 		if(result == 1) {

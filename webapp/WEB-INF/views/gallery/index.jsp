@@ -70,7 +70,7 @@
 							
 							<c:if test="${not empty authuser && authuser.role=='admin' }">
 								test
-								<a href="${pageContext.request.contextPath}/gallery/delete/${galleryVo.no}" class="del-button" title="삭제">삭제</a>
+								<a href="${pageContext.request.contextPath}/gallery/delete/${galleryVo.no}?imageUrl=${galleryVo.image_url}" class="del-button" title="삭제">삭제</a>
 							</c:if>
 						</li>
 					</c:forEach>

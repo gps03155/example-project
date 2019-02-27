@@ -1,5 +1,6 @@
 package com.douzone.mysite.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
@@ -11,6 +12,20 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadService {
 	private static final String SAVE_PATH = "/uploads"; // c 드라이브 밑 upload에 저장 - 저장은 프로젝트 안에서 하는게 아님
 	private static final String URL = "/uploads/images"; // 웹으로 접근 시
+	
+	public boolean delete(String filePath) {
+		boolean result = false;
+		String saveFileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+		
+		File file = new File(SAVE_PATH + "/" + saveFileName);
+		System.out.println(file.getPath());
+		
+		if(file.exists()) {
+			result = file.delete();
+		}
+		
+		return result;
+	}
 	
 	public String restore(MultipartFile multipartFile) {
 		String url = "";
