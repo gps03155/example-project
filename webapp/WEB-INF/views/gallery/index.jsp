@@ -10,18 +10,14 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.request.contextPath }/assets/css/gallery.css"
-	rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath }/assets/css/lightbox.css"
-	rel="stylesheet" type="text/css">
-<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
-	rel="stylesheet" type="text/css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/lightbox.js"></script>
+<link href="${pageContext.request.contextPath }/assets/css/gallery.css"	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/lightbox.css"	rel="stylesheet" type="text/css">
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"	rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/lightbox.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<c:if test="${not empty authUser && authUser.role=='ADMIN' }">
+
+<c:if test="${not empty authuser && authuser.role=='admin' }">
 	<script type="text/javascript">
 		$(function() {
 			// 업로드 다이알로그
@@ -58,49 +54,37 @@
 		<div id="content">
 			<div id="gallery">
 				<div>
-					<h1>갤러리</h1>
-					<c:if test="${not empty authUser && authUser.role=='ADMIN' }">
+					<h1>갤러리 ${authuser.role}</h1>
+					<c:if test="${not empty authuser && authuser.role=='admin' }">
 						<a href="" id="upload-image">이미지 올리기</a>
 					</c:if>
 				</div>
 				<ul>
-					<li><a
-						href="${pageContext.request.contextPath }/assets/gallery-examples/im1.jpg"
-						data-lightbox="gallery"
-						class="image"
-						style="background-image:url('${pageContext.request.contextPath }/assets/gallery-examples/im1.jpg')">&nbsp;</a>
-						<c:if test="${not empty authUser && authUser.role=='ADMIN' }">
-							<a href="" class="del-button" title="삭제">삭제</a>
-						</c:if></li>
-					<li><a
-						href="${pageContext.request.contextPath }/assets/gallery-examples/im2.jpg"
-						data-lightbox="gallery"
-						class="image"
-						style="background-image:url('${pageContext.request.contextPath }/assets/gallery-examples/im2.jpg')">&nbsp;</a>
-						<c:if test="${not empty authUser && authUser.role=='ADMIN' }">
-							<a href="" class="del-button" title="삭제">삭제</a>
-						</c:if></li>
-					<li><a
-						href="${pageContext.request.contextPath }/assets/gallery-examples/im3.jpg"
-						data-lightbox="gallery"
-						class="image"
-						style="background-image:url('${pageContext.request.contextPath }/assets/gallery-examples/im3.jpg')">&nbsp;</a>
-						<c:if test="${not empty authUser && authUser.role=='ADMIN' }">
-							<a href="" class="del-button" title="삭제">삭제</a>
-						</c:if></li>
+					<c:forEach items="${list}" var="galleryVo">
+						<li>
+							<a href="${pageContext.request.contextPath }${galleryVo.image_url}"
+							   title="${galleryVo.comment}"
+							   data-lightbox="gallery"
+							   class="image"
+							   style="background-image:url('${pageContext.request.contextPath }${galleryVo.image_url}')">&nbsp;</a>
+							
+							<c:if test="${not empty authuser && authuser.role=='admin' }">
+								test
+								<a href="${pageContext.request.contextPath}/gallery/delete/${galleryVo.no}" class="del-button" title="삭제">삭제</a>
+							</c:if>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 
-			<c:if test="${not empty authUser && authUser.role=='ADMIN' }">
+			<c:if test="${not empty authuser && authuser.role=='admin' }">
 				<div id="dialog-upload-form" title="이미지 업로드" style="display: none">
 					<p class="validateTips normal">이미지와 간단한 코멘트를 입력해 주세요.</p>
-					<form action="${pageContext.request.contextPath }/gallery/upload"
-						method="post" enctype="multipart/form-data">
-						<label>코멘트</label> <input type="text" id="input-comments"
-							name="comment" value=""> <label>이미지</label> <input
-							type="file" id="upload-file" name="file"> <input
-							type="submit" tabindex="-1"
-							style="position: absolute; top: -1000px">
+					<form action="${pageContext.request.contextPath }/gallery/upload" method="post" enctype="multipart/form-data">
+						<label>코멘트</label> 
+						<input type="text" id="input-comments" name="comment" value=""> <label>이미지</label> 
+						<input type="file" id="input-file" name="upload-image"> 
+						<input type="submit" tabindex="-1" style="position: absolute; top: -1000px">
 					</form>
 				</div>
 			</c:if>
