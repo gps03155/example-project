@@ -44,6 +44,17 @@
 				event.preventDefault();
 				dialogUpload.dialog("open");
 			});
+			
+			$('#input-file').change(function(event){
+		         if($('#input-file').val()!=""){
+		         var ext = $('#input-file').val().split('.').pop().toLowerCase();
+		         if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		             alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+		             $('#input-file').val("");
+		             return;
+		              }
+		         }
+		    });
 		});
 	</script>
 </c:if>
