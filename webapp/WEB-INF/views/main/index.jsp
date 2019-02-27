@@ -22,7 +22,7 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img id="profile" src="${pageContext.servletContext.contextPath}/assets/images/profile.png" style="width:120px; height:120px;">
+					<img id="profile" src="${pageContext.servletContext.contextPath}${site.profile}" style="width:120px; height:120px;">
 					<h2>${fn:replace(site.welcome, newline, "<br>")}</h2> <br>
 					<h3>https://github.com/gps03155</h3>
 					<p>

@@ -6,7 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.mysite.service.FileUploadService;
 import com.douzone.mysite.service.SiteService;
 import com.douzone.mysite.vo.SiteVo;
 import com.douzone.security.Auth;
@@ -19,6 +22,9 @@ public class AdminController {
 	@Autowired
 	private SiteService siteService;
 	
+	@Autowired
+	private FileUploadService fileuploadService;
+	
 	@RequestMapping("")
 	public String main(Model model) {
 		model.addAttribute("siteVo", siteService.select());
@@ -27,8 +33,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/main/update", method=RequestMethod.POST)
-	public String update(@ModelAttribute SiteVo siteVo) {
-		siteVo.setProfile("/assets/images/profile.png");
+	public String update(@ModelAttribute SiteVo siteVo, @RequestParam(value="upload-profile") MultipartFile multipartFile) {
+		String url = fileuploadService.restore(multipartFile);
+		siteVo.setProfile(url);
 		
 		siteService.update(siteVo);
 		
