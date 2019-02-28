@@ -28,7 +28,9 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET) // 넘어오는 데이터 없을 때 : GET
-	public String join(@ModelAttribute UserVo userVo) {		
+	public String join(@ModelAttribute UserVo userVo) { // Model model) {		
+		// model.addAttribute("userVo", userVo); - 동일한 의미 : @ModelAttribute하면 자동으로 jsp에 넘어감
+		
 		return "user/join";
 	}
 	
