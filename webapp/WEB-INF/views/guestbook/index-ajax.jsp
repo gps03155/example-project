@@ -29,6 +29,7 @@
 </style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ejs/ejs.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	// jquery plug-in
@@ -40,6 +41,8 @@
 	
 	var page = 0;
 	var isEnd = false;
+	var listItemTemplate = new EJS({url:"${pageContext.request.contextPath}/assets/js/ejs-template/guestbook-list-item.ejs"});
+	var listTemplate = new EJS({url:"${pageContext.request.contextPath}/assets/js/ejs-template/guestbook-list.ejs"});
 	
 	var messageBox = function(title, message, id){
 		$("#dialog-message").attr("title", title);
@@ -66,17 +69,21 @@
 		// 현업에 가면 이렇게 안한다. -> js template Libarary 사용
 		// ex) ejs, underscore, mustache
 		
+		/*
 		var htmls = "<li data-no='" + vo.no + "'>" +
 					"<strong>" + vo.name + "</strong>" +
 					"<p>" + vo.message.replace(/\n/g, "<br>") + "</p>" +
 					"<strong></strong>" +
 					"<a href=' ' data-no= '" + vo.no + "'>삭제</a>" +
 					"</li>";
+		*/
+		
+		var html = listItemTemplate.render(vo);
 		
 		if(mode){
-			$("#list-guestbook").prepend(htmls);
+			$("#list-guestbook").prepend(html);
 		} else{
-			$("#list-guestbook").append(htmls);
+			$("#list-guestbook").append(html);
 		}			
 	}
 	
@@ -112,11 +119,18 @@
 				}
 						
 				// rendering
+				/*
 				$.each(response.data, function(index, vo){
 					console.log(vo);
 							
 					render(vo, false);
 				});
+				*/
+				
+				var htmls = listTemplate.render(response);
+				
+				$("#list-guestbook").append(htmls);
+				$("#list-guestbook").hello();
 			},
 			error:function(xhr, status, e){
 				console.error(status + " : " + e);
