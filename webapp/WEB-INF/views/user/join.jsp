@@ -1,6 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,6 +15,8 @@
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
 	$(function(){
+		/*
+		// Validation
 		$("#join-form").submit(function(){
 			// 1. 이름 체크
 			if($("#name").val() == ""){
@@ -55,6 +58,7 @@
 			
 			return true;
 		});
+		*/
 		
 		$("#email").change(function(){
 			$("#btn-checkemail").show();
@@ -106,15 +110,41 @@
 
 				<form id="join-form" name="joinForm" method="POST" action="${pageContext.servletContext.contextPath}/user/join">
 					<label class="block-label" for="name">이름</label>
-					<input id="name" name="name" type="text" value="">
-
+					<input id="name" name="name" type="text" value="${userVo.name}">
+					
+					<spring:hasBindErrors name="userVo">
+						<c:if test="${errors.hasFieldErrors('name')}">
+							<p style="text-align:left; color: red">
+								<strong>
+									<spring:message code="${errors.getFieldError('name').codes[0]}" text="${errors.getFieldError('name').defaultMessage}" />
+								</strong>
+							</p>
+						</c:if>
+					</spring:hasBindErrors>
+					
 					<label class="block-label" for="email">이메일</label>
-					<input id="email" name="email" type="text" value="">
+					<input id="email" name="email" type="text" value="${userVo.email}">
 					<input id="btn-checkemail" type="button" value="id 중복체크">
 					<img id="img-checkemail" src="${pageContext.servletContext.contextPath}/assets/images/check.png" alt="email 중복 체크 확인" style="width:25px; display:none">
 					
+					<br>
+					
+					<spring:hasBindErrors name="userVo">
+						<c:if test="${errors.hasFieldErrors('email')}">
+							<strong>${errors.getFieldError('email').defaultMessage}</strong>
+						</c:if>
+					</spring:hasBindErrors>
+					
 					<label class="block-label">패스워드</label>
-					<input name="password" type="password" value="">
+					<input name="password" type="password" value="${userVo.password}">
+					
+					<br>
+					
+					<spring:hasBindErrors name="userVo">
+						<c:if test="${errors.hasFieldErrors('password')}">
+							<strong>${errors.getFieldError('password').defaultMessage}</strong>
+						</c:if>
+					</spring:hasBindErrors>
 					
 					<fieldset>
 						<legend>성별</legend>

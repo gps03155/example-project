@@ -1,10 +1,23 @@
 package com.douzone.mysite.vo;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserVo {
 	private long no;
-	private String name;
+	
+	@NotEmpty
+	@Length(min=2, max=8)
+	private String name; // name이 비어서는 안됨 Validation 조건
+	
+	@NotEmpty
+	@Email
 	private String email;
+	
+	@NotEmpty
 	private String password;
+	
 	private String gender;
 	private String joinDate;
 	private String role;

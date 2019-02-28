@@ -44,11 +44,12 @@
 		</mvc:argument-resolvers>
 
 	</mvc:annotation-driven>
-	
-	<!-- the mvc resources tag does the magic -->	
+
+	<!-- the mvc resources tag does the magic -->
 	<!-- the mav resousrces mapping url(virtual) -->
-	<mvc:resources mapping="/uploads/images/**" location="file:/uploads/" /> <!-- spring이기 때문에 contextpath 뺴기 -->
-	
+	<mvc:resources mapping="/uploads/images/**"
+		location="file:/uploads/" /> <!-- spring이기 때문에 contextpath 뺴기 -->
+
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 : css, js 적용되게 함 -->
 	<mvc:default-servlet-handler />
 
@@ -90,7 +91,7 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
-	
+
 	<!-- 멀티파트 리졸버 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -101,4 +102,15 @@
 		<!-- defaultEncoding -->
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
+
+	<!-- MessageSource -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages/messages_ko</value>
+				<value>messages/messages_en</value> <!-- 다국어 버전 만들때 -->
+			</list>
+		</property>
+	</bean>
+
 </beans>
