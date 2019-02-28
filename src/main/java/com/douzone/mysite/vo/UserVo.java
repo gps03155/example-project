@@ -18,10 +18,21 @@ public class UserVo {
 	@NotEmpty
 	private String password;
 	
+	@NotEmpty
+	private String agree;
+	
 	private String gender;
 	private String joinDate;
 	private String role;
 	
+	public String getAgree() {
+		return agree;
+	}
+
+	public void setAgree(String agree) {
+		this.agree = agree;
+	}
+
 	public String getRole() {
 		return role;
 	}

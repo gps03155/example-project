@@ -148,8 +148,11 @@
 					
 					<fieldset>
 						<legend>약관동의</legend>
-						<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
+						<form:checkbox path="agree" value="y" label="약관동의"/>
 						<label>서비스 약관에 동의합니다.</label>
+						<p style="margin:0; padding:0; color:red; text-align:left">
+							<form:errors path="agree" />
+						</p>
 					</fieldset>
 					
 					<input type="submit" value="가입하기">
