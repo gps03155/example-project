@@ -21,7 +21,9 @@ public class UserVo {
 	@NotEmpty
 	private String agree;
 	
+	@NotEmpty
 	private String gender;
+	
 	private String joinDate;
 	private String role;
 	

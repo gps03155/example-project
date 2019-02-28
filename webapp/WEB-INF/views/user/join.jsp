@@ -134,7 +134,8 @@
 					<img id="img-checkemail" src="${pageContext.servletContext.contextPath}/assets/images/check.png" alt="email 중복 체크 확인" style="width:25px; display:none">
 					
 					<label class="block-label">패스워드</label>
-					<form:input path="password" name="password" type="password" value="${userVo.password}" />
+					<form:input path="password"/>
+					<!-- <form:input path="password" name="password" type="password" value="${userVo.password}" /> -->
 					
 					<p style="margin:0; padding:0; color:red; text-align: left">
 						<form:errors path="password" />
@@ -142,13 +143,17 @@
 					
 					<fieldset>
 						<legend>성별</legend>
-						<label>여</label> <input type="radio" name="gender" value="female" checked="checked">
-						<label>남</label> <input type="radio" name="gender" value="male">
+						<label>여</label> <form:radiobutton path="gender" value="female" checked="checked"/>
+						<label>남</label> <form:radiobutton path="gender" value="male"/>
+						
+						<p style="margin:0; padding:0; color:red; text-align:left">
+							<form:errors path="gender" />
+						</p>
 					</fieldset>
 					
 					<fieldset>
 						<legend>약관동의</legend>
-						<form:checkbox path="agree" value="y" label="약관동의"/>
+						<form:checkbox path="agree" value="y"/>
 						<label>서비스 약관에 동의합니다.</label>
 						<p style="margin:0; padding:0; color:red; text-align:left">
 							<form:errors path="agree" />
