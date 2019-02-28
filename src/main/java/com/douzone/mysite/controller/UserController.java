@@ -28,7 +28,7 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET) // 넘어오는 데이터 없을 때 : GET
-	public String join() {
+	public String join(@ModelAttribute UserVo userVo) {		
 		return "user/join";
 	}
 	
