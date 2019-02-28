@@ -1,8 +1,12 @@
 package com.douzone.mysite.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +23,24 @@ public class GuestBookController {
 	private GuestBookService guestbookService;
 
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model, @ModelAttribute GuestBookVo guestBookVo) {
 		model.addAttribute("list", guestbookService.getList());
 		
 		return "guestbook/list";
 	}
 	
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
-	public String insert(@RequestParam String name, @RequestParam String pass, @RequestParam String content) {
-		guestbookService.insert(name, pass, content);
+	public String insert(@ModelAttribute @Valid GuestBookVo guestBookVo, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			System.out.println(result);
+			
+			model.addAllAttributes(result.getModel());
+			model.addAttribute("list", guestbookService.getList());
+			
+			return "guestbook/list";
+		}
+		
+		guestbookService.insert(guestBookVo.getName(), guestBookVo.getPassword(), guestBookVo.getMessage());
 		
 		return "redirect:/guestbook/list";
 	}
