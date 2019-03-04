@@ -10,7 +10,7 @@
 		<![CDATA[update blog b join user u on b.user_no = u.no set b.title = #{title}, b.logo = #{logo} where u.id = #{id}]]>
 	</update>
 	
-	<select id="selectBlog" resultType="blogvo">
-		<![CDATA[select user_no, title, logo from blog]]>
+	<select id="selectBlog" parameterType="string" resultType="blogvo">
+		<![CDATA[select b.user_no, b.title, b.logo from blog b join user u on b.user_no = u.no where u.id = #{id}]]>
 	</select>
 </mapper>

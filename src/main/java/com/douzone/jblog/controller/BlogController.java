@@ -26,7 +26,7 @@ public class BlogController {
 	
 	@RequestMapping("/{id}")
 	public String blog(@PathVariable String id, Model model) {
-		BlogVo blogVo = blogService.selectBlog();
+		BlogVo blogVo = blogService.selectBlog(id);
 		
 		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("id", id);
@@ -52,5 +52,12 @@ public class BlogController {
 		blogService.updateBlog(blogVo);
 		
 		return "redirect:/blog/" + id;
+	}
+	
+	@RequestMapping("{id}/admin/category")
+	public String category(@PathVariable String id) {
+		System.out.println(id);
+		
+		return "blog/blog-admin-category";
 	}
 }

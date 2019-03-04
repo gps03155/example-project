@@ -19,7 +19,7 @@ public class BlogService {
 		blogDao.updateBlog(blogVo);
 	}
 	
-	public BlogVo selectBlog() {
-		return blogDao.selectBlog();
+	public BlogVo selectBlog(String id) {
+		return blogDao.selectBlog(id);
 	}
 }

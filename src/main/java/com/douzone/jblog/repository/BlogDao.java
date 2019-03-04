@@ -19,7 +19,7 @@ public class BlogDao {
 		sqlSession.update("blog.updateBlog", blogVo);
 	}
 	
-	public BlogVo selectBlog() {
-		return sqlSession.selectOne("blog.selectBlog");
+	public BlogVo selectBlog(String id) {
+		return sqlSession.selectOne("blog.selectBlog", id);
 	}
 }
