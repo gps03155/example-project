@@ -63,17 +63,15 @@
 	<mvc:interceptors>
 		<!-- Login 처리 -->
 		<mvc:interceptor>
-			<mvc:mapping path="/user/login" />
+			<mvc:mapping path="/user/auth" />
 			<bean class="com.douzone.security.AuthLoginInterceptor" />
 		</mvc:interceptor>
 
 		<!-- Logout 처리 -->
-		<!--
 		<mvc:interceptor>
 			<mvc:mapping path="/user/logout" />
 			<bean class="com.douzone.security.AuthLogoutInterceptor" />
 		</mvc:interceptor>
-		-->
 
 		<!-- AuthInterceptor -->
 		<!-- 

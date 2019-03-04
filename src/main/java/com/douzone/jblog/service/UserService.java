@@ -15,10 +15,14 @@ public class UserService {
 		userDao.insertUser(userVo);
 	}
 	
+	public long lastInsert() {
+		return userDao.lastInsert();
+	}
+	
 	// id check
 	public boolean checkId(String id) {
 		String result = userDao.checkId(id);
-		
+		System.out.println(result);
 		if(result != null) {
 			return true;
 		}

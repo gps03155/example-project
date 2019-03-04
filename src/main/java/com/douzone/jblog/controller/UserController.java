@@ -1,7 +1,6 @@
 package com.douzone.jblog.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzone.jblog.dto.JSONResult;
+import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.UserVo;
 
@@ -20,15 +22,19 @@ import com.douzone.jblog.vo.UserVo;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BlogService blogService;
+	
 	private boolean result;
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join() {
+	public String join(@ModelAttribute UserVo userVo) {
 		return "user/join";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute UserVo userVo, BindingResult result, Model model) {
+	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
 			
@@ -36,7 +42,9 @@ public class UserController {
 		}
 		
 		userService.insertUser(userVo);
-			
+		long userNo = userService.lastInsert();
+		blogService.insertBlog(userNo);
+		
 		return "redirect:/user/joinsuccess";
 	}
 	
@@ -45,11 +53,13 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 
+	@ResponseBody
 	@RequestMapping("/checkid")
-	public String checkId(@RequestParam(value="id", required=true, defaultValue="") String id) {
+	public JSONResult checkId(@RequestParam(value="id", required=true, defaultValue="") String id) {
+		System.out.println(id);
 		boolean result = userService.checkId(id);
 		
-		return "user/join";
+		return JSONResult.success(result);
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)

@@ -28,6 +28,8 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 		
 		userVo = userService.login(userVo);
 		
+		System.out.println(userVo);
+		
 		if(userVo == null) {
 			request.setAttribute("result", "fail");
 			

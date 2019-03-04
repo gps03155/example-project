@@ -15,6 +15,10 @@ public class UserDao {
 		sqlSession.insert("user.insert", userVo);
 	}
 	
+	public long lastInsert() {
+		return sqlSession.selectOne("user.lastInsert");
+	}
+	
 	// id check
 	public String checkId(String id) {
 		return sqlSession.selectOne("user.checkId", id);
