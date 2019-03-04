@@ -4,7 +4,16 @@ public class BlogVo {
 	private long userNo;
 	private String title;
 	private String logo;
+	private String id;
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public long getUserNo() {
 		return userNo;
 	}

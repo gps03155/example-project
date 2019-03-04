@@ -14,9 +14,9 @@
 		<div id="header">
 			<h1>Spring 이야기</h1>
 			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/login">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/blog/admin?id=${id}">블로그 관리</a></li>
 			</ul>
 		</div>
 		<div id="wrapper">
@@ -26,7 +26,7 @@
 					<li><a href="">카테고리</a></li>
 					<li><a href="">글작성</a></li>
 				</ul>
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath}/blog/${id}/admin/basic" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -34,7 +34,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${blogVo.logo}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

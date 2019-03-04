@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.jblog.repository.BlogDao;
+import com.douzone.jblog.vo.BlogVo;
 
 @Service
 public class BlogService {
@@ -12,5 +13,13 @@ public class BlogService {
 	
 	public void insertBlog(long userNo) {
 		blogDao.insertBlog(userNo);
+	}
+	
+	public void updateBlog(BlogVo blogVo) {
+		blogDao.updateBlog(blogVo);
+	}
+	
+	public BlogVo selectBlog() {
+		return blogDao.selectBlog();
 	}
 }

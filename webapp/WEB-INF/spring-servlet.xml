@@ -74,7 +74,6 @@
 		</mvc:interceptor>
 
 		<!-- AuthInterceptor -->
-		<!-- 
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/user/auth" />
@@ -82,7 +81,6 @@
 			<mvc:exclude-mapping path="/assets/**" />
 			<bean class="com.douzone.security.AuthInterceptor" />
 		</mvc:interceptor>
-		-->
 	</mvc:interceptors>
 
 	<!-- 기본 ViewResolver 설정 -->

@@ -5,4 +5,12 @@
 	<insert id="insertBlog" parameterType="long">
 		<![CDATA[insert into blog values(#{userNo}, "", "")]]>
 	</insert>
+	
+	<update id="updateBlog" parameterType="blogvo">
+		<![CDATA[update blog b join user u on b.user_no = u.no set b.title = #{title}, b.logo = #{logo} where u.id = #{id}]]>
+	</update>
+	
+	<select id="selectBlog" resultType="blogvo">
+		<![CDATA[select user_no, title, logo from blog]]>
+	</select>
 </mapper>
