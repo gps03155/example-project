@@ -8,17 +8,69 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+$(function(){
+	$("#blog-id").change(function(){
+		$("#btn-checkemail").show();
+		$("#img-checkemail").hide();
+	});
+	
+	$("#btn-checkemail").click(function(){
+		var id = $("#blog-id").val();
+		
+		if(id == ""){
+			return;
+		}
+		
+		$.ajax({
+			async:true,
+			url:"${pageContext.request.contextPath}/user/checkid",
+			type:"post",
+			dataType:"json",
+			data:"id=" + id,
+			success: function(response){
+				console.log(response);
+				
+				if(response.result == "fail"){
+					alert("이미 사용중인 id 입니다. 다른 id를 사용해주세요");
+					
+					$("#blog-id").val("").focus();
+					return;
+				}
+				
+				$("#btn-checkemail").hide();
+				$("#img-checkemail").show();
+			},
+			error: function(xhr, status, e){
+				console.log(status + " : " + e);
+			}
+		});
+	});
+	
+	$("#join-form").submit(function(){
+		if(!$("#agree-prov").is(":checked")){
+			alert("약관동의에 체크해주세요");
+			
+			return false;
+		}
+		
+		return true;
+	});
+});
+</script>
 </head>
 <body>
 	<div class="center-content">
 		<h1 class="logo">JBlog</h1>
 		<ul class="menu">
-			<li><a href="">로그인</a></li>
-			<li><a href="">회원가입</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
 			<li><a href="">로그아웃</a></li>
 			<li><a href="">내블로그</a></li>
 		</ul>
-		<form class="join-form" id="join-form" method="post" action="">
+		<form class="join-form" id="join-form" method="post" action="${pageContext.request.contextPath}/user/join">
 			<label class="block-label" for="name">이름</label>
 			<input id="name"name="name" type="text" value="">
 			
