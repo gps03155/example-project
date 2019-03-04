@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.jblog.dto.JSONResult;
 import com.douzone.jblog.service.BlogService;
+import com.douzone.jblog.service.CategoryService;
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.UserVo;
 
@@ -26,7 +27,8 @@ public class UserController {
 	@Autowired
 	private BlogService blogService;
 	
-	private boolean result;
+	@Autowired
+	private CategoryService categoryService;
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join(@ModelAttribute UserVo userVo) {
@@ -44,6 +46,7 @@ public class UserController {
 		userService.insertUser(userVo);
 		long userNo = userService.lastInsert();
 		blogService.insertBlog(userNo);
+		categoryService.insertCategory(userNo);
 		
 		return "redirect:/user/joinsuccess";
 	}
