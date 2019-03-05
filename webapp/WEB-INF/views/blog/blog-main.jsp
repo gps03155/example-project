@@ -54,7 +54,7 @@
 			<h2>카테고리</h2>
 			<ul>
 				<c:forEach items="${categoryList}" var="categoryVo">
-					<li><a href="">${categoryVo.name}</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${id}/${categoryVo.no}">${categoryVo.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>

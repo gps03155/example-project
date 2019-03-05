@@ -20,4 +20,8 @@ public class PostService {
 	public List<PostVo> selectPost(String id){
 		return postDao.selectPost(id);
 	}
+	
+	public List<PostVo> categoryPost(long categoryNo){
+		return postDao.categoryPost(categoryNo);
+	}
 }

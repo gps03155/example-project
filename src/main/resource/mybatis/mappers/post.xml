@@ -9,4 +9,8 @@
 	<select id="selectPost" parameterType="string" resultType="postvo">
 		<![CDATA[select p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from (category c join user u on c.user_no = u.no) join post p on c.no = p.CATEGORY_NO where id=#{id} order by p.reg_date desc]]>
 	</select>
+	
+	<select id="categoryPost" parameterType="long" resultType="postvo">
+		<![CDATA[select  p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from category c join post p on c.no = p.category_no where p.category_no = #{categoryNo}]]>
+	</select>
 </mapper>
