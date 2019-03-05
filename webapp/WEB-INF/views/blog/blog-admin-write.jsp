@@ -32,9 +32,9 @@
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" id="title" size="60" name="title">
-				      			<select name="categoryNo">
+				      			<select name="category">
 				      				<c:forEach items="${categoryList}" var="categoryVo">
-				      					<option value="${categoryVo.no}">${categoryVo.name}</option>
+				      					<option>${categoryVo.name}</option>
 				      				</c:forEach>
 				      			</select>
 				      		</td>

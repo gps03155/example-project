@@ -43,10 +43,12 @@ public class BlogController {
 	public String blog(@PathVariable String id, Model model) {
 		BlogVo blogVo = blogService.selectBlog(id);
 		List<PostVo> postList = postService.selectPost();
+		List<CategoryVo> categoryList = categoryService.getCategoryName();
 		
 		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("id", id);
 		model.addAttribute("postList", postList);
+		model.addAttribute("categoryList", categoryList);
 		
 		return "blog/blog-main";
 	}
@@ -88,7 +90,7 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping("/{id}/admin/category/list")
 	public JSONResult selectCategory(@PathVariable String id) {
-		List<CategoryVo> list = categoryService.selectCategory();
+		List<CategoryVo> list = categoryService.selectCategory(id);
 		
 		return JSONResult.success(list);
 	}
@@ -119,7 +121,8 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/{id}/admin/write", method=RequestMethod.POST)
-	public String write(@PathVariable String id, @ModelAttribute PostVo postVo) {
+	public String write(@PathVariable String id, @ModelAttribute PostVo postVo, @RequestParam String category) {
+		postVo.setCategoryNo(categoryService.getCategoryNo(id, category));
 		postService.insertPost(postVo);
 		
 		return "redirect:/blog/" + id;

@@ -25,8 +25,8 @@ public class CategoryService {
 		return categoryDao.lastInsert();
 	}
 	
-	public List<CategoryVo> selectCategory(){
-		return categoryDao.selectCategory();
+	public List<CategoryVo> selectCategory(String id){
+		return categoryDao.selectCategory(id);
 	}
 	
 	public CategoryVo getInsert(long no) {
@@ -39,5 +39,9 @@ public class CategoryService {
 	
 	public List<CategoryVo> getCategoryName(){
 		return categoryDao.getCategoryName();
+	}
+	
+	public long getCategoryNo(String id, String categoryName) {
+		return categoryDao.getCategoryNo(id, categoryName);
 	}
 }

@@ -7,15 +7,17 @@
 	</insert>
 	
 	<insert id="addCategory" parameterType="map">
-		<![CDATA[insert into category values(null, #{name}, #{description}, current_timestamp(), (select u.no from category c join user u on c.user_no = u.no where id = #{id} limit 1))]]>
+		<![CDATA[INSERT INTO category (no, name, description, reg_date, user_no) 
+ 				 SELECT null, #{name}, #{description}, current_date(), (select u.no from category c join user u on c.user_no = u.no where id = #{id} limit 1) FROM DUAL 
+ 				 WHERE NOT EXISTS (SELECT name FROM category WHERE name=#{name})]]>
 	</insert>
 	
 	<select id="lastInsert" resultType="long">
 		<![CDATA[select last_insert_id()]]>
 	</select>
 	
-	<select id="selectCategory" resultType="categoryvo">
-		<![CDATA[select no, name, description from category order by reg_date desc]]>
+	<select id="selectCategory" parameterType="string"  resultType="categoryvo">
+		<![CDATA[select c.no as no, c.name as name, c.description as description from category c join user u on c.user_no = u.no where u.id = #{id} order by reg_date desc]]>
 	</select>
 	
 	<select id="getInsert" parameterType="long" resultType="categoryvo">
@@ -27,6 +29,10 @@
 	</delete>
 	
 	<select id="getCategoryName" resultType="categoryvo">
-		<![CDATA[select distinct name, no from category]]>
+		<![CDATA[select distinct name from category]]>
+	</select>
+	
+	<select id="getCategoryNo" parameterType="map" resultType="long">
+		<![CDATA[select c.no from category c join user u on c.user_no = u.no where c.name = #{name} and u.id = #{id}]]>
 	</select>
 </mapper>

@@ -33,8 +33,8 @@ public class CategoryDao {
 		return sqlSession.selectOne("category.lastInsert");
 	}
 	
-	public List<CategoryVo> selectCategory() {
-		return sqlSession.selectList("category.selectCategory");
+	public List<CategoryVo> selectCategory(String id) {
+		return sqlSession.selectList("category.selectCategory", id);
 	}
 	
 	public CategoryVo getInsert(long no) {
@@ -52,5 +52,14 @@ public class CategoryDao {
 	
 	public List<CategoryVo> getCategoryName(){
 		return sqlSession.selectList("category.getCategoryName");
+	}
+	
+	public long getCategoryNo(String id, String categoryName) {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("id", id);
+		map.put("name", categoryName);
+		
+		return sqlSession.selectOne("category.getCategoryNo", map);
 	}
 }
