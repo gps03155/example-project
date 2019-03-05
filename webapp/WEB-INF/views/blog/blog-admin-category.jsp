@@ -25,7 +25,7 @@ var render = function(vo, mode){
 			   "<td>" + vo.description + "</td>" +
 			   "<td><a href='' data-no='" + vo.no + "'><img src='${pageContext.request.contextPath}/assets/images/delete.jpg'></a></td></tr>";	
 	if(mode){
-		$("#list-category").prepend(html);
+		$("#table-header").after(html);
 	}
 	else{
 		$("#list-category").append(html);
@@ -154,22 +154,19 @@ $(function(){
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/admin?id=${id}">기본설정</a></li>
 					<li class="selected">카테고리</li>
-					<li><a href="">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${id}/admin/write">글작성</a></li>
 				</ul>
 				
-		      	<table class="admin-cat">
-		      		<tr>
+		      	<table class="admin-cat" id="list-category">
+		      		<tr id="table-header">
 		      			<th>번호</th>
 		      			<th>카테고리명</th>
 		      			<th>포스트 수</th>
 		      			<th>설명</th>
 		      			<th>삭제</th>      			
 		      		</tr>
-				</table>
-				
-				<table class="admin-cat" id="list-category">
 				</table>
 
       			<form id="add-category" method="post" action="">

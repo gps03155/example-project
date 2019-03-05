@@ -25,4 +25,8 @@
 	<delete id="deleteCategory" parameterType="map">
 		<![CDATA[delete c from category c join user u on c.user_no = u.no where u.id = #{id} and c.no = #{no}]]>
 	</delete>
+	
+	<select id="getCategoryName" resultType="categoryvo">
+		<![CDATA[select distinct name, no from category]]>
+	</select>
 </mapper>

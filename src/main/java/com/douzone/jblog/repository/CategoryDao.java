@@ -49,4 +49,8 @@ public class CategoryDao {
 		
 		return sqlSession.delete("category.deleteCategory", map);
 	}
+	
+	public List<CategoryVo> getCategoryName(){
+		return sqlSession.selectList("category.getCategoryName");
+	}
 }
