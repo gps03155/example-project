@@ -42,8 +42,8 @@ public class BlogController {
 	@RequestMapping("/{id}")
 	public String blog(@PathVariable String id, Model model) {
 		BlogVo blogVo = blogService.selectBlog(id);
-		List<PostVo> postList = postService.selectPost();
-		List<CategoryVo> categoryList = categoryService.getCategoryName();
+		List<PostVo> postList = postService.selectPost(id);
+		List<CategoryVo> categoryList = categoryService.getCategoryName(id);
 		
 		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("id", id);
@@ -113,7 +113,7 @@ public class BlogController {
 	
 	@RequestMapping(value="/{id}/admin/write", method=RequestMethod.GET)
 	public String write(@PathVariable String id, Model model) {
-		List<CategoryVo> categoryList = categoryService.getCategoryName();
+		List<CategoryVo> categoryList = categoryService.getCategoryName(id);
 		
 		model.addAttribute("categoryList", categoryList);
 		

@@ -37,8 +37,8 @@ public class CategoryService {
 		return categoryDao.deleteCategory(id, no);
 	}
 	
-	public List<CategoryVo> getCategoryName(){
-		return categoryDao.getCategoryName();
+	public List<CategoryVo> getCategoryName(String id){
+		return categoryDao.getCategoryName(id);
 	}
 	
 	public long getCategoryNo(String id, String categoryName) {

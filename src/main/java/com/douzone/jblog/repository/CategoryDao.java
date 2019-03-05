@@ -50,8 +50,8 @@ public class CategoryDao {
 		return sqlSession.delete("category.deleteCategory", map);
 	}
 	
-	public List<CategoryVo> getCategoryName(){
-		return sqlSession.selectList("category.getCategoryName");
+	public List<CategoryVo> getCategoryName(String id){
+		return sqlSession.selectList("category.getCategoryName", id);
 	}
 	
 	public long getCategoryNo(String id, String categoryName) {

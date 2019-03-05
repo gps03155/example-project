@@ -17,7 +17,7 @@ public class PostService {
 		postDao.insertPost(postVo);
 	}
 	
-	public List<PostVo> selectPost(){
-		return postDao.selectPost();
+	public List<PostVo> selectPost(String id){
+		return postDao.selectPost(id);
 	}
 }

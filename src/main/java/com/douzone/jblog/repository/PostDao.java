@@ -18,7 +18,7 @@ public class PostDao {
 		sqlSession.insert("post.insertPost", postVo);
 	}
 	
-	public List<PostVo> selectPost(){
-		return sqlSession.selectList("post.selectPost");
+	public List<PostVo> selectPost(String id){
+		return sqlSession.selectList("post.selectPost", id);
 	}
 }

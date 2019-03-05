@@ -28,8 +28,8 @@
 		<![CDATA[delete c from category c join user u on c.user_no = u.no where u.id = #{id} and c.no = #{no}]]>
 	</delete>
 	
-	<select id="getCategoryName" resultType="categoryvo">
-		<![CDATA[select distinct name from category]]>
+	<select id="getCategoryName" parameterType="string" resultType="categoryvo">
+		<![CDATA[select distinct c.name from category c join user u on c.user_no = u.no where u.id = #{id}]]>
 	</select>
 	
 	<select id="getCategoryNo" parameterType="map" resultType="long">
