@@ -84,4 +84,20 @@ public class BlogController {
 		
 		return JSONResult.success(list);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/{id}/admin/category/delete/{no}")
+	public JSONResult deleteCategory(@PathVariable String id, @PathVariable long no) {
+		System.out.println(id);
+		System.out.println(no);
+		
+		int result = categoryService.deleteCategory(id, no);
+		
+		if(result == 1) {
+			return JSONResult.success(true);
+		}
+		else {
+			return JSONResult.fail("삭제실패");
+		}
+	}
 }

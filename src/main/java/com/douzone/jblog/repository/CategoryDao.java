@@ -40,4 +40,13 @@ public class CategoryDao {
 	public CategoryVo getInsert(long no) {
 		return sqlSession.selectOne("category.getInsert", no);
 	}
+	
+	public int deleteCategory(String id, long no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("id", id);
+		map.put("no", no);
+		
+		return sqlSession.delete("category.deleteCategory", map);
+	}
 }

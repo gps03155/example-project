@@ -32,4 +32,8 @@ public class CategoryService {
 	public CategoryVo getInsert(long no) {
 		return categoryDao.getInsert(no);
 	}
+	
+	public int deleteCategory(String id, long no) {
+		return categoryDao.deleteCategory(id, no);
+	}
 }

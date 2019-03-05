@@ -19,12 +19,11 @@ var listTemplate = new EJS({url:"${pageContext.request.contextPath}/assets/js/ej
 var render = function(vo, mode){
 	// var html = listItemTemplate.render(vo);
 	
-	var html = "<tr><td>" + vo.no + "</td>" +
+	var html = "<tr data-no='" + vo.no + "'><td>" + vo.no + "</td>" +
 			   "<td>" + vo.name + "</td>" +
 			   "<td>" + "</td>" +
 			   "<td>" + vo.description + "</td>" +
-			   "<td><img src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td></tr>";
-			   
+			   "<td><a href='' data-no='" + vo.no + "'><img src='${pageContext.request.contextPath}/assets/images/delete.jpg'></a></td></tr>";	
 	if(mode){
 		$("#list-category").prepend(html);
 	}
@@ -107,6 +106,37 @@ $(function(){
 				console.log(status + " : " + e);
 			}
 		});
+	});
+	
+	$(document).on("click", "#list-category tr td a", function(event){
+		event.preventDefault();
+		
+		var no = $(this).data("no");
+		console.log(no);
+		
+		var isDelete = confirm("삭제하시겠습니까?");
+		
+		if(isDelete){
+			$.ajax({
+				async:true,
+				url:"/jblog/blog/" + id + "/admin/category/delete/" + no,
+				type:"get",
+				dataType:"json",
+				data:"",
+				success:function(response){
+					console.log(response);
+					
+					if(response.data == true){
+						console.log("카테고리 삭제");
+						
+						$("#list-category tr[data-no=" + no + "]").remove();
+					}
+				},
+				error:function(xhr, status, e){
+					console.log(status + " : " + e);
+				}
+			});
+		}
 	});
 });
 </script>
