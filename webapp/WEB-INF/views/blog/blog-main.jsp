@@ -2,6 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+<%
+	pageContext.setAttribute("newLine", "\n");
+%>
 <!doctype html>
 <html>
 <head>
@@ -28,15 +32,15 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>${title}</h4>
+					<h4>${post.title}</h4>
 					<p>
-						${content}
+						${fn:replace(post.content, newLine, "<br>")}
 					<p>
 				</div>
 				<ul class="blog-list">
 					<c:forEach items="${postList}" var="postVo">
 						<li>
-							<a href="${pageContext.request.contextPath}/blog/${id}/${postVo.title}/${postVo.content}">${postVo.title}</a>
+							<a href="${pageContext.request.contextPath}/blog/${id}/${postVo.no}/post">${postVo.title}</a>
 							<span>${postVo.regDate}</span>
 						</li>
 					</c:forEach>

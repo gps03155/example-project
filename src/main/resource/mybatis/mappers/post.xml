@@ -11,6 +11,10 @@
 	</select>
 	
 	<select id="categoryPost" parameterType="long" resultType="postvo">
-		<![CDATA[select  p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from category c join post p on c.no = p.category_no where p.category_no = #{categoryNo}]]>
+		<![CDATA[select  p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from category c join post p on c.no = p.category_no where p.category_no = #{categoryNo} order by p.reg_date desc]]>
+	</select>
+	
+	<select id="getNoPost" parameterType="long" resultType="postvo">
+		<![CDATA[select no, title, content, reg_date as regDate, category_no as categoryNo from post where no = #{no}]]>
 	</select>
 </mapper>

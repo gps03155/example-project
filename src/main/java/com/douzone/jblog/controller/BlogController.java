@@ -40,20 +40,19 @@ public class BlogController {
 	@Autowired
 	private PostService postService;
 	
-	@RequestMapping({"/{id}", "/{id}/{title}/{content}", "/{id}/{categoryNo}"})
-	public String blog(@PathVariable String id, @PathVariable Optional<String> title, @PathVariable Optional<String> content, @PathVariable Optional<String> categoryNo, Model model) {
+	@RequestMapping({"/{id}", "/{id}/{no}/post", "/{id}/{categoryNo}"})
+	public String blog(@PathVariable String id, @PathVariable Optional<Long> no, @PathVariable Optional<String> categoryNo, Model model) {
 		BlogVo blogVo = blogService.selectBlog(id);
 		List<PostVo> postList = postService.selectPost(id);
 		List<CategoryVo> categoryList = categoryService.getCategoryName(id);
 		
-		if(title.isPresent() && content.isPresent()) {
+		if(no.isPresent()) {
 			System.out.println("게시글 클릭");
 			
-			String titleStr = title.get();
-			String contentStr = content.get();
+			long postNo = no.get();
+			PostVo postVo = postService.getNoPost(postNo);
 			
-			model.addAttribute("title", titleStr);
-			model.addAttribute("content", contentStr);
+			model.addAttribute("post", postVo);
 		}
 	
 		if(categoryNo.isPresent()) {

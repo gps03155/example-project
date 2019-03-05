@@ -25,4 +25,8 @@ public class PostDao {
 	public List<PostVo> categoryPost(long categoryNo){
 		return sqlSession.selectList("post.categoryPost", categoryNo);
 	}
+	
+	public PostVo getNoPost(long postNo){
+		return sqlSession.selectOne("post.getNoPost", postNo);
+	}
 }

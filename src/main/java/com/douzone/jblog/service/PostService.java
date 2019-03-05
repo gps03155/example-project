@@ -24,4 +24,8 @@ public class PostService {
 	public List<PostVo> categoryPost(long categoryNo){
 		return postDao.categoryPost(categoryNo);
 	}
+	
+	public PostVo getNoPost(long postNo){
+		return postDao.getNoPost(postNo);
+	}
 }
