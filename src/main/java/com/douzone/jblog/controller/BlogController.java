@@ -1,6 +1,7 @@
 package com.douzone.jblog.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,8 +40,16 @@ public class BlogController {
 	@Autowired
 	private PostService postService;
 	
-	@RequestMapping("/{id}")
-	public String blog(@PathVariable String id, Model model) {
+	@RequestMapping({"/{id}", "/{id}/{title}/{content}"})
+	public String blog(@PathVariable String id, @PathVariable Optional<String> title, @PathVariable Optional<String> content, Model model) {
+		if(title.isPresent() && content.isPresent()) {
+			String titleStr = title.get();
+			String contentStr = content.get();
+			
+			model.addAttribute("title", titleStr);
+			model.addAttribute("content", contentStr);
+		}
+	
 		BlogVo blogVo = blogService.selectBlog(id);
 		List<PostVo> postList = postService.selectPost(id);
 		List<CategoryVo> categoryList = categoryService.getCategoryName(id);
@@ -81,10 +90,17 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping("/{id}/admin/category/insert/{name}/{desc}")
 	public JSONResult insertCategory(@PathVariable String id, @PathVariable String name, @PathVariable String desc) {
-		categoryService.addCategory(id, name, desc);
-		long lastInsert = categoryService.lastInsert();
-		
-		return JSONResult.success(categoryService.getInsert(lastInsert));
+		int result = categoryService.addCategory(id, name, desc);
+	
+		if(result == 1) {
+			long lastInsert = categoryService.lastInsert();
+			
+			return JSONResult.success(categoryService.getInsert(lastInsert));
+					
+		}
+		else {
+			return JSONResult.fail("카테고리 존재");
+		}
 	}
 	
 	@ResponseBody
@@ -126,5 +142,5 @@ public class BlogController {
 		postService.insertPost(postVo);
 		
 		return "redirect:/blog/" + id;
-	}
+	}	
 }

@@ -97,7 +97,12 @@ $(function(){
 			success:function(response){
 				console.log(response);
 			
-				render(response.data, true);
+				if(response.result == "fail"){
+					alert("이미 존재하는 카테고리입니다.");
+				}
+				else{
+					render(response.data, true);
+				}
 				
 				$("#name").val("");
 				$("#desc").val("");
