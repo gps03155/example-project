@@ -59,7 +59,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/checkid")
 	public JSONResult checkId(@RequestParam(value="id", required=true, defaultValue="") String id) {
-		System.out.println(id);
 		boolean result = userService.checkId(id);
 		
 		return JSONResult.success(result);

@@ -46,8 +46,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		
 		String id = request.getParameter("id");
 		
-		System.out.println(id);
-		System.out.println(authUser.getId());
+		System.out.println("user : " + id);
+		System.out.println("authUser : " + authUser.getId());
 		
 		if(!authUser.getId().equals(id)) {
 			response.sendRedirect(request.getContextPath() + "/");

@@ -5,4 +5,20 @@
 	<insert id="insertCategory" parameterType="long">
 		<![CDATA[insert into category values(null, '미분류', '미분류', current_timestamp(), #{userNo})]]>
 	</insert>
+	
+	<insert id="addCategory" parameterType="map">
+		<![CDATA[insert into category values(null, #{name}, #{description}, current_timestamp(), (select u.no from category c join user u on c.user_no = u.no where id = #{id} limit 1))]]>
+	</insert>
+	
+	<select id="lastInsert" resultType="long">
+		<![CDATA[select last_insert_id()]]>
+	</select>
+	
+	<select id="selectCategory" resultType="categoryvo">
+		<![CDATA[select no, name, description from category order by reg_date desc]]>
+	</select>
+	
+	<select id="getInsert" parameterType="long" resultType="categoryvo">
+		<![CDATA[select no, name, description from category where no = #{no}]]>
+	</select>
 </mapper>
