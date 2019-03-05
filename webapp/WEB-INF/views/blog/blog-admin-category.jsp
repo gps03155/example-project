@@ -21,7 +21,7 @@ var render = function(vo, mode){
 	
 	var html = "<tr data-no='" + vo.no + "'><td>" + vo.no + "</td>" +
 			   "<td>" + vo.name + "</td>" +
-			   "<td>" + "</td>" +
+			   "<td>" + vo.countPost + "</td>" +
 			   "<td>" + vo.description + "</td>" +
 			   "<td><a href='' data-no='" + vo.no + "'><img src='${pageContext.request.contextPath}/assets/images/delete.jpg'></a></td></tr>";	
 	if(mode){

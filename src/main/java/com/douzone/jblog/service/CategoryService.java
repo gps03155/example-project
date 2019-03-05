@@ -44,4 +44,8 @@ public class CategoryService {
 	public long getCategoryNo(String id, String categoryName) {
 		return categoryDao.getCategoryNo(id, categoryName);
 	}
+	
+	public long countPost(long categoryNo) {
+		return categoryDao.countPost(categoryNo);
+	}
 }

@@ -35,4 +35,8 @@
 	<select id="getCategoryNo" parameterType="map" resultType="long">
 		<![CDATA[select c.no from category c join user u on c.user_no = u.no where c.name = #{name} and u.id = #{id}]]>
 	</select>
+	
+	<select id="countPost" parameterType="long" resultType="long">
+		<![CDATA[select count(*) from category c join post p on c.no = p.category_no where p.category_no = #{categoryNo}]]>
+	</select>
 </mapper>

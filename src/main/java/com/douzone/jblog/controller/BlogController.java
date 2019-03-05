@@ -119,6 +119,10 @@ public class BlogController {
 	public JSONResult selectCategory(@PathVariable String id) {
 		List<CategoryVo> list = categoryService.selectCategory(id);
 		
+		for (CategoryVo categoryVo : list) {
+			categoryVo.setCountPost(categoryService.countPost(categoryVo.getNo()));
+		}
+		
 		return JSONResult.success(list);
 	}
 	

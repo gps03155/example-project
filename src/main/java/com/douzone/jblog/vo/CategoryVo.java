@@ -6,6 +6,7 @@ public class CategoryVo {
 	private String description;
 	private String regDate;
 	private long userNo;
+	private long countPost;
 	
 	public long getNo() {
 		return no;
@@ -47,9 +48,17 @@ public class CategoryVo {
 		this.userNo = userNo;
 	}
 
+	public long getCountPost() {
+		return countPost;
+	}
+
+	public void setCountPost(long countPost) {
+		this.countPost = countPost;
+	}
+
 	@Override
 	public String toString() {
 		return "CategoryVo [no=" + no + ", name=" + name + ", description=" + description + ", regDate=" + regDate
-				+ ", userNo=" + userNo + "]";
+				+ ", userNo=" + userNo + ", countPost=" + countPost + "]";
 	}
 }

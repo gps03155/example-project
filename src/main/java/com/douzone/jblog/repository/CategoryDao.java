@@ -62,4 +62,8 @@ public class CategoryDao {
 		
 		return sqlSession.selectOne("category.getCategoryNo", map);
 	}
+	
+	public long countPost(long categoryNo) {
+		return sqlSession.selectOne("category.countPost", categoryNo);
+	}
 }
