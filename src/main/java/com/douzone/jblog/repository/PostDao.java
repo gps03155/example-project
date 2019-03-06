@@ -1,6 +1,8 @@
 package com.douzone.jblog.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,13 @@ public class PostDao {
 		return sqlSession.selectList("post.categoryPost", categoryNo);
 	}
 	
-	public PostVo getNoPost(long postNo){
-		return sqlSession.selectOne("post.getNoPost", postNo);
+	public PostVo getNoPost(long postNo, String id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("no", postNo);
+		map.put("id", id);
+		
+		return sqlSession.selectOne("post.getNoPost", map);
 	}
 	
 	public long lastSelect(String id) {

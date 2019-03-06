@@ -25,8 +25,8 @@ public class PostService {
 		return postDao.categoryPost(categoryNo);
 	}
 	
-	public PostVo getNoPost(long postNo){
-		return postDao.getNoPost(postNo);
+	public PostVo getNoPost(long postNo, String id){
+		return postDao.getNoPost(postNo, id);
 	}
 	
 	public long lastSelect(String id) {

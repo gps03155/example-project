@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +49,7 @@ public class BlogController {
 		
 		if(!no.isPresent() && !categoryNo.isPresent()) {
 			long postNo = postService.lastSelect(id);
-			PostVo postVo = postService.getNoPost(postNo);
+			PostVo postVo = postService.getNoPost(postNo, id);
 			
 			model.addAttribute("post", postVo);
 		}
@@ -56,7 +57,7 @@ public class BlogController {
 			System.out.println("게시글 클릭");
 			
 			long postNo = no.get();
-			PostVo postVo = postService.getNoPost(postNo);
+			PostVo postVo = postService.getNoPost(postNo, id);
 			
 			model.addAttribute("post", postVo);
 		}
@@ -67,7 +68,7 @@ public class BlogController {
 			postList = postService.categoryPost(categoryLong);
 			
 			long postNo = no.get();
-			PostVo postVo = postService.getNoPost(postNo);
+			PostVo postVo = postService.getNoPost(postNo, id);
 			
 			model.addAttribute("post", postVo);
 			model.addAttribute("postList", postList);
@@ -113,13 +114,12 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping("/{id}/admin/category/insert/{name}/{desc}")
 	public JSONResult insertCategory(@PathVariable String id, @PathVariable String name, @PathVariable String desc) {
-		int result = categoryService.addCategory(id, name, desc);
+		int addResult = categoryService.addCategory(id, name, desc);
 	
-		if(result == 1) {
+		if(addResult == 1) {
 			long lastInsert = categoryService.lastInsert();
 			
 			return JSONResult.success(categoryService.getInsert(lastInsert));
-					
 		}
 		else {
 			return JSONResult.fail("카테고리 존재");

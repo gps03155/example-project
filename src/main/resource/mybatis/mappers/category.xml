@@ -8,7 +8,7 @@
 	
 	<insert id="addCategory" parameterType="map">
 		<![CDATA[INSERT INTO category (no, name, description, reg_date, user_no) 
- 				 SELECT null, #{name}, #{description}, current_date(), (select u.no from category c join user u on c.user_no = u.no where id = #{id} limit 1) FROM DUAL 
+ 				 SELECT null, #{name}, #{description}, current_timestamp(), (select u.no from category c join user u on c.user_no = u.no where id = #{id} limit 1) FROM DUAL 
  				 WHERE NOT EXISTS (SELECT name FROM category WHERE name=#{name})]]>
 	</insert>
 	
