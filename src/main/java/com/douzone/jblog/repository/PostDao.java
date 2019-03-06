@@ -30,7 +30,7 @@ public class PostDao {
 		return sqlSession.selectOne("post.getNoPost", postNo);
 	}
 	
-	public long lastSelect() {
-		return sqlSession.selectOne("post.lastSelect");
+	public long lastSelect(String id) {
+		return sqlSession.selectOne("post.lastSelect", id);
 	}
 }

@@ -43,12 +43,11 @@ public class BlogController {
 	@RequestMapping({"/{id}", "/{id}/{no}", "/{id}/{no}/{categoryNo}"})
 	public String blog(@PathVariable String id, @PathVariable Optional<Long> no, @PathVariable Optional<String> categoryNo, Model model) {
 		BlogVo blogVo = blogService.selectBlog(id);
-		String title = blogVo.getTitle();
 		List<PostVo> postList = postService.selectPost(id);
 		List<CategoryVo> categoryList = categoryService.getCategoryName(id);
 		
 		if(!no.isPresent() && !categoryNo.isPresent()) {
-			long postNo = postService.lastSelect();
+			long postNo = postService.lastSelect(id);
 			PostVo postVo = postService.getNoPost(postNo);
 			
 			model.addAttribute("post", postVo);
@@ -76,7 +75,6 @@ public class BlogController {
 			model.addAttribute("categoryNo", categoryLong);
 		}
 		
-		model.addAttribute("title", title);
 		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("id", id);
 		model.addAttribute("postList", postList);
@@ -87,7 +85,11 @@ public class BlogController {
 
 	@Auth(Role.ADMIN)
 	@RequestMapping("/admin")
-	public String admin() {
+	public String admin(@RequestParam(value="id", required=true, defaultValue="") String id, Model model) {
+		BlogVo blogVo = blogService.selectLogo(id);
+		
+		model.addAttribute("blogVo", blogVo);
+		
 		return "blog/blog-admin-basic";
 	}
 	

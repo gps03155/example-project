@@ -22,4 +22,8 @@ public class BlogService {
 	public BlogVo selectBlog(String id) {
 		return blogDao.selectBlog(id);
 	}
+	
+	public BlogVo selectLogo(String id) {
+		return blogDao.selectLogo(id);
+	}
 }

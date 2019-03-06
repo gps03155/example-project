@@ -12,10 +12,10 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
+			<h1>${blogVo.title}</h1>
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
-				<li><a href="${pageContext.request.contextPath}/user/login">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/blog/admin?id=${id}">블로그 관리</a></li>
 			</ul>
 		</div>
@@ -34,7 +34,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}${blogVo.logo}"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${blogVo.logo}" onerror="this.src='${pageContext.request.contextPath}/assets/images/default_profile.png'"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

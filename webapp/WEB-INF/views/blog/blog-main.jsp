@@ -60,7 +60,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}${blogVo.logo}">
+				<img src="${pageContext.request.contextPath}${blogVo.logo}" onerror="this.src='${pageContext.request.contextPath}/assets/images/default_profile.png'">
 			</div>
 		</div>
 

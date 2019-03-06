@@ -18,7 +18,7 @@
 		<![CDATA[select no, title, content, reg_date as regDate, category_no as categoryNo from post where no = #{no}]]>
 	</select>
 	
-	<select id="lastSelect" resultType="long">
-		<![CDATA[select no from post order by reg_date desc limit 1]]>
+	<select id="lastSelect" parameterType="string" resultType="long">
+		<![CDATA[select ifnull(max(p.no), 0) as no from (post p join category c on p.category_no = c.no) join user u on c.user_no = u.no where u.id = #{id} order by p.reg_date desc limit 1]]>
 	</select>
 </mapper>

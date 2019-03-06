@@ -35,4 +35,8 @@ public class BlogDao {
 		
 		return sqlSession.insert("blog.insertCategory", map);
 	}
+	
+	public BlogVo selectLogo(String id) {
+		return sqlSession.selectOne("blog.selectLogo", id);
+	}
 }

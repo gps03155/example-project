@@ -13,4 +13,8 @@
 	<select id="selectBlog" parameterType="string" resultType="blogvo">
 		<![CDATA[select b.user_no, b.title, b.logo from blog b join user u on b.user_no = u.no where u.id = #{id}]]>
 	</select>
+	
+	<select id="selectLogo" parameterType="string" resultType="blogvo">
+		<![CDATA[select b.title, b.logo from blog b join user u on b.user_no = u.no where u.id = #{id}]]>
+	</select>
 </mapper>
