@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="getNoPost" parameterType="map" resultType="postvo">
-		<![CDATA[select p.no, p.title, p.content, p.reg_date as regDate, p.category_no as categoryNo from (post p join category c on p.category_no = c.no) join user u on c.user_no = u.no where u.id = #{id} and p.no = #{no}]]>
+		<![CDATA[select p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from (post p join category c on p.category_no = c.no) join user u on c.user_no = u.no where u.id = #{id} and p.no = #{no}]]>
 	</select>
 	
 	<select id="lastSelect" parameterType="string" resultType="long">

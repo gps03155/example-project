@@ -37,7 +37,33 @@
 						${fn:replace(post.content, newLine, "<br>")}
 					<p>
 				</div>
+				
+				<form action="${pageContext.request.contextPath}/blog/comment" post="POST">
+					<input type="hidden" name="id" value="${id}"/>
+					<input type="hidden" name="postNo" value="${post.no}"/>
+					<input type="text" id="comment" name="comment"/>
+					<input type="submit" value="댓글 입력"/>
+				</form>
+				
 				<ul class="blog-list">
+					<li>
+						<hr>
+						<h3 style="text-align: center;">댓글 목록</h3>
+						<hr>
+					</li>
+					<c:forEach items="${commentList}" var="commentVo">
+						<li>
+							<a>${commentVo.content}</a>
+							<a style="margin-left: 50px">${commentVo.regDate}</a>
+						</li>
+					</c:forEach>
+	
+					<li>
+						<hr>
+						<h3 style="text-align: center">게시글 목록</h3>
+						<hr>
+					</li>
+					
 					<c:forEach items="${postList}" var="postVo">
 						<c:choose>
 							<c:when test="${empty isCategory}">							
