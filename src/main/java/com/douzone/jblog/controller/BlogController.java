@@ -40,13 +40,20 @@ public class BlogController {
 	@Autowired
 	private PostService postService;
 	
-	@RequestMapping({"/{id}", "/{id}/{no}/post", "/{id}/{categoryNo}"})
+	@RequestMapping({"/{id}", "/{id}/{no}", "/{id}/{no}/{categoryNo}"})
 	public String blog(@PathVariable String id, @PathVariable Optional<Long> no, @PathVariable Optional<String> categoryNo, Model model) {
 		BlogVo blogVo = blogService.selectBlog(id);
+		String title = blogVo.getTitle();
 		List<PostVo> postList = postService.selectPost(id);
 		List<CategoryVo> categoryList = categoryService.getCategoryName(id);
 		
-		if(no.isPresent()) {
+		if(!no.isPresent() && !categoryNo.isPresent()) {
+			long postNo = postService.lastSelect();
+			PostVo postVo = postService.getNoPost(postNo);
+			
+			model.addAttribute("post", postVo);
+		}
+		else if(no.isPresent() && !categoryNo.isPresent()) {
 			System.out.println("게시글 클릭");
 			
 			long postNo = no.get();
@@ -54,16 +61,22 @@ public class BlogController {
 			
 			model.addAttribute("post", postVo);
 		}
-	
-		if(categoryNo.isPresent()) {
+		else if(no.isPresent() && categoryNo.isPresent()) {
 			System.out.println("카테고리 클릭");
 			
 			long categoryLong = Long.parseLong(categoryNo.get());
 			postList = postService.categoryPost(categoryLong);
 			
+			long postNo = no.get();
+			PostVo postVo = postService.getNoPost(postNo);
+			
+			model.addAttribute("post", postVo);
 			model.addAttribute("postList", postList);
+			model.addAttribute("isCategory", true);
+			model.addAttribute("categoryNo", categoryLong);
 		}
 		
+		model.addAttribute("title", title);
 		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("id", id);
 		model.addAttribute("postList", postList);
@@ -80,8 +93,6 @@ public class BlogController {
 	
 	@RequestMapping("/{id}/admin/basic")
 	public String basic(@PathVariable String id, Model model, @ModelAttribute BlogVo blogVo, @RequestParam(value="logo-file") MultipartFile multipartFile) {
-		// model.addAttribute("id", id);
-		
 		String url = fileuploadService.restore(multipartFile);
 		
 		blogVo.setId(id);
@@ -131,14 +142,22 @@ public class BlogController {
 		System.out.println(id);
 		System.out.println(no);
 		
-		int result = categoryService.deleteCategory(id, no);
+		long countPost = categoryService.countPost(no);
 		
-		if(result == 1) {
-			return JSONResult.success(true);
+		if(countPost == 0) {
+			int result = categoryService.deleteCategory(id, no);
+			
+			if(result == 1) {
+				return JSONResult.success(true);
+			}
+			else {
+				return JSONResult.fail("삭제실패");
+			}
 		}
 		else {
-			return JSONResult.fail("삭제실패");
+			return JSONResult.fail("카테고리에 게시글 존재");
 		}
+		
 	}
 	
 	@RequestMapping(value="/{id}/admin/write", method=RequestMethod.GET)

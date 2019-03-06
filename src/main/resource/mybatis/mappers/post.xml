@@ -17,4 +17,8 @@
 	<select id="getNoPost" parameterType="long" resultType="postvo">
 		<![CDATA[select no, title, content, reg_date as regDate, category_no as categoryNo from post where no = #{no}]]>
 	</select>
+	
+	<select id="lastSelect" resultType="long">
+		<![CDATA[select no from post order by reg_date desc limit 1]]>
+	</select>
 </mapper>

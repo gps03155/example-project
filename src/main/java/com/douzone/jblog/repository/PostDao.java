@@ -29,4 +29,8 @@ public class PostDao {
 	public PostVo getNoPost(long postNo){
 		return sqlSession.selectOne("post.getNoPost", postNo);
 	}
+	
+	public long lastSelect() {
+		return sqlSession.selectOne("post.lastSelect");
+	}
 }

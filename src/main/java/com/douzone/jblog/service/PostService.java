@@ -28,4 +28,9 @@ public class PostService {
 	public PostVo getNoPost(long postNo){
 		return postDao.getNoPost(postNo);
 	}
+	
+	public long lastSelect() {
+		return postDao.lastSelect();
+		
+	}
 }

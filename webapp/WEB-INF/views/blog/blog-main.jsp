@@ -39,10 +39,20 @@
 				</div>
 				<ul class="blog-list">
 					<c:forEach items="${postList}" var="postVo">
-						<li>
-							<a href="${pageContext.request.contextPath}/blog/${id}/${postVo.no}/post">${postVo.title}</a>
-							<span>${postVo.regDate}</span>
-						</li>
+						<c:choose>
+							<c:when test="${empty isCategory}">							
+								<li>
+									<a href="${pageContext.request.contextPath}/blog/${id}/${postVo.no}">${postVo.title}</a>
+									<span>${postVo.regDate}</span>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a href="${pageContext.request.contextPath}/blog/${id}/${postVo.no}/${categoryNo}">${postVo.title}</a>
+									<span>${postVo.regDate}</span>
+								</li>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</ul>
 			</div>
@@ -58,16 +68,12 @@
 			<h2>카테고리</h2>
 			<ul>
 				<c:forEach items="${categoryList}" var="categoryVo">
-					<li><a href="${pageContext.request.contextPath}/blog/${id}/${categoryVo.no}">${categoryVo.name}</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${id}/${post.no}/${categoryVo.no}">${categoryVo.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
 		
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"/>
 	</div>
 </body>
 </html>
