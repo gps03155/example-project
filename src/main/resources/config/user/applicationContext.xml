@@ -9,11 +9,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!--  <bean id="user1" class="com.douzone.springcontainer.User1" /> -->
-	<bean class="com.douzone.springcontainer.User1"/>
-	<bean id="usr" name="user" class="com.douzone.springcontainer.User"/>
-	<bean class="com.douzone.springcontainer.User"/>
+	<bean class="com.douzone.springcontainer.user.User1"/>
+	<bean id="usr" name="user" class="com.douzone.springcontainer.user.User"/>
+	<bean class="com.douzone.springcontainer.user.User"/>
 	
-	<bean id="usr2" class="com.douzone.springcontainer.User">
+	<bean id="usr2" class="com.douzone.springcontainer.user.User">
 		<constructor-arg value="둘리"/>
 		<property name="friends">
 			<list>
@@ -24,19 +24,19 @@
 		</property>
 	</bean>
 	
-	<bean id="usr3" class="com.douzone.springcontainer.User">
+	<bean id="usr3" class="com.douzone.springcontainer.user.User">
 		<constructor-arg index="0" value="마이콜"/>
 		<constructor-arg index="1" value="1"/>
 	</bean>
 	
-	<bean id="friend" class="com.douzone.springcontainer.Friend">
+	<bean id="friend" class="com.douzone.springcontainer.user.Friend">
 		<property name="name" value="도우넛"/>
 	</bean>
 	
-	<bean id="usr4" class="com.douzone.springcontainer.User">
+	<bean id="usr4" class="com.douzone.springcontainer.user.User">
 		<constructor-arg index="0" value="또치" />
 		<property name="friend">
-			<bean class="com.douzone.springcontainer.Friend">
+			<bean class="com.douzone.springcontainer.user.Friend">
 				<property name="name" value="길동"></property>
 			</bean>
 		</property> <!-- 주입 DI -->
