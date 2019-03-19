@@ -111,7 +111,6 @@
 	</util:list>
 	<bean id="digitalVideoDisc"
 		class="com.douzone.springcontainer.videosystem.BlankDisc"
-		p:title="Avengers Infinity War" p:studio="MARVEL" p:actors="actorList"> 
-
+		p:title="Avengers Infinity War" p:studio="MARVEL" p:actors-ref="actorList"> 
 	</bean>
 </beans>
