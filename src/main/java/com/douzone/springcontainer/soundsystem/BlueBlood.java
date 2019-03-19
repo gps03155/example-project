@@ -2,7 +2,8 @@ package com.douzone.springcontainer.soundsystem;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("blueBlood") // spring
+// @Named("bludBlood")  // 표준 java EE
 public class BlueBlood implements CompactDisc {
 	private String title = "Endless Rain";
 	private String artist = "X japan";

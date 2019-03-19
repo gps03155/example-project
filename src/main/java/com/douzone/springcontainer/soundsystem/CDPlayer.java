@@ -1,6 +1,7 @@
 package com.douzone.springcontainer.soundsystem;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,7 +28,8 @@ public class CDPlayer {
 	}
 
 	// 와이어링4
-	@Autowired
+	// @Autowired // spring
+	@Inject 	  // javaEE
 	public void insertCompactDisc(CompactDisc cd) {
 		this.cd = cd;
 	}
