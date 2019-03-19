@@ -21,9 +21,20 @@ public class DVDPlayerConfig {
 		return new DVDPlayer(avengers());
 	}
 	
+	/*
 	@Bean
 	public DVDPlayer dvdPlayer(DigitalVideoDisc dvd) { // 주입 받을 때 추천하는 방식
 		return new DVDPlayer(dvd);
+	}
+	*/
+	
+	@Bean
+	public DVDPlayer dvdPlayer(DigitalVideoDisc dvd) {
+		DVDPlayer dvdPlayer = new DVDPlayer();
+		
+		dvdPlayer.setDigitalVideoDisc(dvd);
+		
+		return dvdPlayer;
 	}
 	
 	/*
