@@ -12,7 +12,9 @@ import com.douzone.springcontainer.videosystem.DVDPlayer;
 import com.douzone.springcontainer.videosystem.DigitalVideoDisc;
 
 import config.mixing.videosystem.DVDPlayerConfig;
-import config.mixing.videosystem.VideoSystemConfig;
+import config.mixing.videosystem.VideoSystemConfig01;
+import config.mixing.videosystem.VideoSystemConfig02;
+import config.mixing.videosystem.VideoSystemConfig03;
 import config.user.AppConfig01;
 
 public class JavaConfigTest {
@@ -23,8 +25,8 @@ public class JavaConfigTest {
 		// testJavaConfigTest03();
 		// testJavaConfigTest04();
 		// testJavaConfigTest05();
-		testJavaConfigTest06();
-		testJavaConfigTest07();
+		// testJavaConfigTest06();
+		// testJavaConfigTest07();
 		testJavaConfigTest08();
 	}
 
@@ -101,7 +103,7 @@ public class JavaConfigTest {
 	// Java Config 06 - mixing 02
 	// Java Config <- Java Config + Java Config (Java Config 2개를 나눠서 새로운 Java Config를 만듦 - 전체를 아우를 수 있도록)
 	public static void testJavaConfigTest06() {
-		ApplicationContext appCtx = new AnnotationConfigApplicationContext(VideoSystemConfig.class);
+		ApplicationContext appCtx = new AnnotationConfigApplicationContext(VideoSystemConfig01.class);
 		
 		DVDPlayer dvdPlayer = appCtx.getBean(DVDPlayer.class);
 		dvdPlayer.play();
@@ -112,12 +114,22 @@ public class JavaConfigTest {
 	// Java Config 07 - mixing 03
 	// Java Config <- Java Config + XML Config
 	public static void testJavaConfigTest07() {
-
+		ApplicationContext appCtx = new AnnotationConfigApplicationContext(VideoSystemConfig02.class);
+		
+		DVDPlayer dvdPlayer = appCtx.getBean(DVDPlayer.class);
+		dvdPlayer.play();
+		
+		((ConfigurableApplicationContext) appCtx).close();
 	}
 	
 	// Java Config 08 - mixing 04
 	// Java Config <- XML Config
 	public static void testJavaConfigTest08() {
-
+		ApplicationContext appCtx = new AnnotationConfigApplicationContext(VideoSystemConfig03.class);
+		
+		DVDPlayer dvdPlayer = appCtx.getBean(DVDPlayer.class);
+		dvdPlayer.play();
+		
+		((ConfigurableApplicationContext) appCtx).close();
 	}
 }

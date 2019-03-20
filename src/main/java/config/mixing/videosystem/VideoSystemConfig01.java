@@ -5,6 +5,6 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({DVDConfig.class, DVDPlayerConfig.class})
-public class VideoSystemConfig {
+public class VideoSystemConfig01 {
 
 }

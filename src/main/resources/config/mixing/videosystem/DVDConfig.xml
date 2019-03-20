@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<!-- 01. 간단한 bean 설정 -->
+	<bean id="avengers"
+		class="com.douzone.springcontainer.videosystem.Avengers" />
+
+	<!-- 12. 생성자를 통한 빈 주입 09 : 와이어링 컬렉션 (set, list 같은거) 03 -->
+	<bean id="dvdPack"
+		class="com.douzone.springcontainer.videosystem.DVDPack">
+		<constructor-arg name="title" index="0"
+			value="Avengers TriplePack" />
+		<constructor-arg>
+			<list>
+				<ref bean="avengers" />
+				<ref bean="avengersInfinityWar" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- 17. 프로퍼티를 통한 bean 주입 05 : util namespace를 사용한 단순화 -->
+	<util:list id="actorList">
+		<value>Rovert Downey Jr</value>
+		<value>Scarlett Johansson</value>
+		<value>Chris Evans</value>
+	</util:list>
+	<bean id="avengersInfinityWar"
+		class="com.douzone.springcontainer.videosystem.BlankDisc"
+		p:title="Avengers Infinity War" p:studio="MARVEL" p:actors-ref="actorList"> 
+	</bean>
+</beans>
