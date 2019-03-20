@@ -34,7 +34,7 @@ public class XMLConfigTest {
 	// XML Config 02 - 명시적 설정
 	// bean config
 	public static void testXMLConfig02() {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("config/videosystem/DVDPlayerConfig.xml");
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext("config/videosystem/VideoSystemConfig.xml");
 		
 		DigitalVideoDisc dvd = appCtx.getBean(Avengers.class);
 		System.out.println(dvd);
