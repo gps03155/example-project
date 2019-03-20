@@ -65,6 +65,7 @@ public class JavaConfigTest {
 	// ComponentScan을 사용하지 않음
 	// Java Config Class의 메서드와 @Bean을 사용
 	public static void testJavaConfigTest04() {
+		// Java Config 할때 사용
 		ApplicationContext appCtx = new AnnotationConfigApplicationContext("config.videosystem");
 		
 		DigitalVideoDisc dvd = appCtx.getBean(DigitalVideoDisc.class); // interface로 구현한 DigitalVideoDisc 클래스	
