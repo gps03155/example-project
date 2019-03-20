@@ -76,7 +76,7 @@
 		<constructor-arg>
 			<list>
 				<ref bean="avengers" />
-				<ref bean="digitalVideoDisc" />
+				<ref bean="avengersInfinityWar" />
 			</list>
 		</constructor-arg>
 	</bean>
@@ -88,7 +88,7 @@
 	<!-- 14. 프로퍼티를 통한 bean 주입 02 -->
 	<bean id="dvdPlayer"
 		class="com.douzone.springcontainer.videosystem.DVDPlayer"
-		p:digitalVideoDisc-ref="digitalVideoDisc" />
+		p:digitalVideoDisc-ref="avengersInfinityWar" />
 
 	<!-- 15. 프로퍼티를 통한 bean 주입 03 : 리터럴 값 주입 01 -->
 	<!-- <bean id="digitalVideoDisc" class="com.douzone.springcontainer.videosystem.BlankDisc"> 
@@ -109,7 +109,7 @@
 		<value>Scarlett Johansson</value>
 		<value>Chris Evans</value>
 	</util:list>
-	<bean id="digitalVideoDisc"
+	<bean id="avengersInfinityWar"
 		class="com.douzone.springcontainer.videosystem.BlankDisc"
 		p:title="Avengers Infinity War" p:studio="MARVEL" p:actors-ref="actorList"> 
 	</bean>

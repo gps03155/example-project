@@ -15,9 +15,9 @@ import config.user.AppConfig01;
 public class JavaConfigTest {
 
 	public static void main(String[] args) {
-		// testJavaConfigTest01();
-		// testJavaConfigTest02();
-		// testJavaConfigTest03();
+		testJavaConfigTest01();
+		testJavaConfigTest02();
+		testJavaConfigTest03();
 		testJavaConfigTest04();
 	}
 
@@ -43,7 +43,7 @@ public class JavaConfigTest {
 		System.out.println(user);
 	}
 	
-	// Java Config 03
+	// Java Config 03 - 자동 설정
 	// Component Scanning (@Component - bean 클래스, @Autowired - 주입)
 	public static void testJavaConfigTest03() {
 		// 해당 패키지에서 @Configuration 어노테이션을 가지는 클래스 찾음
@@ -61,7 +61,7 @@ public class JavaConfigTest {
 		((ConfigurableApplicationContext)appCtx).close();
 	}
 	
-	// Java Config 04
+	// Java Config 04 - 명시적 설정
 	// ComponentScan을 사용하지 않음
 	// Java Config Class의 메서드와 @Bean을 사용
 	public static void testJavaConfigTest04() {

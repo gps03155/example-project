@@ -13,11 +13,11 @@ import com.douzone.springcontainer.videosystem.DigitalVideoDisc;
 
 public class XMLConfigTest {
 	public static void main(String[] args) {
-		// testXMlConfig01();
+		testXMlConfig01();
 		testXMLConfig02();
 	}
 	
-	// XML Config 01
+	// XML Config 01 - 자동 설정
 	// annotation config
 	public static void testXMlConfig01() {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("config/soundsystem/CDPlayerConfig.xml");
@@ -31,7 +31,7 @@ public class XMLConfigTest {
 		((ConfigurableApplicationContext) appCtx).close();
 	}
 	
-	// XML Config 02
+	// XML Config 02 - 명시적 설정
 	// bean config
 	public static void testXMLConfig02() {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("config/videosystem/DVDPlayerConfig.xml");
@@ -40,7 +40,7 @@ public class XMLConfigTest {
 		System.out.println(dvd);
 		dvd.play();
 		
-		dvd = (DigitalVideoDisc) appCtx.getBean("digitalVideoDisc");
+		dvd = (DigitalVideoDisc) appCtx.getBean("avengersInfinityWar");
 		System.out.println(dvd);
 		dvd.play();
 		
