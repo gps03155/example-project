@@ -11,6 +11,7 @@ public class AuthLogoutInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		System.out.println("-----------> AuthLogoutInterceptor");
 		
 		// 접근 제한
 		HttpSession session = request.getSession();

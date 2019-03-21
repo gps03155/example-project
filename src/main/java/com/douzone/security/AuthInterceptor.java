@@ -16,6 +16,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {		
+		
+		System.out.println("-------------> AuthInterceptor");
+		
 		// 1. Handler 종류 확인
 		// HandlerMethod가 아니면 default HandlerMethod
 		if(!(handler instanceof HandlerMethod)) {

@@ -21,6 +21,8 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		System.out.println("-----------> AuthLoginInterceptor");
+		
 		// Container가 Servlet Context 전역 범위에 담겨있음
 		// ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
 		
