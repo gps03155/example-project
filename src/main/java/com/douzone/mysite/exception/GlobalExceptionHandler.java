@@ -19,6 +19,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class) // Exception.class - 모든 Exception에서 처리를 동일하게 해줌
 	public void handlerException(HttpServletRequest request, HttpServletResponse response, Exception e)
 			throws Exception {
+		System.out.println("-----------> GlobalExceptionHandler");
+		
 		// 1. logging
 		StringWriter errors = new StringWriter();
 
