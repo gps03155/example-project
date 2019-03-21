@@ -97,7 +97,7 @@
 				
 		$.ajax({
 			async:true,
-			url:"/mysite3/guestbook/api/ajax-list?page=" + page,
+			url:"/mysite4/guestbook/api/ajax-list?page=" + page,
 			type:"get",
 			dateType:"json",
 			data:"",
@@ -149,7 +149,7 @@
 					
 					$.ajax({
 						async: true,
-						url: "/mysite3/guestbook/api/ajax-delete?page=" + page + "&password=" + $("#password-delete").val() + "&no=" + $("#hidden-no").val(),
+						url: "/mysite4/guestbook/api/ajax-delete?page=" + page + "&password=" + $("#password-delete").val() + "&no=" + $("#hidden-no").val(),
 						type: "get",
 						dataType: "json",
 						data: "",
@@ -237,7 +237,7 @@
 			
 			$.ajax({
 				async: true,
-				url: "/mysite3/guestbook/api/ajax-insert/" + page + "/" + $("#input-name").val() + "/" + $("#input-password").val() + "/" + $("#tx-content").val(),
+				url: "/mysite4/guestbook/api/ajax-insert/" + page + "/" + $("#input-name").val() + "/" + $("#input-password").val() + "/" + $("#tx-content").val(),
 				type: "get",
 				dataType: "json",
 				data: "",
