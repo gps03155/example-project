@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	<insert id="insertCategory" parameterType="long">
+		<![CDATA[insert into category values(null, '미분류', '미분류', current_timestamp(), #{userNo})]]>
+	</insert>
+	
+	<insert id="addCategory" parameterType="map">
+		<![CDATA[INSERT INTO category (no, name, description, reg_date, user_no) 
+ 				 SELECT null, #{name}, #{description}, current_timestamp(), (select u.no from category c join user u on c.user_no = u.no where id = #{id} limit 1) FROM DUAL 
+ 				 WHERE NOT EXISTS (SELECT name FROM category WHERE name=#{name})]]>
+	</insert>
+	
+	<select id="lastInsert" resultType="long">
+		<![CDATA[select last_insert_id()]]>
+	</select>
+	
+	<select id="selectCategory" parameterType="string"  resultType="categoryvo">
+		<![CDATA[select c.no as no, c.name as name, c.description as description from category c join user u on c.user_no = u.no where u.id = #{id} order by reg_date desc]]>
+	</select>
+	
+	<select id="getInsert" parameterType="long" resultType="categoryvo">
+		<![CDATA[select no, name, description from category where no = #{no}]]>
+	</select>
+	
+	<delete id="deleteCategory" parameterType="map">
+		<![CDATA[delete c from category c join user u on c.user_no = u.no where u.id = #{id} and c.no = #{no}]]>
+	</delete>
+	
+	<select id="getCategoryName" parameterType="string" resultType="categoryvo">
+		<![CDATA[select distinct c.name, c.no from category c join user u on c.user_no = u.no where u.id = #{id}]]>
+	</select>
+	
+	<select id="getCategoryNo" parameterType="map" resultType="long">
+		<![CDATA[select c.no from category c join user u on c.user_no = u.no where c.name = #{name} and u.id = #{id}]]>
+	</select>
+	
+	<select id="countPost" parameterType="long" resultType="long">
+		<![CDATA[select count(*) from category c join post p on c.no = p.category_no where p.category_no = #{categoryNo}]]>
+	</select>
+</mapper>
