@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Import;
 import com.douzone.config.web.FileUploadConfig;
 import com.douzone.config.web.MVCConfig;
 import com.douzone.config.web.MessagesConfig;
+import com.douzone.config.web.SecurityConfig;
 
 @Configuration
 @ComponentScan(value= {"com.douzone.jblog.controller"})
-@Import(value= {MVCConfig.class, MessagesConfig.class, FileUploadConfig.class})
+@Import(value= {MVCConfig.class, MessagesConfig.class, FileUploadConfig.class, SecurityConfig.class})
 public class WebConfig {
 
 }
