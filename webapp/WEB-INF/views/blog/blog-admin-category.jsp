@@ -41,7 +41,7 @@ var fetchList = function(){
 	
 	$.ajax({
 		async:true,
-		url:"/jblog/blog/" + id + "/admin/category/list",
+		url:"/jblog2/blog/" + id + "/admin/category/list",
 		type:"get",
 		dataType:"json",
 		data:"",
@@ -92,7 +92,7 @@ $(function(){
 		
 		$.ajax({
 			async:true,
-			url:"/jblog/blog/" + id + "/admin/category/insert/" + $("#name").val() + "/" + $("#desc").val(),
+			url:"/jblog2/blog/" + id + "/admin/category/insert/" + $("#name").val() + "/" + $("#desc").val(),
 			type:"get",
 			dataType:"json",
 			data:"",
@@ -126,7 +126,7 @@ $(function(){
 		if(isDelete){
 			$.ajax({
 				async:true,
-				url:"/jblog/blog/" + id + "/admin/category/delete/" + no,
+				url:"/jblog2/blog/" + id + "/admin/category/delete/" + no,
 				type:"get",
 				dataType:"json",
 				data:"",
