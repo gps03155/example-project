@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<insert id="insertPost" parameterType="postvo">
+		<![CDATA[insert into post values(null, #{title}, #{content}, current_timestamp(), #{categoryNo})]]>
+	</insert>
+	
+	<select id="selectPost" parameterType="string" resultType="postvo">
+		<![CDATA[select p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from (category c join user u on c.user_no = u.no) join post p on c.no = p.CATEGORY_NO where id=#{id} order by p.reg_date desc]]>
+	</select>
+	
+	<select id="categoryPost" parameterType="long" resultType="postvo">
+		<![CDATA[select  p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from category c join post p on c.no = p.category_no where p.category_no = #{categoryNo} order by p.reg_date desc]]>
+	</select>
+	
+	<select id="getNoPost" parameterType="map" resultType="postvo">
+		<![CDATA[select p.no as no, p.title as title, p.content as content, p.reg_date as regDate, p.category_no as categoryNo from (post p join category c on p.category_no = c.no) join user u on c.user_no = u.no where u.id = #{id} and p.no = #{no}]]>
+	</select>
+	
+	<select id="lastSelect" parameterType="string" resultType="long">
+		<![CDATA[select ifnull(max(p.no), 0) as no from (post p join category c on p.category_no = c.no) join user u on c.user_no = u.no where u.id = #{id} order by p.reg_date desc limit 1]]>
+	</select>
+</mapper>
