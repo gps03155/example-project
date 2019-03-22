@@ -29,9 +29,10 @@ $(function(){
 		
 		$.ajax({
 			async:true,
-			url:"/jblog2/user/checkid?id=" + id,
-			type:"get",
+			url:"${pageContext.request.contextPath}/user/checkid",
+			type:"post",
 			dataType:"json",
+			data:"id=" + id,
 			success: function(response){
 				console.log(response);
 				
