@@ -48,6 +48,7 @@ $(function(){
 			},
 			error: function(xhr, status, e){
 				console.log(status + " : " + e);
+				console.log(xhr);
 			}
 		});
 	});
