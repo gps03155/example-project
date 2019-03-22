@@ -29,7 +29,7 @@ $(function(){
 		
 		$.ajax({
 			async:true,
-			url:"jblog2/user/checkid",
+			url:"/checkid",
 			type:"post",
 			dataType:"json",
 			data:"id=" + id,
