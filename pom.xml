@@ -38,5 +38,6 @@
 	
 	<modules>
 		<module>spring-study-hellospring</module>
+		<module>spring-study-container</module>
 	</modules>
 </project>
