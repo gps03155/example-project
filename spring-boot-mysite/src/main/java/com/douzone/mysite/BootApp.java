@@ -15,4 +15,5 @@ public class BootApp {
 	public static void main(String[] args) { // jar 파일은 main이 있어야함
 		SpringApplication.run(BootApp.class, args);
 	}
+	
 }
