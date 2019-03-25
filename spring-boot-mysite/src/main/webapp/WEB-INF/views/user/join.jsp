@@ -75,7 +75,7 @@
 			
 			$.ajax({
 				async:true,
-				url:"${pageContext.servletContext.contextPath}/user/api/checkemail",
+				url:"/user/api/checkemail",
 				type:"post",
 				dataType:"json",
 				data:"email=" + email,
