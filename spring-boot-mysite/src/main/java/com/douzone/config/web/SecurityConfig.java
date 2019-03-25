@@ -18,7 +18,6 @@ import com.douzone.security.AuthLogoutInterceptor;
 import com.douzone.security.AuthUserHandlerMethodArgumentResolver;
 
 @Configuration
-@EnableWebMvc
 public class SecurityConfig implements WebMvcConfigurer {
 
 	@Bean
