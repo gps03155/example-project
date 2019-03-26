@@ -23,7 +23,7 @@
 			<version>1.3.2</version>
 		</dependency>
 		
-		<!-- spring boot aop starter -->
+		<!-- spring boot aop(aspect) starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
@@ -46,18 +46,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.38</version>
-		</dependency>
-
-		<!-- common fileupload -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
 		</dependency>
 	</dependencies>
 </project>
