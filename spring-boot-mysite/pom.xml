@@ -8,6 +8,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>spring-boot-mysite</artifactId>
+	<!-- Initailizer 구현할 경우 -->
+	<packaging>war</packaging>
 
 	<dependencies>
 		<!-- spring boot web starter -->
