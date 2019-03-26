@@ -4,6 +4,13 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class UserVo {
 	private long no;
 	
@@ -26,75 +33,4 @@ public class UserVo {
 	
 	private String joinDate;
 	private String role;
-	
-	public String getAgree() {
-		return agree;
-	}
-
-	public void setAgree(String agree) {
-		this.agree = agree;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public long getNo() {
-		return no;
-	}
-	
-	@Override
-	public String toString() {
-		return getNo() + " " + getName() + " " + getEmail() + " " + getGender() + " " + getRole();
-	}
-
-	public void setNo(long no) {
-		this.no = no;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getGender() {
-		return gender;
-	}
-	
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	
-	public String getJoinDate() {
-		return joinDate;
-	}
-	
-	public void setJoinDate(String joinDate) {
-		this.joinDate = joinDate;
-	}
-	
-	
 }
