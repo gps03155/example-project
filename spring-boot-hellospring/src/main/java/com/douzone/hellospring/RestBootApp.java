@@ -28,8 +28,9 @@ public class RestBootApp {
 			return "hello service";
 		}
 	}
-	
+	/*
 	public static void main(String[] args) {
 		SpringApplication.run(BootApp.class, args);
 	}
+	*/
 }
