@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<!-- 
+	<select id="getTotalCount" parameterType="string" resultType="int"> 검색까지 같이하기 
+		<![CDATA[select count(*) from board]]>
+		
+		<if test="_parameter != null and _parameter != ''">
+			where title like '%${keyword}%' and contents like '%${keyword}%'
+		</if>
+	</select>
+	
+	<insert id="insert" parameterType="boardvo">
+		<choose>
+			<when test="groupNo == null">  EL 표현식은 없기 때문에 조건만 넣어주면 됨 
+				<![CDATA[insert into board values (null, #{title}, #{content}, CURRENT_TIMESTAMP(), 0, (select IFNULL(max(group_no), 0) + 1 as group_no from board a),  1, 0, #{userNo})]]>
+			</when>
+			<otherwise>
+				<![CDATA[]]>
+			</otherwise>
+		</choose>
+	</insert>
+	-->
+	
+	<insert id="insert" parameterType="map">
+		<![CDATA[insert into board values (null, #{title}, #{content}, CURRENT_TIMESTAMP(), 0, (select IFNULL(max(group_no), 0) + 1 as group_no from board a),  1, 0, #{userNo})]]>
+	</insert>
+	
+	<select id="select" resultType="boardvo">
+		<![CDATA[select b.no as no, b.title as title, u.name as name, b.hit as hit, b.write_date as writeDate, b.depth as depth, u.no as userNo from board b join user u on b.user_no = u.no order by b.group_no DESC, b.order_no ASC]]>
+	</select> 
+	
+	<select id="selectPage" parameterType="map" resultType="boardvo">
+		<![CDATA[select * 
+				 from (select * 
+					   from (select @rownum:=@rownum + 1 as rowNum, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo
+						     from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no 
+						            from board b join user u on b.user_no = u.no
+						            order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable
+						     where rowNum <= #{page1}) pagetable 
+					    where rowNum >= #{page2}]]>
+	</select>
+	
+	<select id="getByNo" parameterType="long" resultType="boardvo">
+		<![CDATA[select title, contents as content, user_no as userNo, no from board where no = #{no}]]>
+	</select>
+	
+	<update id="update" parameterType="map">
+		<![CDATA[update board set title = #{title}, contents = #{content} where no = #{no}]]>
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		<![CDATA[SET foreign_key_checks = 0; delete from board where no = #{no}; SET foreign_key_checks = 1]]>
+	</delete>
+	
+	<select id="parentInfo" parameterType="long" resultType="boardvo">
+		<![CDATA[select group_no as groupNo, order_no as orderNo, depth from board where no = #{no}]]>
+	</select>
+	
+	<insert id="insertReply" parameterType="map">
+		<![CDATA[insert into board values (null, #{title}, #{content}, CURRENT_TIMESTAMP(), 0, #{groupNo}, #{orderNo}, #{depth}, #{userNo})]]>
+	</insert>
+	
+	<update id="updateReply" parameterType="map">
+		<![CDATA[update board set order_no = order_no + 1 where order_no > #{orderNo} and group_no = #{groupNo}]]>
+	</update>
+	
+	<update id="updateViews" parameterType="long">
+		<![CDATA[update board set hit = hit+1 where no = #{no}]]>
+	</update>
+	
+	<select id="getTotalCount" resultType="integer">
+		<![CDATA[select count(*) as total_count from board]]>
+	</select>
+	
+	<insert id="insertComment" parameterType="map">
+		<![CDATA[insert into comment values (null, #{content}, CURRENT_TIMESTAMP(), (select IFNULL(max(group_no), 0) + 1 as group_no from comment tmp), 1, 0, #{userNo}, #{boardNo})]]>
+	</insert>
+	
+	<select id="getCommentList" parameterType="long" resultType="boardvo">
+		<![CDATA[select c.no as no, u.name as name, c.content as content, c.write_date as writeDate, c.user_no as userNo from comment c join user u on c.user_no = u.no where c.board_no = #{no} order by c.group_no DESC, c.order_no ASC]]>
+	</select>
+	
+	<delete id="deleteComment" parameterType="long">
+		<![CDATA[delete from comment where no = #{no}]]>
+	</delete>
+	
+	<select id="getSearch" parameterType="map" resultType="boardvo">
+		<choose>
+			<when test="'title'.equals(search)">
+				<![CDATA[select * 
+					     from (select * 
+						       from (select @rownum:=@rownum + 1 as row_num, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo
+						             from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+						                    from board b join user u on b.user_no = u.no
+						                    where b.title Like #{kwd2} 
+						                    order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable 
+						        where row_num <= #{page1}) pagetable 
+						  where row_num >= #{page2}]]>
+			</when>
+			<when test="'content'.equals(search)">
+				<![CDATA[select *
+					     from (select *
+						       from (select @rownum:=@rownum + 1 as row_num, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo
+						             from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+						                    from board b join user u on b.user_no = u.no 
+						                    where b.contents Like #{kwd2}
+						                    order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable
+						       where row_num <= #{page1}) pagetable 
+						  where row_num >= #{page2}]]>
+			</when>
+			<when test="'name'.equals(search)">
+				<![CDATA[select * 
+						 from(select * 
+						      from( select @rownum:=@rownum + 1 as row_num, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo  
+						            from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+						                     from board b join user u on b.user_no = u.no
+						                     where u.name Like #{kwd2}
+						                     order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable 
+						      where row_num <= #{page1}) pagetable 
+						 where row_num >= #{page2}]]>
+			</when>
+			<when test="'full'.equals(search)">
+				<choose>
+					<when test="''.equals(kwd)">
+						<![CDATA[select *
+						         from (select *
+							           from (select @rownum:=@rownum + 1 as row_num, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo
+							                 from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+							                        from board b join user u on b.user_no = u.no
+							                        order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable
+							           where row_num <= #{page1}) pagetable 
+							      where row_num >= #{page2}]]>
+					</when>
+					<otherwise>
+						<![CDATA[select *
+							     from (select *
+							           from (select @rownum:=@rownum + 1 as row_num, b_no as no, title, name, hit, write_date as writeDate, depth, no as userNo 
+							                 from ((select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+							                        from board b join user u on b.user_no = u.no
+							                        where b.title Like #{kwd2} or b.contents Like #{kwd2} or u.name Like #{kwd2}
+							                        order by b.group_no DESC, b.order_no ASC) pagetable, (SELECT @rownum:=0) tmp)) pagetable
+							           where row_num <= #{page1}) pagetable 
+							      where row_num >= #{page2}]]>
+					</otherwise>
+				</choose>
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getSearchCount" parameterType="map" resultType="integer">
+		<choose>
+			<when test="'title'.equals(search)">
+				<![CDATA[select count(*)
+					     from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+					           from board b join user u on b.user_no = u.no
+					           where b.title Like #{kwd2}) tmp]]>
+			</when>
+			<when test="'content'.equals(search)">
+				<![CDATA[select count(*)
+						 from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+						       from board b join user u on b.user_no = u.no
+						       where b.contents Like #{kwd2}) tmp]]>
+			</when>
+			<when test="'name'.equals(search)">
+				<![CDATA[select count(*)
+						 from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+				               from board b join user u on b.user_no = u.no
+				               where u.name Like #{kwd2}) tmp]]>
+			</when>
+			<when test="'full'.equals(search)">
+				<choose>
+					<when test="''.equals(kwd)">
+						<![CDATA[select count(*)
+							     from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no
+					                   from board b join user u on b.user_no = u.no) tmp]]>
+					</when>
+					<otherwise>
+						<![CDATA[select count(*)
+							     from (select b.no as b_no, b.title, u.name, b.hit, b.write_date, b.depth, u.no 
+				                       from board b join user u on b.user_no = u.no
+					                   where b.title Like #{kwd2} or b.contents Like #{kwd2} or u.name Like #{kwd2}) tmp]]>
+					</otherwise>
+				</choose>
+			</when>
+		</choose>
+	</select>
+</mapper>
