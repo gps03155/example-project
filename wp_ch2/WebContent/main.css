@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+body {
+	color:#333333;
+	/* padding:50px 50px 50px 50px; */
+	padding:50px;
+	margin:50px 100px 150px 20px;
+	border:1px solid #333333;
+	font-size:12px;
+	font-family:'맑은 고딕', 굴림, 돋움;
+}
