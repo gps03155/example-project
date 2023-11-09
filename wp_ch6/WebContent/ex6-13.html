@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+
+var escaped = escape("<h3>Here's a headline!</h3>");
+//alert( escaped );
+
+var url = "http://localhost:8080/mysite2?n=안대혁!&e=kickscar@gmail.com";
+
+console.log(escape(url)); // Deprecated
+console.log(encodeURI(url));
+console.log(encodeURIComponent(url));
+
+// 타이머 설정1 - 한번만 실행
+setTimeout(function(){
+	console.log("redirect");
+	// location.href = "http://localhost:8080/mysite2";
+}, 3000);
+
+// 타이머 설정2 - 여러번 실행되게 할 때(interval)
+var num = 0;
+var intervalId = setInterval(function(){
+	console.log(++num);
+	
+	if(num == 10){
+		clearInterval(intervalId);
+	}
+}, 1000);
+
+var encodedURL = encodeURI(url);
+
+alert(encodedURL);
+</script>
+</head>
+<body>
+
+</body>
+</html>

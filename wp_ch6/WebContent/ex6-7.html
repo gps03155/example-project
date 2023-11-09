@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	// 배열 정의, 배열 값 저장
+	var a1 = new Array(10); // new Array()와 동일 : 크기 넘어가면 알아서 늘어남
+	
+	// size를 미리 주고하면 메모리 절약 가능 : 성능 향상
+	a1[0] = 10;
+	a1[9] = 9;
+	a1[10] = 1; // 동적으로 크기가 변하는 배열 : 크기 넘어도 에러가 안남 - new Array(size) : size를 주는 것은 별다르게 의미가 없음
+	
+	console.log(a1);
+	console.log("length : " + a1.length);
+	
+	// 타입이 다 달라도 됨
+	var a2 = [];
+	
+	a2[0] = 10;
+	a2[1] = "Hello World";
+	a2[2] = false;
+	a2[3] = {
+			name: "둘리"
+	};
+		
+	console.log(a2);
+	console.log("length : " + a2.length);
+	
+	// 초기화
+	var a3 = [1, "ABC", true];
+	
+	console.log(a3);
+	console.log("length : " + a3.length);
+	
+	var a4 = new Array(1, "ABC", true);
+	
+	console.log(a4);
+	console.log("length : " + a4.length);
+	
+	// 순회
+	for(var i=0;i<a4.length;i++){
+		console.log(a4[i]);
+	}
+	
+	// 배열 확장 - remove, insert
+	Array.prototype.remove = function(index){
+		this.splice(index, 1);
+	}
+	
+	Array.prototype.insert = function(index, value){
+		this.splice(index, 0, value);
+	}
+	
+	var array1 = [1, 2, 3, 4, 5];
+	array1.remove(2);
+	console.log(array1);
+	
+	array1.insert(0, 0);
+	console.log(array1);
+	
+	// 배열 함수 - concat
+	var colors = ["black", "white", "yellow"];
+	var fruits = ["apple", "banana", "mango"];
+	
+	var test = fruits.concat(colors);
+	console.log(test);
+	console.log(fruits);
+	
+	// join
+	var str = fruits.join(",");
+	console.log(str);
+	
+	// pop - stack
+	var color = colors.pop();
+	console.log(color);
+	console.log(colors);
+	
+	// push - stack
+	colors.push("red", "green"); // 여러개 삽입 가능
+	console.log(colors); 
+	
+	// splice
+	console.log(fruits);
+	fruits2 = fruits.splice(1, 2); // index부터 count 까지
+	console.log(fruits);
+	console.log(fruits2);
+	
+	// reverse
+	fruits.reverse();
+	console.log(fruits);
+	
+	// shift
+	var numbers = [1000, 2000, 3000, 4000, 5000];
+	
+	numbers.shift();
+	console.log(numbers); // 땡기는거
+	
+	// slice
+	var numbers2 = numbers.slice(1, 2);
+	console.log(numbers2);
+	
+	// sort
+	numbers.sort();
+	console.log(numbers);
+</script>
+</head>
+<body>
+
+</body>
+</html>

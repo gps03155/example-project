@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+var now = new Date();
+
+console.log(now);
+
+var d = new Date(2019, 1, 8);  //2019 년 2월 8일
+
+console.log(d);
+console.log(typeof d);
+
+var d2 = new Date(2019, 1, 8, 12, 30, 40) // 2019년 2월 8일 12:30:40
+
+console.log(d2);
+
+document.write(
+  " 년: " + (d.getYear() + 1900) + "<BR>" + 
+  " 월: " + (d.getMonth() + 1) + "<BR>" + 
+  " 일: " + d.getDate() + "<BR>" + 
+  " 요일: " + ['일', '월', '화', '수', '목', '금', '토'][d.getDay()] + "<BR>" + 
+  " 시: " + d.getHours() + "<BR>" + 
+  " 분: " + d.getMinutes() + "<BR>" + 
+  " 초: " + d.getSeconds() + "<BR>" + 
+  " 밀리초: " + d.getMilliseconds() + "<HR>" );
+
+d.setYear(2020);  // 2014년 세팅
+document.write(d + "<HR>");
+document.write(d.getDay() + "<HR>");
+
+d.setMonth( 11 ); // 12월 세팅
+document.write(d + "<HR>");
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

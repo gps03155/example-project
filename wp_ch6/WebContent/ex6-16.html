@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	// 함수 파라미터
+	/*var f = function(arg1, arg2, arg3){
+		console.log(arg1);
+		console.log(arg2.name);
+		arg3();
+	}*/
+	
+	var o = {
+			name: "둘리",
+			age: 20
+	}
+
+	var func = function(){
+		console.log("hello world");
+	}
+
+	var f = function(){
+		console.log(arguments);
+		console.log(arguments[0]);
+		console.log(arguments[1].name);
+		arguments[2]();
+	}
+
+	f(10, o, func);
+	
+	// 가변 함수
+	var sum = function(){
+		var sum = 0;
+		
+		for(var i=0;i<arguments.length;i++){
+			sum += arguments[i];	
+		}	
+		
+		return sum;
+	}
+	
+	console.log(sum(10, 20));
+	console.log(sum(10, 20, 30));
+	console.log(sum(10, 20, 30, 40));
+	
+	// Anonymouse function 정의 - 익명함수 : 정의보다 호출이 목적
+	(function(){
+		console.log(arguments[0] + arguments[1] + arguments[2]);
+		console.log(arguments[0]);
+		console.log(arguments[1].name);
+		arguments[2]();
+	})(10, {
+		name : "둘리",
+		age : 20
+	}, function(){
+		console.log("hello world");
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style type="text/css">
+	div {
+		position:absolute;
+		left:50px;
+		top:50px;
+		background-color:#FF0000;
+		width:90px;
+		height:20px;
+		padding:40px;
+		cursor:pointer;
+	}
+</style>
+
+<script>
+	window.onload = function(){
+		var div = document.getElementById("my-box");
+		
+		div.onmousedown = function(){
+			this.style.backgroundColor = "#0000FF";
+			this.innerText = "마우스를 떼세요"; // innerHTML : 태그 포함 가능, innerText : 내용만 바꿀때
+		}
+		
+		div.onmouseup = function(){
+			this.style.backgroundColor = "#FF0000";
+			this.innerText = "클릭하세요!";
+		}
+		
+		div.onmouseover = function(){
+			console.log("mouseover");
+			
+			var randomX = Math.floor((Math.random() * window.innerWidth) + 1);
+			var randomY = Math.floor((Math.random() * window.innerHeight) + 1);
+			
+			this.style.left = randomX + "px";
+			this.style.top = randomY + "px";
+		}
+	}
+</script>
+
+</head>
+<body>
+	<div id="my-box">
+		클릭하세요!
+	</div>
+</body>
+</html>
