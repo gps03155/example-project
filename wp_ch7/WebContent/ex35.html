@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+* 		{ margin: 0; padding: 0}
+body	{
+	font-family: "맑은 고딕";
+	font-size: 0.75em;
+	color: #333;
+}
+h1		{ width:150px; margin:10px auto }
+ul		{ width:150px; margin:20px auto 0 auto; list-style-type:none; border-top:1px solid #bbb }
+li		{ 
+	width:130; 
+	padding:10px; 
+	border-width:0 1px 1px 1px; 
+	border-style: solid; 
+	background-color:#fff; 
+	border-color: #bbb; 
+	font-weight:bold; 
+	cursor:pointer 
+}
+li.on	{ background-color:#287FC2; color:#fff }		
+
+</style>
+<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript">
+	$( function() {
+			
+		/* 코드를 완성하세요 */
+		setTimeout(function(){
+			$("ul li").mouseover(function(){
+				// 이벤트 핸들러 안에서 this는 HTML Element 객체
+				// 따라서 jQuery API를 사용하기 위해서는 $() 래핑을 해주어야함
+				console.log(this);
+				
+				/*
+				$(this).css({
+					backgroundColor: "#287FC2",
+					color: "#FFFFFF"
+				});
+				*/
+				
+				// 자바스크립트 안에서도 디자인 요소가 없어야함 - 로직만 있을 수 있도록 하는게 좋음
+				$(this).addClass("on");
+			})			
+			.mouseout(function(){
+				/*
+				$(this).css({
+					backgroundColor: "#FFFFFF",
+					color: "#333333"
+				});
+				*/
+				$(this).removeClass("on");
+			});
+			
+		}, 1000);
+	});  
+</script>
+</head>
+<body>
+	<h1>메뉴리스트</h1>
+
+	<ul>
+		<li>아이템1</li>
+		<li>아이템2</li>
+		<li>아이템3</li>
+		<li>아이템4</li>
+		<li>아이템5</li>
+	</ul>
+	
+</body>
+</html>

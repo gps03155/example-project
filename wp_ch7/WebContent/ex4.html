@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<title>sample2</title>
+		<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			setTimeout(function(){
+				// id를 이용해서 골라내는 경우 : # 붙이기
+				$("#first").css("color","red");	
+				$("#fourth").css("color", "blue");
+				
+				//var $third = $("#third");
+				//$third.css("color", "green");
+				//$third.css("font-weight", "bold");
+				
+				// 2개 이상의 요소를 동시에 바꿀 때
+				$("#third").css({
+					color: "#00FF00",
+					fontWeight: "bold"
+				});
+				
+				// 모든 jQuery API 함수들은 jQuery Object를 다시 반환한다.
+				console.log($("#third").css("color", "#FF0000"));
+				
+				// 따라서 함수 체인을 사용할 수 있다.
+				$("#second").css("color", "#FF0000").css("fontWeight", "bold").html("<strong>hello!</strong>");
+			}, 1000);
+		});
+		</script>
+	</head>
+	<body>
+	
+		<ul>
+			<li id="first"> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+			<li id="second"> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+			<li id="third"> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+			<li id="fourth"> 텍스트 텍스트 텍스트 텍스트 텍스트 </li>
+		</ul>
+
+	</body>
+</html>

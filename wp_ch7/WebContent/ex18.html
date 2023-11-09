@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
+ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>sample27</title>
+<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript">
+$(function(){
+	setTimeout(function(){
+		// 문자열로 변경
+		$("#p1").text( "가나다라마바사아자차카타라하" );
+		$("#p2").text("text() 함수 실행");
+		$("#p3").text("<strong>Hello World</strong>"); // 태그는 포함하지 않음 - 문자로만 나옴
+		// &lt;strong&gt; Hello World &lt;/strong&gt; - escape로 변환되어서 들어감
+		
+		console.log($("#p4").text()); // text() - 읽어오기
+		console.log($("#p5").text());
+	}, 1000);
+});
+</script>
+</head>
+<body>
+	<p id="p1"> &lt; abcd &gt; </p>
+	<p id="p2"> 안녕하세요</p>
+	<p id="p3"> 안녕하세요</p>
+	<p id="p4"> 안녕하세요</p>
+	<p id="p5"> psh님, <em>안녕하세요</em></p>
+</body>
+</html>

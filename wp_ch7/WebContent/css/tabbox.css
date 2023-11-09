@@ -1,0 +1,42 @@
+*						{ margin:0; padding:0 }
+body					{ font-family: '맑은 고딕' 돋움; font-size:0.75em; color:#333 }
+
+.tab-box {
+	width:520px;
+	margin:100px auto; /* 중앙 이동 */
+}
+
+.tab-box ul {
+	height:29px;
+	list-style:none;
+}
+
+.tab-box ul li {
+	float:right;
+	border:1px solid #999999;
+	margin-right:2px;
+	padding-top:5px;
+	width:100px;
+	height:22px;
+	text-align:center;
+	background-color:#CCCCCC;
+	border-radius:10px 10px 0 0;
+	cursor:pointer;
+}
+
+.tab-box ul li.selected {
+	background-color:#FFCC66;
+	cursor:default;
+}
+
+.tab-box div {
+	width:516px;
+	margin-top:-1px;
+	border:1px solid #999999;
+	line-height:200px;
+	text-align:center;
+}
+
+.tab-box #tabview p {
+	display:none;
+}

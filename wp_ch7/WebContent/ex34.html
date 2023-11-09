@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="./jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript">
+	$( function() {
+		/* 코드를 완성하세요 */
+		setTimeout(function(){
+			$("h1 a").attr({
+				href: "http://www.douzone.com",
+				target: "_blank",
+				title: "우리회사 홈페이지"
+			});
+			
+			$("a:link, a:visited, a:active, a:hover").css({
+				textDecoration: "none",
+				color: "#333333",
+				fontSize: "0.75em"
+			});
+			
+			console.log($("h1 a").attr("href")); // 속성 값 읽기
+		}, 1000);
+} );  
+</script>
+</head>
+<body>
+
+<h1><a>홈페이지 가기</a></h1>
+
+</body>
+</html>
