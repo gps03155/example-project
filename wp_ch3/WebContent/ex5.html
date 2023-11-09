@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>백그라운드 예제</title>
+<style type="text/css">
+body {
+	margin:0;
+	padding:0;
+	/* background-color:#022250; */
+}
+
+.logo {
+	width:198px;
+	height:48px;
+	background:url(https://s.pstatic.net/static/www/img/2018/sp_search.png) -4px -4px no-repeat;
+	font-size:0;
+	text-indent:-20000px;
+	/* background-image:url(https://s.pstatic.net/static/www/img/2018/sp_search.png);*/
+    background-image: linear-gradient(transparent,transparent),url(https://s.pstatic.net/static/www/img/2018/sp_search.svg);
+    background-repeat: no-repeat;
+}
+
+form {
+	margin:10px 0 0 10px;
+}
+
+input[name="a"] {
+	border:2px solid #03CF5D;
+	padding:5px;
+	background:	background:url('/wp_ch3/images/search.png') right 0 no-repeat;;
+}
+
+input[name="a"]:focus {
+	outline:none;
+}
+</style>
+</head>
+
+<body>
+	<h1 class="logo">네이버</h1>
+	
+	<form>
+		<input type="text" name="a"/>
+	</form>
+</body>
+</html>
